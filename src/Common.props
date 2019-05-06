@@ -1,0 +1,12 @@
+<Project>
+  <!-- Common properties for all projects -->
+  <PropertyGroup>
+    <Company>nventive</Company>
+    <Authors>nventive</Authors>
+    <Product>Uno.AzureDevops</Product>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>1701;1702;1998</NoWarn>
+  </PropertyGroup>
+</Project>

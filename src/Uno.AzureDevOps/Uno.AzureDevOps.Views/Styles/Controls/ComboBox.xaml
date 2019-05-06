@@ -1,0 +1,162 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="../Application/Colors.xaml" />
+		<ResourceDictionary Source="Path.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<x:Double x:Key="SmallComboBoxHeight">48</x:Double>
+	<x:Double x:Key="LargeComboBoxHeight">65</x:Double>
+	<x:Double x:Key="ComboBoxPopupMaxHeight">325</x:Double>
+
+	<Style x:Key="DefaultComboBoxStyle"
+		   TargetType="ComboBox">
+
+		<Setter Property="Padding"
+				Value="0" />
+		<Setter Property="TabNavigation"
+				Value="Once" />
+		<Setter Property="MinHeight"
+				Value="{StaticResource SmallComboBoxHeight}" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+				Value="Disabled" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+				Value="Auto" />
+		<Setter Property="ScrollViewer.HorizontalScrollMode"
+				Value="Disabled" />
+		<Setter Property="ScrollViewer.VerticalScrollMode"
+				Value="Auto" />
+		<Setter Property="ScrollViewer.IsVerticalRailEnabled"
+				Value="True" />
+		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled"
+				Value="False" />
+		<Setter Property="ScrollViewer.BringIntoViewOnFocusChange"
+				Value="True" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalAlignment"
+				Value="Top" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="BorderBrush"
+				Value="{StaticResource Color07Brush}" />
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="Foreground"
+				Value="{StaticResource Color01Brush}" />
+		<Setter Property="ItemContainerStyle"
+				Value="{StaticResource DefaultComboBoxItemStyle}" />
+
+		<Setter Property="ItemsPanel">
+			<Setter.Value>
+				<ItemsPanelTemplate>
+					<CarouselPanel />
+				</ItemsPanelTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBox">
+					<Grid x:Name="RootGrid">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+
+								<VisualState x:Name="PointerOver">
+									<VisualState.Setters>
+										<Setter Target="RootGrid.Opacity"
+												Value="0.8" />
+									</VisualState.Setters>
+								</VisualState>
+
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootGrid.Opacity"
+												Value="0.5" />
+									</VisualState.Setters>
+								</VisualState>
+
+								<VisualState x:Name="Disabled" />
+							</VisualStateGroup>
+
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualState x:Name="Focused" />
+								<VisualState x:Name="Unfocused" />
+								<VisualState x:Name="PointerFocused" />
+								<VisualState x:Name="FocusedDropDown" />
+							</VisualStateGroup>
+
+							<VisualStateGroup x:Name="DropDownStates">
+								<VisualState x:Name="Opened" />
+								<VisualState x:Name="Closed" />
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<!-- DO NOT REMOVE: This makes the popup stretch horizontally -->
+						<Border x:Name="Background"
+								Background="{TemplateBinding Background}" />
+
+						<!-- ContentPresenter -->
+						<ContentPresenter x:Name="ContentPresenter"
+										  Foreground="{StaticResource Color01Brush}"
+										  ContentTemplate="{TemplateBinding ItemTemplate}"
+										  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+						<!-- The chevron is collapsed if only one item exists in the combobox -->
+						<Grid HorizontalAlignment="Right"
+							  VerticalAlignment="Center"
+							  Margin="0,0,24,0"
+							  Visibility="{Binding ItemsSource, Converter={StaticResource EnumerableHasMinimumToVisible}, RelativeSource={RelativeSource Mode=TemplatedParent}, FallbackValue=Visible}">
+
+							<Path Data="M6,4.88756313 L10.5367656,0.256281566 C10.8715007,-0.0854271888 11.4142136,-0.0854271888 11.7489487,0.256281566 C12.0836838,0.597990322 12.0836838,1.15200968 11.7489487,1.49371843 L6.60609153,6.74371843 C6.27135642,7.08542719 5.72864358,7.08542719 5.39390847,6.74371843 L0.25105133,1.49371843 C-0.0836837768,1.15200968 -0.0836837768,0.597990322 0.25105133,0.256281566 C0.585786438,-0.0854271888 1.12849928,-0.0854271888 1.46323438,0.256281566 L6,4.88756313 Z"
+								  Fill="{StaticResource Color05Brush}"
+								  VerticalAlignment="Center"
+								  Height="12"
+								  Width="12"
+								  IsHitTestVisible="False"
+								  Margin="0,8,0,0" />
+						</Grid>
+
+						<Popup x:Name="Popup">
+							<Border x:Name="PopupBorder"
+									BorderThickness="0,1"
+									BorderBrush="{StaticResource Color07Brush}"
+									Background="{StaticResource Color02Brush}"
+									HorizontalAlignment="Stretch">
+								<ScrollViewer x:Name="ScrollViewer"
+											  MaxHeight="{StaticResource ComboBoxPopupMaxHeight}"
+											  Foreground="{StaticResource Color01Brush}"
+											  MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.DropDownContentMinWidth}"
+											  VerticalSnapPointsType="OptionalSingle"
+											  VerticalSnapPointsAlignment="Near"
+											  HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+											  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+											  VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+											  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+											  IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+											  IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+											  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+											  BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+											  ZoomMode="Disabled"
+											  AutomationProperties.AccessibilityView="Raw">
+									<ItemsPresenter />
+								</ScrollViewer>
+							</Border>
+						</Popup>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Default Style -->
+	<Style TargetType="ComboBox"
+		   BasedOn="{StaticResource DefaultComboBoxStyle}" />
+
+</ResourceDictionary>

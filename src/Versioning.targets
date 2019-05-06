@@ -1,0 +1,90 @@
+﻿<Project>
+  <Target Name="SetPackageVersion"
+		  BeforeTargets="PrepareForBuild"
+		  Condition="'$(BuildingInsideVisualStudio)'=='' and '$(GITVERSION_MAJORMINORPATCH)'!=''">
+	<!-- These are specific to this project -->
+	<PropertyGroup>
+		<PackageName>Uno Azure DevOps</PackageName>
+		<PackageCompanyName>nventive</PackageCompanyName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageVersion>$(GITVERSION_MAJORMINORPATCH)</PackageVersion>
+		<PackageInformationalVersion>$(GITVERSION_INFORMATIONALVERSION)</PackageInformationalVersion>
+		<PackageBuildNumber>1</PackageBuildNumber>
+		<_AssemblyInfoPath>.\Properties\AssemblyInfo.cs</_AssemblyInfoPath>
+		<_ManifestPath>.\Properties\AndroidManifest.xml</_ManifestPath>
+		<_PlistFilePath>.\Info.plist</_PlistFilePath>
+		<_AppxManifestPath>.\Package.appxmanifest</_AppxManifestPath>
+		<_AndroidNamespace>
+		  <Namespace Prefix="android" Uri="http://schemas.android.com/apk/res/android" />
+		</_AndroidNamespace>
+		<_WindowsNamespace>
+		  <Namespace Prefix="x" Uri="http://schemas.microsoft.com/appx/manifest/foundation/windows10" />
+		</_WindowsNamespace>
+	</PropertyGroup>
+
+	<Exec Command="git rev-list --count HEAD"
+				ConsoleToMSBuild="true">
+		<Output TaskParameter="ConsoleOutput"
+				PropertyName="PackageBuildNumber" />
+	</Exec>
+
+	<Message Text="Package version: $(PackageVersion)" />
+	<Message Text="Package informational version: $(PackageInformationalVersion)" />
+	<Message Text="Package build number: $(PackageBuildNumber)" />
+
+	<!--<AssemblyInfo CodeLanguage="CS"
+				  Condition="Exists('$(_AssemblyInfoPath)')"
+				  OutputFile="$(_AssemblyInfoPath)"
+				  AssemblyProduct="$(PackageName)"
+				  AssemblyCompany="$(PackageCompanyName)"
+				  AssemblyCopyright="Copyright (c) $(PackageCompanyName) $([System.DateTime]::Now.Year)"
+				  AssemblyVersion="$(PackageVersion)"
+				  AssemblyFileVersion="$(PackageBuildNumber)"
+				  AssemblyInformationalVersion="$(PackageInformationalVersion)" />-->
+
+	<!-- Android -->
+	<XmlPoke Condition="Exists('$(_ManifestPath)')"
+					 XmlInputPath="$(_ManifestPath)"
+					 Query="/manifest/@android:versionName"
+					 Value="$(PackageVersion)"
+					 Namespaces="$(_AndroidNamespace)" />
+
+	<XmlPoke Condition="Exists('$(_ManifestPath)')"
+					 XmlInputPath="$(_ManifestPath)"
+					 Query="/manifest/@android:versionCode"
+					 Value="$(PackageBuildNumber)"
+					 Namespaces="$(_AndroidNamespace)" />
+
+	<!-- iOS -->
+	<XmlPoke Condition="Exists('$(_PlistFilePath)')"
+					 XmlInputPath="$(_PlistFilePath)"
+					 Query="//plist/dict/key[text() = 'CFBundleShortVersionString']/following-sibling::string[1]"
+					 Value="$(PackageVersion)" />
+
+	<XmlPoke Condition="Exists('$(_PlistFilePath)')"
+					 XmlInputPath="$(_PlistFilePath)"
+					 Query="//plist/dict/key[text() = 'CFBundleVersion']/following-sibling::string[1]"
+					 Value="$(PackageBuildNumber)" />
+
+	<!-- UWP -->
+	<ItemGroup Condition="Exists('$(_AppxManifestPath)')">
+	  <_Major Include="$(PackageVersion.Split('.')[0])" />
+	  <_Minor Include="$(PackageVersion.Split('.')[1])" />
+	  <_Revision Include="$(PackageVersion.Split('.')[2])" />
+	</ItemGroup>
+
+	<!-- Forcing the inclusion of the build number in UWP as the standard format is Major.Minor.Build.Revision -->
+	<!-- Not doing this makes it impossible to update a package unless the version is updated -->
+	<PropertyGroup Condition="Exists('$(_AppxManifestPath)')">
+	  <_UWPVersion>@(_Major).@(_Minor).$(PackageBuildNumber).@(_Revision)</_UWPVersion>
+	</PropertyGroup>
+
+	<XmlPoke Condition="Exists('$(_AppxManifestPath)')"
+		     XmlInputPath="$(_AppxManifestPath)"
+		     Query="/x:Package/x:Identity/@Version"
+		     Value="$(_UWPVersion)"
+		     Namespaces="$(_WindowsNamespace)" />
+  </Target>
+</Project>

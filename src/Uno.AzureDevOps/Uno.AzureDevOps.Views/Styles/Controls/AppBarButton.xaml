@@ -1,0 +1,168 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:local="using:Uno.AzureDevOps.Views.Styles.Controls"
+					xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:wasm="http://nventive.com/wasm"
+					mc:Ignorable="wasm">
+
+	<Style x:Key="DefaulAppBarButtonStyle"
+		   TargetType="AppBarButton">
+
+		<!-- UWP's native style for press state did not match wanted design. We only overite it because ios and android are fine as they are. -->
+		<win:Setter Property="Template"
+					Value="{StaticResource AppBarButtonControlTemplate}" />
+		<wasm:Setter Property="Template"
+					 Value="{StaticResource AppBarButtonControlTemplate}" />
+	</Style>
+
+	<ControlTemplate x:Name="AppBarButtonControlTemplate"
+					 TargetType="AppBarButton">
+		<Grid x:Name="Root"
+			  Height="{StaticResource CommandBarHeight}"
+			  MinWidth="{TemplateBinding MinWidth}"
+			  MaxWidth="{TemplateBinding MaxWidth}"
+			  Background="{TemplateBinding Background}"
+			  BorderBrush="{TemplateBinding BorderBrush}"
+			  BorderThickness="{TemplateBinding BorderThickness}">
+
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup x:Name="ApplicationViewStates">
+					<VisualState x:Name="FullSize" />
+					<VisualState x:Name="Compact" />
+					<VisualState x:Name="LabelCollapsed" />
+					<VisualState x:Name="Overflow" />
+					<VisualState x:Name="OverflowWithToggleButtons" />
+				</VisualStateGroup>
+
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal">
+						<Storyboard>
+							<PointerUpThemeAnimation Storyboard.TargetName="OverflowTextLabel" />
+						</Storyboard>
+					</VisualState>
+
+					<VisualState x:Name="PointerOver">
+						<VisualState.Setters>
+							<Setter Target="Root.Opacity"
+									Value="0.8" />
+						</VisualState.Setters>
+					</VisualState>
+
+					<VisualState x:Name="Pressed">
+						<VisualState.Setters>
+							<Setter Target="Root.Opacity"
+									Value="0.6" />
+						</VisualState.Setters>
+					</VisualState>
+
+					<VisualState x:Name="Disabled" />
+				</VisualStateGroup>
+				<VisualStateGroup x:Name="InputModeStates">
+					<VisualState x:Name="InputModeDefault" />
+					<VisualState x:Name="TouchInputMode" />
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+
+			<Grid x:Name="ContentRoot"
+				  VerticalAlignment="Stretch">
+
+				<!-- TODO: 151974 [WASM] Remove Work Around for AppBarButton Icons -->
+				<!-- Icon in wasm do not strech properly and always have a black foreground -->
+				<win:ContentPresenter x:Name="Content"
+									  Content="{TemplateBinding Icon}"
+									  Foreground="{TemplateBinding Foreground}"
+									  HorizontalAlignment="Center"
+									  VerticalAlignment="Center"
+									  AutomationProperties.AccessibilityView="Raw" />
+
+				<!-- TODO: 151974 [WASM] Remove Work Around for AppBarButton Icons -->
+				<!-- Icon in wasm do not strech properly and always have a black foreground -->
+				<wasm:ContentPresenter x:Name="Content"
+									   Content="{TemplateBinding Content}"
+									   Foreground="{TemplateBinding Foreground}"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center"
+									   AutomationProperties.AccessibilityView="Raw" />
+
+				<TextBlock x:Name="TextLabel"
+						   Grid.Row="1"
+						   Text="{TemplateBinding Label}"
+						   Foreground="{TemplateBinding Foreground}"
+						   FontSize="12"
+						   FontFamily="{TemplateBinding FontFamily}"
+						   TextAlignment="Center"
+						   TextWrapping="Wrap"
+						   Margin="2,0,2,6" />
+			</Grid>
+
+			<TextBlock x:Name="OverflowTextLabel"
+					   Text="{TemplateBinding Label}"
+					   Foreground="{TemplateBinding Foreground}"
+					   FontSize="15"
+					   FontFamily="{TemplateBinding FontFamily}"
+					   TextAlignment="Left"
+					   TextTrimming="Clip"
+					   TextWrapping="NoWrap"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Center"
+					   Margin="12,0,12,0"
+					   Padding="0,5,0,7"
+					   Visibility="Collapsed" />
+		</Grid>
+	</ControlTemplate>
+
+	<Style x:Key="UserProfileButtonStyle"
+		   TargetType="AppBarButton"
+		   BasedOn="{StaticResource DefaulAppBarButtonStyle}">
+
+		<Setter Property="Foreground"
+				Value="{StaticResource Color02Brush}" />
+
+		<Setter Property="Icon">
+			<Setter.Value>
+				<BitmapIcon UriSource="ms-appx:///Assets/UserProfilePlaceholder.png"
+							win:Width="26" />
+			</Setter.Value>
+		</Setter>
+
+		<!-- TODO: 151974 [WASM] Remove Work Around for AppBarButton Icons -->
+		<!-- Icon in wasm do not strech properly and always have a black foreground -->
+		<wasm:Setter Property="Content">
+			<Setter.Value>
+				<Image Source="ms-appx:///Assets/UserProfilePlaceholder.scale-100.png"
+					   Stretch="None"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   wasm:Width="26" />
+			</Setter.Value>
+		</wasm:Setter>
+	</Style>
+
+	<Style x:Key="MoreOptionsButtonStyle"
+		   TargetType="AppBarButton"
+		   BasedOn="{StaticResource DefaulAppBarButtonStyle}">
+
+		<Setter Property="Foreground"
+				Value="{StaticResource Color02Brush}" />
+
+		<Setter Property="Icon">
+			<Setter.Value>
+				<BitmapIcon UriSource="ms-appx:///Assets/more.png"
+							Width="21" />
+			</Setter.Value>
+		</Setter>
+
+		<!-- TODO: 151974 [WASM] Remove Work Around for AppBarButton Icons -->
+		<!-- Icon in wasm do not strech properly and always have a black foreground -->
+		<wasm:Setter Property="Content">
+			<Setter.Value>
+				<Image Source="ms-appx:///Assets/more.scale-100.png"
+					   Stretch="None"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   wasm:Width="21" />
+			</Setter.Value>
+		</wasm:Setter>
+	</Style>
+</ResourceDictionary>

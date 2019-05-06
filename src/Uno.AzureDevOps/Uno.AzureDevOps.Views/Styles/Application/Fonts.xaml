@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					mc:Ignorable="">
+
+	<FontFamily x:Key="FontFamily01">ms-appx:///Assets/Fonts/NunitoSans-Regular.ttf#Nunito Sans</FontFamily>
+	<FontFamily x:Key="FontFamily01Bold">ms-appx:///Assets/Fonts/NunitoSans-Bold.ttf#Nunito Sans</FontFamily>
+	<FontFamily x:Key="FontFamily01SemiBold">ms-appx:///Assets/Fonts/NunitoSans-SemiBold.ttf#Nunito Sans SemiBold</FontFamily>
+
+	<FontFamily x:Key="FontFamily01Italic">ms-appx:///Assets/Fonts/NunitoSans-Italic.ttf#Nunito Sans</FontFamily>
+	<FontFamily x:Key="FontFamily01BoldItalic">ms-appx:///Assets/Fonts/NunitoSans-BoldItalic.ttf#Nunito Sans</FontFamily>
+	<FontFamily x:Key="FontFamily01SemiBoldItalic">ms-appx:///Assets/Fonts/NunitoSans-SemiBoldItalic.ttf#Nunito Sans SemiBold</FontFamily>
+	
+</ResourceDictionary>

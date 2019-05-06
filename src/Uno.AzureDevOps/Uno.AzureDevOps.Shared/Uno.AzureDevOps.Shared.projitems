@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6279c845-92f8-4333-ab99-3d213163593c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Uno.AzureDevOps</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Authentication\LoggedOutEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\ApplicationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\ADOCollectionData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\IdentityRef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Profile\ProfileAvatarData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Profile\CoreAttributeData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Profile\CoreAttributeCollectionData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Entities\UserProfile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Data\WorkItemData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Extensions\NavigationServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Authentication\AuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\Authentication\IAuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\ADOOrganizationClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\ADOProfileClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Account\AccountData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Profile\CoreAttributeDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Profile\ProfileData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\BugsBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\IterationWorkItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\ProjectState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\ProjectVisibility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\ReferenceLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\ReferenceLinks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\SubjectDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TeamIterationAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TeamMember.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TeamProjectReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TeamSetting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TeamSettingsIteration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\TimeFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WebApiTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemFieldReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemIcon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemRelation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemStateTransition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemTypeFieldInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Extensions\HttpRequestBuilderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\IADOOrganizationClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\IADOProfileClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\IADOTeamClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\ADOTeamClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\IApplicationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\HttpJsonRequestBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\HttpRequestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\HttpRequestBuilderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\IHttpRequestBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\IHttpRequestBuilderFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\IHttpRequestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\UnoHttpClientHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\IStackNavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\StackNavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\ISecureStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.UWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\IVSTSRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\VSTSRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\ClientConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Auth\OAuthData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Auth\OAuthErrorData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Auth\OAuthResponseData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\IOAuthClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\AzureADOauthClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\AsyncCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\AsyncCommand.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\IAsyncCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\IAsyncCommand.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\TaskNotifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Module.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\AboutPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\OrganizationListPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\PresentationConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\ProfilePageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\ProjectItemDetailsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\ProjectListPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\ProjectPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\RichWorkItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\BusinessConstants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Client\Data\Account\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Client\Data\Auth\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Client\Data\Profile\" />
+  </ItemGroup>
+</Project>

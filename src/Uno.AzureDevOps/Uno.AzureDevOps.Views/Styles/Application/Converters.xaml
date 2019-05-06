@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:converters="using:Uno.AzureDevOps.Views.Converters"
+					xmlns:local="using:Uno.AzureDevOps.Views.Styles.Application">
+
+	<converters:BoolToVisibilityConverter x:Key="TrueToVisible"
+										  IsVisibleIfTrue="True" />
+
+	<converters:BoolToVisibilityConverter x:Key="TrueToCollapsed"
+										  IsVisibleIfTrue="False" />
+
+	<converters:FromNullableBoolToReverseBoolConverter x:Key="BoolToInvertBool" />
+	
+	<converters:ProjectViewToBoolConverter x:Key="ProjectViewToIsCheckedConverter" />
+
+	<converters:FromDateToStringConverter x:Key="DateToISODate"
+										  FormatDate="{}{0:yyyy/MM/dd}" />
+
+	<converters:FromEmptyStringToVisibilityConverter x:Key="EmptyStringToCollapsed"
+													 Mode="EmptyMeansCollapsed" />
+
+	<converters:FromEmptyStringToVisibilityConverter x:Key="EmptyStringToVisible"
+													 Mode="EmptyMeansVisible" />
+
+	<converters:FromEnumerableHasAnyToVisibilityConverter x:Key="EnumerableHasAnyToVisible"
+														  VisibilityOnEnumerableHasAny="Visible"
+														  VisibilityOnEnumerableNull="Collapsed" />
+
+	<converters:FromEnumerableHasAnyToVisibilityConverter x:Key="EnumerableHasAnyToCollapsed"
+														  VisibilityOnEnumerableHasAny="Collapsed"
+														  VisibilityOnEnumerableNull="Collapsed"/>
+
+	<converters:FromEnumerableHasMinimumToValueConverter x:Key="EnumerableHasMinimumToVisible"
+														  Minimum="2"
+														  EnumerableHasMinimumValue="Visible"
+														  EnumerableDefaultValue="Collapsed" />
+
+	<converters:FromEnumerableHasMinimumToValueConverter x:Key="EnumerableHasMinimumToTrue"
+														 Minimum="2"
+														 EnumerableHasMinimumValue="True"
+														 EnumerableDefaultValue="False" />
+
+	<converters:WorkItemTypeToIconColorConverter x:Key="WorkItemTypeToIconColor" />
+
+	<converters:WorkItemTypeToIconPathConverter x:Key="WorkItemTypeToIconPath" />
+	
+	<converters:InitialsConverter x:Key="MemberInitials" />
+</ResourceDictionary>

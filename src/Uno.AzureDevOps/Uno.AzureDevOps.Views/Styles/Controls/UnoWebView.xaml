@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="using:Uno.AzureDevOps.Views.Controls">
+
+	<Style x:Key="DefaultUnoWebViewStyle"
+		   TargetType="controls:UnoWebView">
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="controls:UnoWebView">
+					<Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+						  VerticalAlignment="{TemplateBinding VerticalAlignment}">
+						<ContentPresenter Content="{TemplateBinding Content}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style BasedOn="{StaticResource DefaultUnoWebViewStyle}"
+		   TargetType="controls:UnoWebView" />
+</ResourceDictionary>

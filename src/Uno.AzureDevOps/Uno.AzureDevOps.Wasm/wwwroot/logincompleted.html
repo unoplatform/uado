@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    The login has been completed!
+    <script type="text/javascript">
+        (function() {
+            const opener = window.opener;
+            const message = `nav|${window.location.href}`; // special message containing requested url
+            const origin = opener.location.origin; // opener should have same origin
+            opener.postMessage(message, origin);
+        })();
+    </script>
+</body>
+</html>

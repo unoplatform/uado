@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="using:Uno.AzureDevOps.Views.Styles.Controls">
+
+	<Style x:Key="ChevronPathStyle"
+		   TargetType="Path">
+
+		<Setter Property="Width"
+				Value="12" />
+		<Setter Property="Height"
+				Value="12" />
+		<Setter Property="Fill"
+				Value="{StaticResource Color05Brush}" />
+		<Setter Property="Data"
+				Value="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z" />
+	</Style>
+
+	<Style x:Key="BackIconPathStyle"
+		   TargetType="Path">
+
+		<Setter Property="Width"
+				Value="12" />
+		<Setter Property="Height"
+				Value="21" />
+		<Setter Property="Fill"
+				Value="{StaticResource Color05Brush}" />
+		<Setter Property="Data"
+				Value="M3.62132034,10.5 L11.5606602,2.56066017 C12.1464466,1.97487373 12.1464466,1.02512627 11.5606602,0.439339828 C10.9748737,-0.146446609 10.0251263,-0.146446609 9.43933983,0.439339828 L0.439339828,9.43933983 C-0.146446609,10.0251263 -0.146446609,10.9748737 0.439339828,11.5606602 L9.43933983,20.5606602 C10.0251263,21.1464466 10.9748737,21.1464466 11.5606602,20.5606602 C12.1464466,19.9748737 12.1464466,19.0251263 11.5606602,18.4393398 L3.62132034,10.5 Z" />
+	</Style>
+
+	<Style x:Key="MenuIconPathStyle"
+		   TargetType="Path">
+
+		<Setter Property="Width"
+				Value="21" />
+		<Setter Property="Height"
+				Value="5" />
+		<Setter Property="Fill"
+				Value="{StaticResource Color05Brush}" />
+		<Setter Property="Data"
+				Value="M 5,2.5 A 2.5,2.5 0 0 1 2.5,5 2.5,2.5 0 0 1 0,2.5 2.5,2.5 0 0 1 2.5,0 2.5,2.5 0 0 1 5,2.5 Z m 8,0 A 2.5,2.5 0 0 1 10.5,5 2.5,2.5 0 0 1 8,2.5 2.5,2.5 0 0 1 10.5,0 2.5,2.5 0 0 1 13,2.5 Z m 8,0 A 2.5,2.5 0 0 1 18.5,5 2.5,2.5 0 0 1 16,2.5 2.5,2.5 0 0 1 18.5,0 2.5,2.5 0 0 1 21,2.5 Z" />
+	</Style>
+	
+	<Style x:Key="DropDownArrowPathStyle"
+		   TargetType="Path">
+
+		<Setter Property="Width"
+				Value="12" />
+		<Setter Property="Height"
+				Value="12" />
+		<Setter Property="Fill"
+				Value="{StaticResource Color05Brush}" />
+		<Setter Property="Data"
+				Value="M6,4.88756313 L10.5367656,0.256281566 C10.8715007,-0.0854271888 11.4142136,-0.0854271888 11.7489487,0.256281566 C12.0836838,0.597990322 12.0836838,1.15200968 11.7489487,1.49371843 L6.60609153,6.74371843 C6.27135642,7.08542719 5.72864358,7.08542719 5.39390847,6.74371843 L0.25105133,1.49371843 C-0.0836837768,1.15200968 -0.0836837768,0.597990322 0.25105133,0.256281566 C0.585786438,-0.0854271888 1.12849928,-0.0854271888 1.46323438,0.256281566 L6,4.88756313 Z" />
+	</Style>
+</ResourceDictionary>

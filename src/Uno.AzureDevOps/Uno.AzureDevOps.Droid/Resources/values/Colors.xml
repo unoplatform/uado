@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="primaryColor" Type="color">#FF000000</item>
+  <item name="primaryColorDark" Type="color">#FF000000</item>
+  <item name="white" Type="color">#FFFFFFFF</item>
+  
+  <item name="splashscreenColor" Type="color">#FF53C9AB</item>
+</resources>

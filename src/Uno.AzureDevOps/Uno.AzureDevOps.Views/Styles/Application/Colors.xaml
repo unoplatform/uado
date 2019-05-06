@@ -1,0 +1,84 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					mc:Ignorable="">
+
+	<!-- OPACITY REFERENCE TABLE -->
+	<!--
+		100% — FF
+		95% — F2
+		90% — E6
+		85% — D9
+		80% — CC
+		75% — BF
+		70% — B3
+		65% — A6
+		60% — 99
+		55% — 8C
+		50% — 80
+		45% — 73
+		40% — 66
+		35% — 59
+		30% — 4D
+		25% — 40
+		20% — 33
+		15% — 26
+		10% — 1A
+		5% — 0D
+		0% — 00
+	-->
+
+	<!--
+	******************************************************************
+		COLOR RESOURCES
+	******************************************************************
+	-->
+
+	<Color x:Key="Color01">#FF32292F</Color>
+	<Color x:Key="Color02">#FFFFFFFF</Color>
+	<Color x:Key="Color03">#FF53C9AB</Color>
+	<Color x:Key="Color04">#FF46A997</Color>
+	<Color x:Key="Color05">#FF989497</Color>
+	<Color x:Key="Color06">#FFC2BFC1</Color>
+	<Color x:Key="Color07">#FFD5D3D5</Color>
+
+	<!--
+	******************************************************************
+		COLOR WITH OPACITY RESOURCES
+	******************************************************************
+	-->
+
+	<!--
+	******************************************************************
+		COLOR BRUSHES
+	******************************************************************
+	-->
+
+	<SolidColorBrush x:Key="Color01Brush"
+					 Color="{StaticResource Color01}" />
+	<SolidColorBrush x:Key="Color02Brush"
+					 Color="{StaticResource Color02}" />
+	<SolidColorBrush x:Key="Color03Brush"
+					 Color="{StaticResource Color03}" />
+	<SolidColorBrush x:Key="Color04Brush"
+					 Color="{StaticResource Color04}" />
+	<SolidColorBrush x:Key="Color05Brush"
+					 Color="{StaticResource Color05}" />
+	<SolidColorBrush x:Key="Color06Brush"
+					 Color="{StaticResource Color06}" />
+	<SolidColorBrush x:Key="Color07Brush"
+					 Color="{StaticResource Color07}" />
+
+	<SolidColorBrush x:Key="TransparentColorBrush"
+					 Color="Transparent" />
+
+	<!--
+	******************************************************************
+		SPECIFIC APPLICATION BRUSHES
+	******************************************************************
+	-->
+
+	<SolidColorBrush x:Key="MainBackgroundPageColorBrush"
+					 Color="{StaticResource Color01}" />
+</ResourceDictionary>

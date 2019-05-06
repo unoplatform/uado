@@ -1,0 +1,175 @@
+﻿<Page x:Class="Uno.AzureDevOps.Views.Content.ProjectListPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Uno.AzureDevOps.Views.Content"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:wasm="http://nventive.com/wasm"
+	  mc:Ignorable="wasm">
+
+	<Page.Resources>
+		<DataTemplate x:Key="ProjectItemTemplate">
+			<StackPanel>
+				<Grid Height="44">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Name -->
+					<Grid Background="{StaticResource Color06Brush}"
+						  Height="29"
+						  Width="29"
+						  CornerRadius="4"
+						  VerticalAlignment="Center"
+						  Margin="16,0,0,0">
+						<TextBlock Text="{Binding Name, Converter={StaticResource MemberInitials}}"
+								   Style="{StaticResource ProjectInitialsTextBlock}" />
+					</Grid>
+
+					<!-- Name -->
+					<TextBlock Text="{Binding Name}"
+							   Style="{StaticResource Typo08}"
+							   VerticalAlignment="Center"
+							   TextWrapping="NoWrap"
+							   MaxLines="1"
+							   Margin="14,0,26,0"
+							   Grid.Column="1" />
+
+					<!-- Chevron -->
+					<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
+						  Fill="{StaticResource Color05Brush}"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Right"
+						  Margin="0,0,26,2"
+						  Grid.Column="2" />
+				</Grid>
+
+				<!-- Border -->
+				<Rectangle Fill="{StaticResource Color07Brush}"
+						   Height="1"
+						   VerticalAlignment="Bottom"
+						   Margin="16,0,0,0" />
+			</StackPanel>
+		</DataTemplate>
+	</Page.Resources>
+
+	<Grid Background="{StaticResource Color02Brush}">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+
+				<VisualState x:Name="wide">
+
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="700" />
+					</VisualState.StateTriggers>
+
+					<VisualState.Setters>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+
+		<Grid x:Name="RootLayout"
+			  Background="{StaticResource Color02Brush}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<!-- Placeholder -->
+			<CommandBar Content="{Binding Account.AccountName}">
+
+				<CommandBar.PrimaryCommands>
+					<!-- Profile Button -->
+					<AppBarButton Style="{StaticResource UserProfileButtonStyle}"
+								  Command="{Binding ToProfilePage}" />
+				</CommandBar.PrimaryCommands>
+			</CommandBar>
+
+			<!-- Loading -->
+			<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+				  Background="{StaticResource Color02Brush}"
+				  Grid.Row="1">
+				<StackPanel VerticalAlignment="Center"
+							HorizontalAlignment="Center">
+
+					<!-- Progress Ring -->
+					<ProgressRing IsActive="{Binding Projects.IsExecuting}"
+								  Foreground="{StaticResource Color03Brush}"
+								  Height="20"
+								  Width="20"
+								  HorizontalAlignment="Center"
+								  VerticalAlignment="Center"
+								  Margin="0,12" />
+
+					<!-- Loading Message -->
+					<TextBlock Text="Loading..."
+							   Style="{StaticResource Typo11}" />
+				</StackPanel>
+			</Grid>
+
+			<!-- Error State -->
+			<Grid Visibility="{Binding Projects.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+				  Background="{StaticResource Color07Brush}"
+				  Grid.Row="1">
+
+				<!-- Message -->
+				<TextBlock Text="An error occurred, please reload to try again."
+						   Style="{StaticResource Typo10}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Margin="0,0,0,48" />
+
+				<!-- Reload button -->
+				<Button Content="Reload"
+						Command="{Binding ReloadPage}"
+						Style="{StaticResource ReloadButtonStyle}"
+						VerticalAlignment="Bottom"
+						Margin="16,22" />
+			</Grid>
+
+			<!-- Content -->
+			<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
+				  Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<!-- Label -->
+				<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
+				<wasm:TextBlock Text="ALL PROJECTS"
+								Style="{StaticResource Typo09}"
+								HorizontalAlignment="Left"
+								Margin="16,16,0,12"
+								Grid.Row="0" />
+				
+				<!-- Recent Project list -->
+				<ListView ItemsSource="{Binding Projects.Result}"
+						  ItemTemplate="{StaticResource ProjectItemTemplate}"
+						  IsItemClickEnabled="True"
+						  ItemClick="ListView_ItemClick"
+						  Padding="0,0,0,80"
+						  Grid.Row="1">
+					<ListView.Header>
+
+						<!-- Label -->
+						<TextBlock Text="ALL PROJECTS"
+								   Style="{StaticResource Typo09}"
+								   HorizontalAlignment="Left"
+								   Margin="16,16,0,12" />
+					</ListView.Header>
+				</ListView>
+
+				<!-- Empty List Message -->
+				<TextBlock Text="No projects"
+						   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+						   Style="{StaticResource Typo15}"
+						   VerticalAlignment="Top"
+						   Margin="16,0"
+						   Grid.Row="1" />
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>
