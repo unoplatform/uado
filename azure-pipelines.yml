@@ -1,33 +1,131 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
-
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+      - master
 
-pool:
-  vmImage: 'windows-latest'
+resources:
+  containers:
+    - container: windows
+      image: nventive/build-agent:vs15.9.9
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+pr:
+  branches:
+    include:
+      - master
 
-steps:
-- task: NuGetToolInstaller@0
+jobs:
+  - job: Windows
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+    pool:
+      name: Container
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    container: windows
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    workspace:
+      clean: all
+
+    variables:
+      - name: UnoPackageOutputPath
+        value: $(Build.ArtifactStagingDirectory)
+
+    strategy:
+      maxParallel: 3
+      matrix:
+        Release_UWP:
+          BuildPlatform: UWP
+        Release_Android:
+          BuildPlatform: Android
+        Release_Wasm:
+          BuildPlatform: Wasm
+
+    steps:
+
+    - task: gittools.gitversion.gitversion-task.GitVersion@4
+
+    - task: NuGetToolInstaller@0
+      inputs:
+        versionSpec: 4.9.1
+
+    - task: NuGetCommand@2
+      inputs:
+        command: restore
+        restoreSolution: src/Uno.AzureDevOps.sln
+        feedsToUse: select
+        vstsFeed: nventive
+
+    - task: MSBuild@1
+      inputs:
+        solution: src/Uno.AzureDevOps.sln
+        configuration: Release
+        platform: $(BuildPlatform)
+        restoreNugetPackages: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        ArtifactName: $(BuildPlatform)
+        PathtoPublish: $(UnoPackageOutputPath)
+        publishLocation: Container
+
+  - job: macOS
+
+    pool:
+      name: Default
+      demands:
+      - Xamarin.iOS -equals 12.2
+
+    workspace:
+      clean: all
+
+    variables:
+      - name: UnoPackageOutputPath
+        value: $(Build.ArtifactStagingDirectory)
+      - name: NUGET_PACKAGES
+        value: $(Agent.BuildDirectory)/.nuget
+      - name: NUGET_HTTP_CACHE_PATH
+        value: $(Agent.BuildDirectory)/.nuget-http-cache
+
+    strategy:
+      maxParallel: 1
+      matrix:
+        Release_iPhone:
+          BuildPlatform: iPhone
+
+    steps:
+
+    #Fixes gitversion task
+    - bash: |
+        shopt -s nullglob
+        function join_by { local IFS="$1"; shift; echo "$*"; }
+        lib_path=$(join_by ';' $(Agent.WorkFolder)/_tasks/GitVersion*/4.0.*/lib/osx)
+        echo LD_LIBRARY_PATH: $lib_path
+        echo "##vso[task.setvariable variable=LD_LIBRARY_PATH]$lib_path"
+
+    - task: gittools.gitversion.gitversion-task.GitVersion@4
+
+    - task: NuGetToolInstaller@0
+      inputs:
+        versionSpec: 4.9.1
+
+    - task: NuGetCommand@2
+      inputs:
+        command: restore
+        restoreSolution: src/Uno.AzureDevOps.sln
+        feedsToUse: select
+        vstsFeed: nventive
+
+    - task: MSBuild@1
+      inputs:
+        solution: src/Uno.AzureDevOps.sln
+        configuration: Release
+        platform: $(BuildPlatform)
+        restoreNugetPackages: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        ArtifactName: $(BuildPlatform)
+        PathtoPublish: $(UnoPackageOutputPath)
+        publishLocation: Container
+
+    - bash: rm -rf $(NUGET_PACKAGES)
+      condition: always()
