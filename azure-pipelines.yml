@@ -19,6 +19,7 @@ jobs:
 
     pool:
       name: Container
+      vmImage: 'win1803'
 
     container: windows
 
