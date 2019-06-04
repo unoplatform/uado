@@ -63,6 +63,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\IHttpRequestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Http\UnoHttpClientHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\IStackNavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\OnNavigatingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\StackNavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\ISecureStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Android.cs" />

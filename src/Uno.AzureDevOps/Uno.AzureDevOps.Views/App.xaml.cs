@@ -167,6 +167,17 @@ namespace Uno.AzureDevOps
 					}
 				}
 			});
+
+			navigationService.OnNavigating += async (s, e) => await RunOnDispatcher(() =>
+			{
+#if __IOS__
+				var loginPageKey = nameof(LoginPage);
+
+				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+				statusBar.ForegroundColor = e.PageKey == loginPageKey ? Windows.UI.Colors.Black : Windows.UI.Colors.White;
+#endif
+			});
 		}
 
 		/// <summary>
