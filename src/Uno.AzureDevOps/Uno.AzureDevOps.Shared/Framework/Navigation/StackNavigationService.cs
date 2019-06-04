@@ -82,6 +82,8 @@ namespace Uno.AzureDevOps.Framework.Navigation
 			_doublePressTolerance = doublePressTolerance;
 		}
 
+		public event OnNavigatingEventHandler OnNavigating;
+
 		public event BackButtonPressEventHandler BackButtonPressed;
 
 		public event BackButtonDoublePressEventHandler BackButtonDoublePressed;
@@ -209,6 +211,8 @@ namespace Uno.AzureDevOps.Framework.Navigation
 							pageKey),
 						nameof(pageKey));
 				}
+
+				OnNavigating?.Invoke(this, new OnNavigatingEventArgs(pageKey));
 
 				CurrentFrame.Navigate(_pagesByKey[pageKey], parameter);
 			}
@@ -381,6 +385,11 @@ namespace Uno.AzureDevOps.Framework.Navigation
 			foreach (BackButtonDoublePressEventHandler handler in BackButtonDoublePressed.GetInvocationList())
 			{
 				BackButtonDoublePressed -= handler;
+			}
+
+			foreach (OnNavigatingEventHandler handler in OnNavigating.GetInvocationList())
+			{
+				OnNavigating -= handler;
 			}
 		}
 
