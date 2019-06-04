@@ -45,7 +45,6 @@ jobs:
         command: restore
         restoreSolution: src/Uno.AzureDevOps.sln
         feedsToUse: select
-        vstsFeed: nventive
 
     - task: MSBuild@1
       inputs:
@@ -99,7 +98,6 @@ jobs:
         command: restore
         restoreSolution: src/Uno.AzureDevOps.sln
         feedsToUse: select
-        vstsFeed: nventive
 
     - task: MSBuild@1
       inputs:
