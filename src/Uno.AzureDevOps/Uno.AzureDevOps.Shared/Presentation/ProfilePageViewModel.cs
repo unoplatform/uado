@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Uno.AzureDevOps.Business.Authentication;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
+using Uno.AzureDevOps.Framework.AppVersion;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
 using Windows.System;
@@ -18,6 +19,7 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IStackNavigationService _navigationService;
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IVSTSRepository _vstsRespository;
+		private string _appVersion;
 
 		public ProfilePageViewModel()
 		{
@@ -31,6 +33,8 @@ namespace Uno.AzureDevOps.Presentation
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
 
 			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/uno.azuredevops")));
+
+			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
 
 		public ITaskNotifier<UserProfile> User { get; private set; }
@@ -42,6 +46,12 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToAboutPage { get; }
 
 		public ICommand NavigateToSourceCode { get; }
+
+		public string AppVersion
+		{
+			get => _appVersion;
+			set => Set(() => AppVersion, ref _appVersion, value);
+		}
 
 		private void ReloadPageCommand()
 		{

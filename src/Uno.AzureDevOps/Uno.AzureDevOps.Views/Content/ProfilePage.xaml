@@ -152,6 +152,15 @@
 									 Command="{Binding NavigateToSourceCode}"
 									 Margin="0,-6,0,32" />
 
+					<!-- Version Number -->
+					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
+							   Style="{StaticResource Typo18}"
+							   HorizontalAlignment="Center"
+							   Margin="0,4,0,19">
+						<Run Text="Version" />
+						<Run Text="{Binding AppVersion}" />
+					</TextBlock>
+
 					<!-- Log out button -->
 					<Button Content="Log Out"
 							Style="{StaticResource PrimaryButtonStyle}"
