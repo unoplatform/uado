@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uno.AzureDevOps.Client.Helpers;
 
 namespace Uno.AzureDevOps.Client
 {
@@ -31,12 +30,7 @@ namespace Uno.AzureDevOps.Client
 
 		public string AuthApplicationId => _current.applicationId;
 
-		public string AuthApplicationSecret =>
-#if DEBUG
-		EncodingHelper.Decode(_current.clientSecret);
-#else
-		_current.clientSecret;
-#endif
+		public string AuthApplicationSecret => _current.clientSecret;
 
 		public string AuthRedirectUrl => _current.redirectUrl;
 
