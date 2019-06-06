@@ -199,7 +199,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<Style x:Key="SecondaryButtonStyle"
 		   TargetType="Button">
 
@@ -272,8 +272,32 @@
 	</Style>
 
 	<Style x:Key="ReloadButtonStyle"
-		   BasedOn="{StaticResource DefaultButtonStyle}"
 		   TargetType="Button">
+
+		<Setter Property="Height"
+				Value="50" />
+		<Setter Property="Foreground"
+				Value="{StaticResource Color02Brush}" />
+		<Setter Property="Background"
+				Value="{StaticResource Color03Brush}" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+		<Setter Property="Padding"
+				Value="0" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="UseSystemFocusVisuals"
+				Value="True" />
+		<Setter Property="FontSize"
+				Value="17" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily01Bold}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -318,12 +342,11 @@
 											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 											  AutomationProperties.AccessibilityView="Raw" />
-							
+
 							<Path Data="M3.623203,16.054386 C3.385896,15.805481 3.161965,15.54371 2.952563,15.270227 C1.727763,13.670614 1,11.670296 1,9.5 C1,4.253295 5.253295,0 10.5,0 C15.746705,0 20,4.253295 20,9.5 C20,14.746705 15.746705,19 10.5,19 L10.5,18 C15.19442,18 19,14.19442 19,9.5 C19,4.80558 15.19442,1 10.5,1 C5.80558,1 2,4.80558 2,9.5 C2,11.393808 2.619838,13.190784 3.746545,14.662286 C4.060388,15.072171 4.410787,15.452794 4.792895,15.799219 L3.802111,12.419049 L4.761737,12.137767 L6.292083,17.358717 L0.76825,16.74171 L0.879258,15.74789 L3.623203,16.054386 Z"
 								  Fill="{StaticResource Color02Brush}"
 								  VerticalAlignment="Center"
-								  Margin="8,0,0,0" /> 
-
+								  Margin="7,0,0,0" />
 						</StackPanel>
 					</Grid>
 				</ControlTemplate>
@@ -499,7 +522,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<!-- Default Style -->
 	<Style TargetType="Button"
 		   BasedOn="{StaticResource DefaultButtonStyle}" />
