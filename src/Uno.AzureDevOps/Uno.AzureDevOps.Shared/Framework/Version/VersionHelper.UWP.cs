@@ -31,8 +31,6 @@ namespace Uno.AzureDevOps.Framework.AppVersion
 		{
 			string buildNumber = null;
 
-			var appVersion = Application.Current.GetType().GetAssembly().GetName().Version;
-
 			var attribute = Application.Current.GetType().GetAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>();
 			if (attribute == null)
 			{
