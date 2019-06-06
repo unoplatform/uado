@@ -50,7 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemTypeFieldInstance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Extensions\HttpRequestBuilderExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Client\Helpers\EncodingHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\IADOOrganizationClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\IADOProfileClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\IADOTeamClient.cs" />
