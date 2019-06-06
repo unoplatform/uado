@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GalaSoft.MvvmLight.Views;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
 
 namespace Uno.AzureDevOps.Framework.Navigation
 {
+	public delegate void OnNavigatingEventHandler(IStackNavigationService sender, OnNavigatingEventArgs args);
+
 	public delegate void BackButtonPressEventHandler(IStackNavigationService sender, BackRequestedEventArgs args);
 
 	public delegate void BackButtonDoublePressEventHandler(IStackNavigationService sender, BackRequestedEventArgs args);
@@ -14,6 +17,8 @@ namespace Uno.AzureDevOps.Framework.Navigation
 		event BackButtonPressEventHandler BackButtonPressed;
 
 		event BackButtonDoublePressEventHandler BackButtonDoublePressed;
+
+		event OnNavigatingEventHandler OnNavigating;
 
 		IList<PageStackEntry> BackStack { get; }
 
