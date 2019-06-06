@@ -163,8 +163,8 @@ namespace Uno.AzureDevOps.Presentation
 			messageDialog.Commands.Add(new UICommand("Cancel", null));
 			messageDialog.Commands.Add(new UICommand("Assign to me", new UICommandInvokedHandler(this.AssignToMeHandler)));
 
-			messageDialog.DefaultCommandIndex = 0;
-			messageDialog.CancelCommandIndex = 1;
+			messageDialog.CancelCommandIndex = 0;
+			messageDialog.DefaultCommandIndex = 1;
 
 			await messageDialog.ShowAsync();
 #endif
