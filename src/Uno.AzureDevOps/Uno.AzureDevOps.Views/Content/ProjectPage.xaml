@@ -140,7 +140,7 @@
 		</Grid>
 
 		<!-- Error State -->
-		<Grid Visibility="{Binding IterationWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding Teams.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color07Brush}"
 			  Grid.Row="1">
 
