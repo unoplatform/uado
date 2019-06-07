@@ -19,7 +19,7 @@ namespace Uno.AzureDevOps.Framework.Storage
 {
 	public partial class SecureStorage
 	{
-		partial void DeleteValue(string key, ref bool isDeleted)
+		private void DeleteValue(string key, ref bool isDeleted)
 		{
 			try
 			{
@@ -47,7 +47,7 @@ namespace Uno.AzureDevOps.Framework.Storage
 			}
 		}
 
-		partial void GetValue(string key, ref string value)
+		private void GetValue(string key, ref string value)
 		{
 			using (var preferences = PreferenceManager.GetDefaultSharedPreferences(ContextHelper.Current))
 			{
@@ -64,7 +64,7 @@ namespace Uno.AzureDevOps.Framework.Storage
 			}
 		}
 
-		partial void SetValue(string key, string value, ref bool isSet)
+		private void SetValue(string key, string value, ref bool isSet)
 		{
 			try
 			{
