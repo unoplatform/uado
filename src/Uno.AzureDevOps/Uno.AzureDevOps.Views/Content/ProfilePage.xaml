@@ -62,6 +62,7 @@
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
+					   TextAlignment="Center"
 					   Margin="50,0,50,48" />
 
 			<!-- Reload button -->
@@ -150,7 +151,7 @@
 					<HyperlinkButton Content="https://github.com/nventive/uno.azuredevops"
 									 HorizontalAlignment="Center"
 									 Command="{Binding NavigateToSourceCode}"
-									 Margin="0,-6,0,32" />
+									 Margin="16,-6,16,32" />
 
 					<!-- Version Number -->
 					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
