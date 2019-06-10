@@ -4,6 +4,7 @@
 	  xmlns:local="using:Uno.AzureDevOps.Views.Content"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:wasm="http://nventive.com/wasm"
+	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="wasm">
 
 	<Page.Resources>
@@ -54,7 +55,8 @@
 		</DataTemplate>
 	</Page.Resources>
 
-	<Grid Background="{StaticResource Color02Brush}">
+	<Grid Background="{StaticResource Color02Brush}"
+		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 
