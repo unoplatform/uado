@@ -340,6 +340,7 @@
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
+					   TextAlignment="Center"
 					   Margin="50,0,50,48" />
 
 			<!-- Reload button -->
@@ -360,6 +361,7 @@
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
+					   TextAlignment="Center"
 					   Margin="50,0,50,48" />
 
 			<!-- Reload button -->
