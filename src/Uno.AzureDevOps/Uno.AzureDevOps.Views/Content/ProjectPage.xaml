@@ -4,6 +4,7 @@
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:xamarin="http://nventive.com/xamarin"
+	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="xamarin">
 
 	<Page.Resources>
@@ -87,7 +88,8 @@
 		</DataTemplate>
 	</Page.Resources>
 
-	<Grid Background="{StaticResource Color02Brush}">
+	<Grid Background="{StaticResource Color02Brush}"
+		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />

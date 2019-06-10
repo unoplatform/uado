@@ -4,9 +4,11 @@
 	  xmlns:behaviors="using:Uno.AzureDevOps.Views.Behaviors"
 	  xmlns:local="using:Uno.AzureDevOps.Views.Content"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="">
 
-	<Grid Background="{StaticResource Color02Brush}">
+	<Grid Background="{StaticResource Color02Brush}"
+		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
