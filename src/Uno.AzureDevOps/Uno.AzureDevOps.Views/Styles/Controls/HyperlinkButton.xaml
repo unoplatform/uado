@@ -62,8 +62,9 @@
 						</VisualStateManager.VisualStateGroups>
 						
 						<Grid x:Name="Content"
-							  Height="{TemplateBinding MinHeight}"
+							  MinHeight="{TemplateBinding MinHeight}"
 							  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 							  Margin="{TemplateBinding Padding}">
 
 							<ContentPresenter x:Name="ContentPresenter"
@@ -72,7 +73,8 @@
 											  ContentTransitions="{TemplateBinding ContentTransitions}"
 											  Content="{TemplateBinding Content}"
 											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											  VerticalAlignment="Top" />
+											  VerticalAlignment="Top"
+											  TextWrapping="Wrap"/>
 						</Grid>
 					</Grid>
 				</ControlTemplate>
