@@ -339,6 +339,7 @@
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
+					   TextAlignment="Center"
 					   Margin="50,0,50,48" />
 
 			<!-- Reload button -->
@@ -359,6 +360,7 @@
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
+					   TextAlignment="Center"
 					   Margin="50,0,50,48" />
 
 			<!-- Reload button -->
@@ -435,7 +437,7 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Message -->
-				<TextBlock Text="To go back directly to the project page double tap on the back icon"
+				<TextBlock Text="To go directly back to the project page, double tap on the back icon."
 						   Style="{StaticResource Typo05}"
 						   Margin="16,16,0,16" />
 
