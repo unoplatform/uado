@@ -9,6 +9,7 @@
 		<LangVersion>7.1</LangVersion>
 		<MonoRuntimeDebuggerEnabled Condition="'$(Configuration)'=='Debug'">true</MonoRuntimeDebuggerEnabled>
 		<TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="..\Uno.AzureDevOps.UWP\Assets\*.png" Link="Assets\%(FileName)%(Extension)" />
