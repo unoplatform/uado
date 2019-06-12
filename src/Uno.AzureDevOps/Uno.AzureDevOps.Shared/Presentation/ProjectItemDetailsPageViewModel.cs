@@ -34,6 +34,7 @@ namespace Uno.AzureDevOps.Presentation
 		private bool _hasRelatedWork;
 		private bool _hasMoreRelatedItems;
 		private bool _hasParent;
+		private bool _canAssignToMe;
 
 		public ProjectItemDetailsPageViewModel()
 		{
@@ -59,6 +60,12 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			get => _pageTitle;
 			set => Set(() => PageTitle, ref _pageTitle, value);
+		}
+
+		public bool CanAssignToMe
+		{
+			get => _canAssignToMe;
+			set => Set(() => CanAssignToMe, ref _canAssignToMe, value);
 		}
 
 		public bool ShowDoubleBackTip
@@ -117,13 +124,17 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage.Execute(workItem);
 		}
 
-		public void OnNavigatedTo(RichWorkItem workItem)
+		public async void OnNavigatedTo(RichWorkItem workItem)
 		{
 			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(workItem));
 
 			var workItemType = workItem.Item.WorkItemType == "Product Backlog Item" ? "PBI" : workItem.Item.WorkItemType;
 
 			PageTitle = workItemType + " " + workItem.Item.WorkItem.Id;
+
+			var userProfile = await _vstsRepository.GetUserProfile();
+
+			CanAssignToMe = !userProfile.Name.Equals(workItem.Item?.AssignedTo?.DisplayName);
 
 			LoadRelatedWorkItems();
 
@@ -178,6 +189,7 @@ namespace Uno.AzureDevOps.Presentation
 			var updatedWorkItem = await _vstsRepository.GetWorkItem(workItem.ProjectId, workItem.Item.WorkItem.Id.Value);
 
 			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(new RichWorkItem(updatedWorkItem, workItem.Type, workItem.ProjectId)));
+			CanAssignToMe = false;
 		}
 
 		private async Task<List<RichWorkItem>> GetRelatedWorkItems()

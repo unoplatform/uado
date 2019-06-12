@@ -11,6 +11,7 @@
     <AssemblyName>Uno.AzureDevOps</AssemblyName>
     <ResourcesDirectory>..\Uno.AzureDevOps.Shared\Strings</ResourcesDirectory>
     <MtouchLink>Full</MtouchLink>
+		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>

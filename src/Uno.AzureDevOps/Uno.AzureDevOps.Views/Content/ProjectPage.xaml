@@ -175,7 +175,8 @@
 
 			<!-- Teams ComboBox -->
 			<!-- The combobox is disabled if only one item exists in its list -->
-			<ComboBox ItemsSource="{Binding Teams.Result}"
+			<ComboBox x:Name="TeamsComboBox"
+					  ItemsSource="{Binding Teams.Result}"
 					  SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"
 					  ItemTemplate="{StaticResource TeamComboBoxItemTemplate}"
 					  Height="{StaticResource SmallComboBoxHeight}"
@@ -216,14 +217,15 @@
 
 				<!-- Iterations ComboBox -->
 				<!-- The combobox is disabled if only one item exists in its list -->
-				<ComboBox Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+				<ComboBox x:Name="IterationsComboBox"
+						  Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 						  ItemsSource="{Binding Iterations.Result}"
 						  IsEnabled="{Binding Iterations.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
 						  SelectedItem="{Binding SelectedIteration, Mode=TwoWay}"
 						  ItemTemplate="{StaticResource SprintComboBoxItemTemplate}"
 						  Height="{StaticResource LargeComboBoxHeight}"
 						  xamarin:DeferLoadStrategy="Lazy" />
-
+				
 				<!-- No Sprint State -->
 				<Grid Visibility="{Binding Iterations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed }"
 					  Background="{StaticResource Color02Brush}"
@@ -308,6 +310,18 @@
 								   Style="{StaticResource Typo08}" />
 					</StackPanel>
 				</Grid>
+				
+				<!-- ComboBox Popup BG 1 -->
+				<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
+					  Background="Black"
+					  Opacity="0.6"
+					  Grid.RowSpan="2"/>
+
+				<!-- ComboBox Popup BG 2 -->
+				<Grid Visibility="{Binding IsDropDownOpen, ElementName=IterationsComboBox, Converter={StaticResource TrueToVisible}}"
+					  Background="Black"
+					  Opacity="0.6"
+					  Grid.RowSpan="2" />
 			</Grid>
 
 			<!-- Members -->
