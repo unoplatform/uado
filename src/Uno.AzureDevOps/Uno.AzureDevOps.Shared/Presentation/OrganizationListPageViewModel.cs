@@ -18,6 +18,8 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
 
+		private ITaskNotifier<List<AccountData>> _organizations;
+
 		public OrganizationListPageViewModel()
 		{
 			_navigationService = SimpleIoc.Default.GetInstance<IStackNavigationService>();
@@ -34,7 +36,11 @@ namespace Uno.AzureDevOps.Presentation
 			ReloadPage = new RelayCommand(() => Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations()));
 		}
 
-		public ITaskNotifier<List<AccountData>> Organizations { get; private set; }
+		public ITaskNotifier<List<AccountData>> Organizations
+		{
+			get => _organizations;
+			set => Set(() => Organizations, ref _organizations, value);
+		}
 
 		public ICommand ToProjectListPage { get; }
 
