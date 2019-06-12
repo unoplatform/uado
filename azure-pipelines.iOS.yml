@@ -15,7 +15,7 @@ jobs:
   - job: macOS
 
     pool:
-      name: 'Hosted macOS'
+      name: 'Default'
 
     workspace:
       clean: all
