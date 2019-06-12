@@ -48,7 +48,7 @@
 	<key>UILaunchImageSize</key>
 	<string>{320, 568}</string>
 	<key>MinimumOSVersion</key>
-	<string>10.2</string>
+	<string>10.0</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.nventive.uno.azuredevops</string>
 	<key>XSAppIconAssets</key>
