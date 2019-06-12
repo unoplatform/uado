@@ -32,7 +32,7 @@ namespace Uno.AzureDevOps.Presentation
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
 
-			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/uno.azuredevops")));
+			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/Uado")));
 
 			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
