@@ -15,7 +15,10 @@ jobs:
   - job: macOS
 
     pool:
-      name: 'Default'
+      name: Default
+      demands:
+        - Agent.OS -equals Darwin
+        - Xamarin.iOS -equals Latest
 
     workspace:
       clean: all
