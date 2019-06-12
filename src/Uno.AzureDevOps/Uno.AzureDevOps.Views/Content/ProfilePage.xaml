@@ -145,12 +145,12 @@
 				<StackPanel Grid.Row="1">
 
 					<!-- Message -->
-					<TextBlock Text="Source Code available at"
+					<TextBlock Text="Source Code available on"
 							   Style="{StaticResource Typo13}"
 							   HorizontalAlignment="Center" />
 
 					<!-- Hyperlink to source code -->
-					<HyperlinkButton Content="https://github.com/nventive/uno.azuredevops"
+					<HyperlinkButton Content="GitHub"
 									 HorizontalAlignment="Center"
 									 Command="{Binding NavigateToSourceCode}"
 									 Margin="16,-6,16,32" />
