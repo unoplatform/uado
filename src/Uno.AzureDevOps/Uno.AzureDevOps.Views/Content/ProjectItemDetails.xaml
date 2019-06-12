@@ -255,6 +255,7 @@
 
 							<!-- Assin to me Button -->
 							<MenuFlyoutItem Text="Assign to me"
+											Visibility="{Binding CanAssignToMe, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 											Command="{Binding AssignToMe}" />
 
 							<!-- View More Button -->
