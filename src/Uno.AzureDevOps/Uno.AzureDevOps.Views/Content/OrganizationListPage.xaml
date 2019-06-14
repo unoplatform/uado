@@ -68,7 +68,7 @@
 				  Grid.Row="1">
 
 				<!-- Message -->
-				<TextBlock Text="An error occurred, please reload to try again."
+				<TextBlock Text="{Binding Organizations.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 						   Style="{StaticResource Typo10}"
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"

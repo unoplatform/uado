@@ -2,7 +2,10 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+
+#if !__WASM__
 using Xamarin.Essentials;
+#endif
 
 namespace Uno.AzureDevOps.Framework.Tasks
 {
@@ -60,19 +63,15 @@ namespace Uno.AzureDevOps.Framework.Tasks
 
 		private void RunTask(Task taskToExecute)
 		{
-			//As error are hardcoded, we simply avoid task execution and propagates the error
-#if !__WASM__
-			var current = Connectivity.NetworkAccess;
-			if (current != NetworkAccess.Internet)
-			{
-				IsInternetFaulted = true;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
-				return;
-			}
-#endif
 			taskToExecute.ContinueWith(
 				task =>
 				{
+#if !__WASM__
+					if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+					{
+						IsInternetFaulted = true;
+					}
+#endif
 					if (task.IsFaulted)
 					{
 						Console.Error.WriteLine(task.Exception);
@@ -90,6 +89,7 @@ namespace Uno.AzureDevOps.Framework.Tasks
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFaulted)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSuccess)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Exception)));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
 #endif
 				},
 				scheduler: _dispatcherTaskScheduler ?? GetDefaultScheduler());
