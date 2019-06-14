@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Uno.AzureDevOps.Framework.Tasks
 {
@@ -42,6 +43,8 @@ namespace Uno.AzureDevOps.Framework.Tasks
 
 		public bool IsSuccess => Task.Status == TaskStatus.RanToCompletion;
 
+		public bool IsInternetFaulted { get; set; }
+
 		public AggregateException Exception => Task.Exception;
 
 		Task ITaskNotifier.Task => Task;
@@ -57,6 +60,16 @@ namespace Uno.AzureDevOps.Framework.Tasks
 
 		private void RunTask(Task taskToExecute)
 		{
+			//As error are hardcoded, we simply avoid task execution and propagates the error
+#if !__WASM__
+			var current = Connectivity.NetworkAccess;
+			if (current != NetworkAccess.Internet)
+			{
+				IsInternetFaulted = true;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
+				return;
+			}
+#endif
 			taskToExecute.ContinueWith(
 				task =>
 				{
