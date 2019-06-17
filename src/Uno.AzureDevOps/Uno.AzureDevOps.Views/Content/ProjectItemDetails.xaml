@@ -332,12 +332,12 @@
 		</Grid>
 
 		<!-- Error State WorkItem -->
-		<Grid Visibility="{Binding WorkItem.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color07Brush}"
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="{Binding WorkItem.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+			<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"

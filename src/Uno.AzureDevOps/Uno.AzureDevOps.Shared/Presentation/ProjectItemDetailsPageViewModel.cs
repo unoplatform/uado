@@ -29,6 +29,7 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<List<RichWorkItem>> _childrenWorkItems;
 		private ITaskNotifier<RichWorkItem> _parentWorkItem;
 		private ITaskNotifier<RichWorkItem> _workItem;
+		private ITaskNotifier<UserProfile> _userProfile;
 		private string _pageTitle;
 		private bool _showDoubleBackTip;
 		private bool _hasRelatedWork;
@@ -104,6 +105,12 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => ParentWorkItem, ref _parentWorkItem, value);
 		}
 
+		public ITaskNotifier<UserProfile> UserProfile
+		{
+			get => _userProfile;
+			set => Set(() => UserProfile, ref _userProfile, value);
+		}
+
 		public ICommand ReloadPage { get; }
 
 		public ICommand HideDoubleBackTip { get; }
@@ -124,7 +131,7 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage.Execute(workItem);
 		}
 
-		public async void OnNavigatedTo(RichWorkItem workItem)
+		public async Task OnNavigatedTo(RichWorkItem workItem)
 		{
 			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(workItem));
 
@@ -132,9 +139,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			PageTitle = workItemType + " " + workItem.Item.WorkItem.Id;
 
-			var userProfile = await _vstsRepository.GetUserProfile();
-
-			CanAssignToMe = !userProfile.Name.Equals(workItem.Item?.AssignedTo?.DisplayName);
+			await LoadUserProfile(workItem);
 
 			LoadRelatedWorkItems();
 
@@ -220,6 +225,19 @@ namespace Uno.AzureDevOps.Presentation
 			HasParent = relatedWorkItems.Items.Count > 0;
 
 			return relatedWorkItems.Items.FirstOrDefault();
+		}
+
+		private async Task<UserProfile> GetUserProfile()
+		{
+			return await _vstsRepository.GetUserProfile();
+		}
+
+		private async Task LoadUserProfile(RichWorkItem workItem)
+		{
+			UserProfile = new TaskNotifier<UserProfile>(GetUserProfile());
+			var userProfile = await UserProfile.Task;
+
+			CanAssignToMe = !userProfile.Name.Equals(workItem.Item?.AssignedTo?.DisplayName);
 		}
 
 		[SuppressMessage("Brackets and parenthesis issue", "SA1009", Justification = "Syntax is fine like that, if this is correct it creates another issue that recreates this issue afterwards")]
