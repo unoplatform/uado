@@ -46,6 +46,9 @@ jobs:
         restoreSolution: src/Uno.AzureDevOps.sln
         feedsToUse: select
 
+    - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
+      displayName: Set client secrets
+
     - task: MSBuild@1
       inputs:
         solution: src/Uno.AzureDevOps.sln
