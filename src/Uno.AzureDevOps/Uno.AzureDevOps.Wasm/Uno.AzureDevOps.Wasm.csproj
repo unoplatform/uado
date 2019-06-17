@@ -49,9 +49,14 @@
 	<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 	<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
 	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
-	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1429" />
+	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
 	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.265" />
 	<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.265" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Xamarin.Essentials">
+      <HintPath>..\..\..\..\..\Microsoft\Xamarin\NuGet\xamarin.essentials\1.1.0\lib\monoandroid90\Xamarin.Essentials.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
 	<TypeScriptCompile Include="ts\Uno.AzureDevOps.Auth.ts" />

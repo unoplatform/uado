@@ -43,6 +43,10 @@
 	<converters:WorkItemTypeToIconColorConverter x:Key="WorkItemTypeToIconColor" />
 
 	<converters:WorkItemTypeToIconPathConverter x:Key="WorkItemTypeToIconPath" />
+
+	<converters:FromBoolToCustomStringConverter x:Key="BoolToCustomString"
+												ErrorInternal="An error occured, please reload to try again"
+												ErrorNoInternetConnection="No connection detected, please check your device settings to ensure a network connection is setup."/>
 	
 	<converters:InitialsConverter x:Key="MemberInitials" />
 </ResourceDictionary>

@@ -3,6 +3,10 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
+#if !__WASM__
+using Xamarin.Essentials;
+#endif
+
 namespace Uno.AzureDevOps.Framework.Tasks
 {
 	public class TaskNotifier<TResult> : ITaskNotifier<TResult>
@@ -42,6 +46,8 @@ namespace Uno.AzureDevOps.Framework.Tasks
 
 		public bool IsSuccess => Task.Status == TaskStatus.RanToCompletion;
 
+		public bool IsInternetFaulted { get; set; }
+
 		public AggregateException Exception => Task.Exception;
 
 		Task ITaskNotifier.Task => Task;
@@ -60,6 +66,12 @@ namespace Uno.AzureDevOps.Framework.Tasks
 			taskToExecute.ContinueWith(
 				task =>
 				{
+#if !__WASM__
+					if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+					{
+						IsInternetFaulted = true;
+					}
+#endif
 					if (task.IsFaulted)
 					{
 						Console.Error.WriteLine(task.Exception);
@@ -77,6 +89,7 @@ namespace Uno.AzureDevOps.Framework.Tasks
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFaulted)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSuccess)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Exception)));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
 #endif
 				},
 				scheduler: _dispatcherTaskScheduler ?? GetDefaultScheduler());
