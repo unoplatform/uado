@@ -151,6 +151,9 @@
     <AndroidResource Include="Resources\drawable-xhdpi\more.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\more.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\more.png" />
+    <LinkDescription Include="LinkerExclusions.xml">
+      <SubType>Designer</SubType>
+    </LinkDescription>
     <Content Include="Resources\values\Colors.xml">
       <SubType>Designer</SubType>
     </Content>
