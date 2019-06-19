@@ -31,8 +31,6 @@ namespace Uno.AzureDevOps.Presentation
 
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 
-			Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
-
 			ReloadPage = new RelayCommand(() => Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations()));
 		}
 
@@ -49,6 +47,11 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToProfilePage { get; }
 
 		public ICommand ReloadPage { get; }
+
+		public void OnNavigatedTo()
+		{
+			Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
+		}
 
 		public void NavigateToProjectListPage(AccountData account)
 		{
