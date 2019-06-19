@@ -18,6 +18,10 @@ using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
 
+#if !__WASM__
+using Connectivity = Xamarin.Essentials;
+#endif
+
 namespace Uno.AzureDevOps.Presentation
 {
 	[Windows.UI.Xaml.Data.Bindable]
@@ -188,13 +192,29 @@ namespace Uno.AzureDevOps.Presentation
 
 		private async void AssignToMeHandler(IUICommand command)
 		{
-			var workItem = await WorkItem.Task;
-			await _vstsRepository.AssignToMe(workItem.Item.WorkItem);
+			// As AssignToMe has no return type we try catch to safely call endpoints
+			try
+			{
+				var workItem = await WorkItem.Task;
+				await _vstsRepository.AssignToMe(workItem.Item.WorkItem);
+				var updatedWorkItem = await _vstsRepository.GetWorkItem(workItem.ProjectId, workItem.Item.WorkItem.Id.Value);
 
-			var updatedWorkItem = await _vstsRepository.GetWorkItem(workItem.ProjectId, workItem.Item.WorkItem.Id.Value);
-
-			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(new RichWorkItem(updatedWorkItem, workItem.Type, workItem.ProjectId)));
-			CanAssignToMe = false;
+				WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(new RichWorkItem(updatedWorkItem, workItem.Type, workItem.ProjectId)));
+				CanAssignToMe = false;
+			}
+			catch (Exception e)
+			{
+				Console.Error.Write(e.Message + " " + e.InnerException);
+				var errorMessage = "An error occured, please try again";
+#if !__WASM__
+				if (Connectivity.Connectivity.NetworkAccess != Connectivity.NetworkAccess.Internet)
+				{
+					errorMessage = "No connection detected, please check your device settings to ensure a network connection is setup.";
+				}
+#endif
+				var messageDialog = new MessageDialog(errorMessage);
+				await messageDialog.ShowAsync();
+			}
 		}
 
 		private async Task<List<RichWorkItem>> GetRelatedWorkItems()
