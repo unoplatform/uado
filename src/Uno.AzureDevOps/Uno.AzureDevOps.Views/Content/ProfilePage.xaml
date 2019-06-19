@@ -33,14 +33,14 @@
 		<CommandBar Content="Profile" />
 
 		<!-- Loading State -->
-		<Grid Visibility="{Binding User.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color02Brush}"
 			  Grid.Row="1">
 			<StackPanel VerticalAlignment="Center"
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding User.IsExecuting}"
+				<ProgressRing IsActive="{Binding UserProfile.IsExecuting}"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
@@ -55,12 +55,12 @@
 		</Grid>
 
 		<!-- Error State -->
-		<Grid Visibility="{Binding User.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color07Brush}"
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="{Binding User.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+			<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
@@ -76,7 +76,7 @@
 		</Grid>
 
 		<!-- Content -->
-		<Grid Visibility="{Binding User.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
+		<Grid Visibility="{Binding UserProfile.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
 			  Grid.Row="1">
 
 			<Grid x:Name="RootLayout">
@@ -100,7 +100,7 @@
 							  Margin="16,0,0,0">
 
 							<!-- Initials -->
-							<TextBlock Text="{Binding User.Result.Name, Converter={StaticResource MemberInitials}}"
+							<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
 									   Style="{StaticResource MemberInitialsTextBlock}" />
 
 							<!-- Image -->
@@ -108,7 +108,7 @@
 								  Height="32"
 								  Width="32">
 								<Grid.Background>
-									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding User.Result.Image}" />
+									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
 								</Grid.Background>
 							</Grid>
 						</Grid>
@@ -119,12 +119,12 @@
 									Grid.Column="1">
 
 							<!-- Name -->
-							<TextBlock Text="{Binding User.Result.Name}"
+							<TextBlock Text="{Binding UserProfile.Result.Name}"
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 
 							<!-- Email -->
-							<TextBlock Text="{Binding User.Result.Email}"
+							<TextBlock Text="{Binding UserProfile.Result.Email}"
 									   Style="{StaticResource Typo18}"
 									   TextWrapping="NoWrap"
 									   Margin="0,-2,0,0" />
