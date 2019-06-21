@@ -1,15 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-	<style name="AppTheme" parent="Theme.AppCompat.Light">
 
-		<!-- This removes the ActionBar -->
-		<item name="windowActionBar">false</item>
-		<item name="android:windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-		<item name="android:windowNoTitle">true</item>
-	  
-	  <!-- SplashScreen -->
-	  <item name="android:windowBackground">@drawable/splash</item>
+  <!-- App style theme -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light">
+	<!-- This removes the ActionBar -->
+	<item name="windowActionBar">false</item>
+	<item name="android:windowActionBar">false</item>
+	<item name="windowNoTitle">true</item>
+	<item name="android:windowNoTitle">true</item>
+  </style>
 
-	</style>
+  <!-- SplashScreen style theme -->
+  <style name="splashscreen" parent="Theme.AppCompat.Light">
+	<item name="android:windowBackground">@drawable/splash</item>
+	<item name="android:windowNoTitle">true</item>
+	<item name="windowActionBar">false</item>
+	<item name="android:windowIsTranslucent">false</item>
+	<item name="android:windowIsFloating">false</item>
+	<item name="android:backgroundDimEnabled">true</item>
+  </style>
+
 </resources>
