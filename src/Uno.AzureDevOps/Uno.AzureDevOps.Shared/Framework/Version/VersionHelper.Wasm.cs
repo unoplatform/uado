@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Uno.AzureDevOps.Framework.AppVersion
 {
-	//Not working for wasm application.
+	//TODO implement package version retrieving for WASM.
 	public static partial class VersionHelper
 	{
 		private static string GetBuildNumber()

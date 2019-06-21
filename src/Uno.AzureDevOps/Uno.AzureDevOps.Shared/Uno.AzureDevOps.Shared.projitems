@@ -83,11 +83,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.Generic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\TaskNotifier.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Xamarin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Module.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\AboutPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\LoginPageViewModel.cs" />
