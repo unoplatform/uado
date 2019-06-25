@@ -139,6 +139,17 @@ namespace Uno.AzureDevOps
 			var navigationService = ServiceProvider.GetInstance<IStackNavigationService>();
 			var authenticationService = ServiceProvider.GetInstance<IAuthenticationService>();
 
+			navigationService.OnNavigating += async (s, e) => await RunOnDispatcher(() =>
+			{
+#if __IOS__
+				var loginPageKey = nameof(LoginPage);
+
+				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+				statusBar.ForegroundColor = e.PageKey == loginPageKey ? Windows.UI.Colors.Black : Windows.UI.Colors.White;
+#endif
+			});
+
 			if (authenticationService.IsAuthenticated())
 			{
 				navigationService.ToOrganizationListPage();
@@ -166,17 +177,6 @@ namespace Uno.AzureDevOps
 						s.GoBack();
 					}
 				}
-			});
-
-			navigationService.OnNavigating += async (s, e) => await RunOnDispatcher(() =>
-			{
-#if __IOS__
-				var loginPageKey = nameof(LoginPage);
-
-				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-
-				statusBar.ForegroundColor = e.PageKey == loginPageKey ? Windows.UI.Colors.Black : Windows.UI.Colors.White;
-#endif
 			});
 		}
 
