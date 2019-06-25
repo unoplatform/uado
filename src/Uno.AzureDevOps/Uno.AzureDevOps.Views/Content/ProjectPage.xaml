@@ -286,7 +286,8 @@
 					           Style="{StaticResource Typo10}"
 					           HorizontalAlignment="Center"
 					           VerticalAlignment="Center"
-					           TextAlignment="Center"/>
+					           TextAlignment="Center"
+							   Margin="25,0,25,24"/>
 				</Grid>
 
 				<!-- Loading State -->
