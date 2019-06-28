@@ -81,7 +81,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			}
 			else if (Content != null)
 			{
-				CleardDefaultWebView();
+				ClearDefaultWebView();
 				Content = null;
 				InternalWebView = null;
 			}
@@ -94,7 +94,7 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		private void OnUnloaded(object sender, RoutedEventArgs e)
 		{
-			CleardDefaultWebView();
+			ClearDefaultWebView();
 			ClearCacheAndCookies();
 		}
 
@@ -112,7 +112,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			return _webView;
 		}
 
-		private void CleardDefaultWebView()
+		private void ClearDefaultWebView()
 		{
 			if (_webView != null)
 			{
