@@ -97,7 +97,7 @@
 							HorizontalAlignment="Center">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Projects.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
@@ -147,7 +147,7 @@
 								HorizontalAlignment="Left"
 								Margin="16,16,0,12"
 								Grid.Row="0" />
-				
+
 				<!-- Recent Project list -->
 				<ListView ItemsSource="{Binding Projects.Result}"
 						  ItemTemplate="{StaticResource ProjectItemTemplate}"

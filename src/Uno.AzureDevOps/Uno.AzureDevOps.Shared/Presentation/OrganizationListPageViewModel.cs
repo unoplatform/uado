@@ -50,7 +50,11 @@ namespace Uno.AzureDevOps.Presentation
 
 		public void OnNavigatedTo()
 		{
-			Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
+			// Check IsFaulted too here as user might come from ProfilePage
+			if (Organizations == null || Organizations.IsFaulted)
+			{
+				Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
+			}
 		}
 
 		public void NavigateToProjectListPage(AccountData account)
