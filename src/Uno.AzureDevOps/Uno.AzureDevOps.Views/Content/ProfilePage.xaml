@@ -40,7 +40,7 @@
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding UserProfile.IsExecuting}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"

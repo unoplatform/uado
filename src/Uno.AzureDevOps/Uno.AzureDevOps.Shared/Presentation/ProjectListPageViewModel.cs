@@ -29,8 +29,6 @@ namespace Uno.AzureDevOps.Presentation
 
 			ToProjectPage = new RelayCommand<TeamProjectReference>(project => _navigationService.ToProjectPage(project));
 
-			Projects = new TaskNotifier<List<TeamProjectReference>>(Task.FromResult(new List<TeamProjectReference>()));
-
 			ReloadPage = new RelayCommand(() => Projects = new TaskNotifier<List<TeamProjectReference>>(GetProjects()));
 
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
@@ -60,12 +58,14 @@ namespace Uno.AzureDevOps.Presentation
 
 			_vstsRepository.SetVSTSAccount(_account.AccountName);
 
-			Projects = new TaskNotifier<List<TeamProjectReference>>(GetProjects());
+			if (Projects == null)
+			{
+				Projects = new TaskNotifier<List<TeamProjectReference>>(GetProjects());
+			}
 		}
 
 		public void NavigateToProjectPage(TeamProjectReference project)
 		{
-			Projects = null;
 			ToProjectPage.Execute(project);
 		}
 

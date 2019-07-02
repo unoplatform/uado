@@ -127,7 +127,7 @@
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding LoadingSuccess, Converter={StaticResource BoolToInvertBool}}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
@@ -225,7 +225,7 @@
 						  ItemTemplate="{StaticResource SprintComboBoxItemTemplate}"
 						  Height="{StaticResource LargeComboBoxHeight}"
 						  xamarin:DeferLoadStrategy="Lazy" />
-				
+
 				<!-- No Sprint State -->
 				<Grid Visibility="{Binding Iterations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed }"
 					  Background="{StaticResource Color02Brush}"
@@ -251,7 +251,7 @@
 					  BorderThickness="0,0,0,1">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Iterations.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
@@ -267,7 +267,7 @@
 						  IsItemClickEnabled="True"
 						  ItemClick="ListView_ItemClick"
 						  Grid.Row="1"
-						  Padding="0,0,0,80"/>
+						  Padding="0,0,0,80" />
 
 				<!-- Empty List Message -->
 				<TextBlock Text="No work items in this iteration"
@@ -275,19 +275,19 @@
 						   Style="{StaticResource Typo15}"
 						   Margin="16,12"
 						   Grid.Row="1" />
-		
+
 				<!-- Error state for work items list -->
 				<Grid Visibility="{Binding IterationWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				      Background="{StaticResource Color07Brush}"
-				      Grid.Row="1">
+					  Background="{StaticResource Color07Brush}"
+					  Grid.Row="1">
 
 					<!-- Message -->
 					<TextBlock Text="{Binding IterationWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-					           Style="{StaticResource Typo10}"
-					           HorizontalAlignment="Center"
-					           VerticalAlignment="Center"
-					           TextAlignment="Center"
-							   Margin="25,0,25,24"/>
+							   Style="{StaticResource Typo10}"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   TextAlignment="Center"
+							   Margin="25,0,25,24" />
 				</Grid>
 
 				<!-- Loading State -->
@@ -298,7 +298,7 @@
 								HorizontalAlignment="Center">
 
 						<!-- Progress Ring -->
-						<ProgressRing IsActive="{Binding IterationWorkItems.IsExecuting}"
+						<ProgressRing IsActive="True"
 									  Foreground="{StaticResource Color03Brush}"
 									  Height="20"
 									  Width="20"
@@ -311,12 +311,12 @@
 								   Style="{StaticResource Typo08}" />
 					</StackPanel>
 				</Grid>
-				
+
 				<!-- ComboBox Popup BG 1 -->
 				<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
 					  Background="Black"
 					  Opacity="0.6"
-					  Grid.RowSpan="2"/>
+					  Grid.RowSpan="2" />
 
 				<!-- ComboBox Popup BG 2 -->
 				<Grid Visibility="{Binding IsDropDownOpen, ElementName=IterationsComboBox, Converter={StaticResource TrueToVisible}}"
@@ -395,7 +395,7 @@
 
 				<!-- Error state for member listview -->
 				<Grid Visibility="{Binding TeamMembers.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				      Background="{StaticResource Color07Brush}">
+					  Background="{StaticResource Color07Brush}">
 
 					<!-- Message -->
 					<TextBlock Text="{Binding TeamMembers.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
@@ -405,7 +405,7 @@
 							   TextAlignment="Center"
 							   Margin="50,0,50,48" />
 				</Grid>
-				
+
 
 				<!-- Loading State -->
 				<Grid Visibility="{Binding TeamMembers.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
@@ -414,7 +414,7 @@
 								HorizontalAlignment="Center">
 
 						<!-- Progress Ring -->
-						<ProgressRing IsActive="{Binding TeamMembers.IsExecuting}"
+						<ProgressRing IsActive="True"
 									  Foreground="{StaticResource Color03Brush}"
 									  Height="20"
 									  Width="20"

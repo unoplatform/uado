@@ -35,7 +35,7 @@
 
 					<!-- Profile Button -->
 					<AppBarButton Style="{StaticResource UserProfileButtonStyle}"
-								  Command="{Binding ToProfilePage}"/>
+								  Command="{Binding ToProfilePage}" />
 				</CommandBar.PrimaryCommands>
 			</CommandBar>
 
@@ -48,7 +48,7 @@
 							HorizontalAlignment="Center">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Organizations.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
