@@ -317,7 +317,7 @@
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding ChildrenWorkItems.IsExecuting}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
