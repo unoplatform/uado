@@ -144,22 +144,21 @@
 				<!-- Source Code Info -->
 				<StackPanel Grid.Row="1">
 
-					<!-- Message -->
-					<TextBlock Text="Source Code available on"
-							   Style="{StaticResource Typo13}"
-							   HorizontalAlignment="Center" />
+						<!-- Message -->
+						<TextBlock Text="Source Code available on"
+								   Style="{StaticResource Typo13}"
+								   HorizontalAlignment="Center" />
 
-					<!-- Hyperlink to source code -->
-					<HyperlinkButton Content="GitHub"
-									 HorizontalAlignment="Center"
-									 Command="{Binding NavigateToSourceCode}"
-									 Margin="16,-6,16,32" />
+						<!-- Hyperlink to source code -->
+						<HyperlinkButton Content="GitHub"
+										 HorizontalAlignment="Center"
+										 Command="{Binding NavigateToSourceCode}" />
 
-					<!-- Version Number -->
+						<!-- Version Number -->
 					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
 							   Style="{StaticResource Typo18}"
 							   HorizontalAlignment="Center"
-							   Margin="0,4,0,19">
+							   Margin="0,4,0,0">
 						<Run Text="Version" />
 						<Run Text="{Binding AppVersion}" />
 					</TextBlock>
@@ -168,7 +167,7 @@
 					<Button Content="Log Out"
 							Style="{StaticResource PrimaryButtonStyle}"
 							Command="{Binding Logout}"
-							Margin="16,0,16,24" />
+							Margin="16,19,16,24" />
 				</StackPanel>
 			</Grid>
 		</Grid>
