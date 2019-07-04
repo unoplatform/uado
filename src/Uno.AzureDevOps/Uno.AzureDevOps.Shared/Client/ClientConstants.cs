@@ -60,5 +60,11 @@ namespace Uno.AzureDevOps.Client
 				},
 #endif
 			};
+
+#if __IOS__
+            public const string AppCenterSecret = "--appcenter-secret-ios--";
+#elif __ANDROID__
+            public const string AppCenterSecret = "--appcenter-secret-android--";
+#endif
 	}
 }

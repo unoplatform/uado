@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
+#if !NETFX_CORE && !__WASM__
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+#endif
 using Microsoft.Extensions.Logging;
 using Uno.AzureDevOps.Business.Authentication;
 using Uno.AzureDevOps.Business.Extensions;
+using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Views.Content;
 using Uno.Extensions;
@@ -14,6 +20,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Uno.AzureDevOps
 {
@@ -64,6 +71,12 @@ namespace Uno.AzureDevOps
 			{
 				Module.Initialize(ServiceProvider);
 				Views.Module.Initialize(ServiceProvider);
+
+#if !NETFX_CORE && !__WASM__ && !DEBUG
+
+				AppCenter.Start(ClientConstants.AppCenterSecret,
+                   typeof(Analytics), typeof(Crashes));
+#endif
 
 				// Create a Frame to act as the navigation context and navigate to the first page
 				rootFrame = new Frame();
