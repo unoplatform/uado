@@ -121,12 +121,6 @@
     <BundleResource Include="Resources\uno.png" />
     <BundleResource Include="Resources\uno%402x.png" />
     <BundleResource Include="Resources\uno%403x.png" />
-    <BundleResource Include="Resources\UserProfilePlaceholder%402x.png" />
-    <BundleResource Include="Resources\UserProfilePlaceholder%403x.png" />
-    <BundleResource Include="Resources\UserProfilePlaceholder.png" />
-    <BundleResource Include="Resources\more%402x.png" />
-    <BundleResource Include="Resources\more%403x.png" />
-    <BundleResource Include="Resources\more.png" />
     <Content Include="LinkerExclusions.xml" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
