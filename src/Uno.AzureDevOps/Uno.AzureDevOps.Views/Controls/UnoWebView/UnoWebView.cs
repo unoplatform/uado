@@ -16,8 +16,6 @@ namespace Uno.AzureDevOps.Views.Controls
 		{
 			DefaultStyleKey = nameof(UnoWebView);
 
-			SetWebView();
-
 			Loaded += OnLoaded;
 			Unloaded += OnUnloaded;
 		}
@@ -39,12 +37,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			"SourceUri",
 			typeof(Uri),
 			typeof(UnoWebView),
-			new PropertyMetadata(default(Uri), (d, e) => OnSourceUriChanged((UnoWebView)d)));
-
-		private static void OnSourceUriChanged(UnoWebView webView)
-		{
-			webView.SetWebView();
-		}
+			new PropertyMetadata(default(Uri)));
 
 		public Uri NavigatedUri
 		{
@@ -81,7 +74,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			}
 			else if (Content != null)
 			{
-				CleardDefaultWebView();
+				ClearDefaultWebView();
 				Content = null;
 				InternalWebView = null;
 			}
@@ -94,13 +87,13 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		private void OnUnloaded(object sender, RoutedEventArgs e)
 		{
-			CleardDefaultWebView();
+			ClearDefaultWebView();
 			ClearCacheAndCookies();
 		}
 
 		private WebView GetDefaultWebView()
 		{
-			if (_webView != null && !_isFirstNavigation)
+			if (_webView != null)
 			{
 				return _webView;
 			}
@@ -112,7 +105,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			return _webView;
 		}
 
-		private void CleardDefaultWebView()
+		private void ClearDefaultWebView()
 		{
 			if (_webView != null)
 			{
@@ -133,7 +126,10 @@ namespace Uno.AzureDevOps.Views.Controls
 					ClearCacheAndCookies();
 				}
 			}
-
+#if __IOS__
+			// Needed as webview keeps for unknown reason the token, delete cookies each time avoid this behavior
+			ClearCacheAndCookies();
+#endif
 			NavigatedUri = args.Uri;
 		}
 

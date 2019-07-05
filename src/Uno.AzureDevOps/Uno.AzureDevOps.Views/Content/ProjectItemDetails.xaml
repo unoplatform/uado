@@ -317,7 +317,7 @@
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding ChildrenWorkItems.IsExecuting}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
@@ -332,12 +332,12 @@
 		</Grid>
 
 		<!-- Error State WorkItem -->
-		<Grid Visibility="{Binding WorkItem.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color07Brush}"
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="An error occurred, please reload to try again."
+			<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
@@ -358,7 +358,7 @@
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="An error occurred, please reload to try again."
+			<TextBlock Text="{Binding ChildrenWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
@@ -373,18 +373,17 @@
 					Margin="16,22" />
 		</Grid>
 
-		<Grid Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-			  Grid.Row="1">
+		<ScrollViewer Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+					  Grid.Row="1">
+			<Grid>
+				<Grid Visibility="{Binding WorkItem.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+					  Background="{StaticResource Color02Brush}">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 
-			<Grid Visibility="{Binding WorkItem.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				  Background="{StaticResource Color02Brush}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-
-				<!-- Content -->
-				<ScrollViewer>
+					<!-- Content -->
 					<Grid Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 						  Background="{StaticResource Color02Brush}">
 						<Grid.RowDefinitions>
@@ -418,38 +417,38 @@
 											 ContentTemplate="{StaticResource ListFooterTemplate}"
 											 Grid.Row="2" />
 					</Grid>
-				</ScrollViewer>
+				</Grid>
+
+				<!-- Double click back button tutorial -->
+				<Grid Visibility="{Binding ShowDoubleBackTip, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+					  Background="{StaticResource Color02Brush}"
+					  BorderBrush="{StaticResource Color07Brush}"
+					  BorderThickness="1"
+					  HorizontalAlignment="Center"
+					  VerticalAlignment="Top"
+					  MaxWidth="340"
+					  CornerRadius="8"
+					  toolkit:UIElementExtensions.Elevation="10"
+					  Margin="16"
+					  Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Message -->
+					<TextBlock Text="To go directly back to the project page, double tap on the back icon."
+							   Style="{StaticResource Typo05}"
+							   Margin="16,16,0,16" />
+
+					<!-- Ok Button -->
+					<Button Style="{StaticResource OkButtonStyle}"
+							Command="{Binding HideDoubleBackTip}"
+							VerticalAlignment="Center"
+							Grid.Column="1"
+							android:Margin="0,0,12,0" />
+				</Grid>
 			</Grid>
-
-			<!-- Double click back button tutorial -->
-			<Grid Visibility="{Binding ShowDoubleBackTip, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				  Background="{StaticResource Color02Brush}"
-				  BorderBrush="{StaticResource Color07Brush}"
-				  BorderThickness="1"
-				  HorizontalAlignment="Center"
-				  VerticalAlignment="Top"
-				  MaxWidth="340"
-				  CornerRadius="8"
-				  toolkit:UIElementExtensions.Elevation="10"
-				  Margin="16"
-				  Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-
-				<!-- Message -->
-				<TextBlock Text="To go directly back to the project page, double tap on the back icon."
-						   Style="{StaticResource Typo05}"
-						   Margin="16,16,0,16" />
-
-				<!-- Ok Button -->
-				<Button Style="{StaticResource OkButtonStyle}"
-						Command="{Binding HideDoubleBackTip}"
-						VerticalAlignment="Center"
-						Grid.Column="1"
-						android:Margin="0,0,12,0" />
-			</Grid>
-		</Grid>
+		</ScrollViewer>
 	</Grid>
 </Page>

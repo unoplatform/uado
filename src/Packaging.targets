@@ -11,8 +11,8 @@
   <Target Name="_CopyAndroidPackagesForPublishing"
 		  AfterTargets="SignAndroidPackage"
 		  Condition="'$(UnoPackageOutputPath)'!='' and '$(AndroidApplication)'=='true'">
-	<Copy SourceFiles="@(ApkAbiFilesSigned)"
-		DestinationFiles="@(ApkAbiFilesSigned->'$(UnoPackageOutputPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
+	<Copy SourceFiles="@(ApkAbiFilesAligned)"
+		DestinationFiles="@(ApkAbiFilesAligned->'$(UnoPackageOutputPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="_CopyUWPPackagesForPublishing"

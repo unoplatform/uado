@@ -35,7 +35,7 @@
 
 					<!-- Profile Button -->
 					<AppBarButton Style="{StaticResource UserProfileButtonStyle}"
-								  Command="{Binding ToProfilePage}"/>
+								  Command="{Binding ToProfilePage}" />
 				</CommandBar.PrimaryCommands>
 			</CommandBar>
 
@@ -48,7 +48,7 @@
 							HorizontalAlignment="Center">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Organizations.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
@@ -68,7 +68,7 @@
 				  Grid.Row="1">
 
 				<!-- Message -->
-				<TextBlock Text="An error occurred, please reload to try again."
+				<TextBlock Text="{Binding Organizations.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 						   Style="{StaticResource Typo10}"
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"

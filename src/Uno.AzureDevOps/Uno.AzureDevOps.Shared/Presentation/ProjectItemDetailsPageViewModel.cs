@@ -18,6 +18,10 @@ using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
 
+#if !__WASM__
+using Connectivity = Xamarin.Essentials;
+#endif
+
 namespace Uno.AzureDevOps.Presentation
 {
 	[Windows.UI.Xaml.Data.Bindable]
@@ -29,6 +33,7 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<List<RichWorkItem>> _childrenWorkItems;
 		private ITaskNotifier<RichWorkItem> _parentWorkItem;
 		private ITaskNotifier<RichWorkItem> _workItem;
+		private ITaskNotifier<UserProfile> _userProfile;
 		private string _pageTitle;
 		private bool _showDoubleBackTip;
 		private bool _hasRelatedWork;
@@ -104,6 +109,12 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => ParentWorkItem, ref _parentWorkItem, value);
 		}
 
+		public ITaskNotifier<UserProfile> UserProfile
+		{
+			get => _userProfile;
+			set => Set(() => UserProfile, ref _userProfile, value);
+		}
+
 		public ICommand ReloadPage { get; }
 
 		public ICommand HideDoubleBackTip { get; }
@@ -124,7 +135,7 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage.Execute(workItem);
 		}
 
-		public async void OnNavigatedTo(RichWorkItem workItem)
+		public async Task OnNavigatedTo(RichWorkItem workItem)
 		{
 			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(workItem));
 
@@ -132,9 +143,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			PageTitle = workItemType + " " + workItem.Item.WorkItem.Id;
 
-			var userProfile = await _vstsRepository.GetUserProfile();
-
-			CanAssignToMe = !userProfile.Name.Equals(workItem.Item?.AssignedTo?.DisplayName);
+			await LoadUserProfile(workItem);
 
 			LoadRelatedWorkItems();
 
@@ -183,13 +192,29 @@ namespace Uno.AzureDevOps.Presentation
 
 		private async void AssignToMeHandler(IUICommand command)
 		{
-			var workItem = await WorkItem.Task;
-			await _vstsRepository.AssignToMe(workItem.Item.WorkItem);
+			// As AssignToMe has no return type we try catch to safely call endpoints
+			try
+			{
+				var workItem = await WorkItem.Task;
+				await _vstsRepository.AssignToMe(workItem.Item.WorkItem);
+				var updatedWorkItem = await _vstsRepository.GetWorkItem(workItem.ProjectId, workItem.Item.WorkItem.Id.Value);
 
-			var updatedWorkItem = await _vstsRepository.GetWorkItem(workItem.ProjectId, workItem.Item.WorkItem.Id.Value);
-
-			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(new RichWorkItem(updatedWorkItem, workItem.Type, workItem.ProjectId)));
-			CanAssignToMe = false;
+				WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(new RichWorkItem(updatedWorkItem, workItem.Type, workItem.ProjectId)));
+				CanAssignToMe = false;
+			}
+			catch (Exception e)
+			{
+				Console.Error.Write(e.Message + " " + e.InnerException);
+				var errorMessage = "An error occured, please try again";
+#if !__WASM__
+				if (Connectivity.Connectivity.NetworkAccess != Connectivity.NetworkAccess.Internet)
+				{
+					errorMessage = "No connection detected, please check your device settings to ensure a network connection is setup.";
+				}
+#endif
+				var messageDialog = new MessageDialog(errorMessage);
+				await messageDialog.ShowAsync();
+			}
 		}
 
 		private async Task<List<RichWorkItem>> GetRelatedWorkItems()
@@ -220,6 +245,19 @@ namespace Uno.AzureDevOps.Presentation
 			HasParent = relatedWorkItems.Items.Count > 0;
 
 			return relatedWorkItems.Items.FirstOrDefault();
+		}
+
+		private async Task<UserProfile> GetUserProfile()
+		{
+			return await _vstsRepository.GetUserProfile();
+		}
+
+		private async Task LoadUserProfile(RichWorkItem workItem)
+		{
+			UserProfile = new TaskNotifier<UserProfile>(GetUserProfile());
+			var userProfile = await UserProfile.Task;
+
+			CanAssignToMe = !userProfile.Name.Equals(workItem.Item?.AssignedTo?.DisplayName);
 		}
 
 		[SuppressMessage("Brackets and parenthesis issue", "SA1009", Justification = "Syntax is fine like that, if this is correct it creates another issue that recreates this issue afterwards")]

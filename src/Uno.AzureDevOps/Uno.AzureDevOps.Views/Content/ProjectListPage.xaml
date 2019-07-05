@@ -97,7 +97,7 @@
 							HorizontalAlignment="Center">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Projects.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
@@ -117,7 +117,7 @@
 				  Grid.Row="1">
 
 				<!-- Message -->
-				<TextBlock Text="An error occurred, please reload to try again."
+				<TextBlock Text="{Binding Projects.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 						   Style="{StaticResource Typo10}"
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"
@@ -147,7 +147,7 @@
 								HorizontalAlignment="Left"
 								Margin="16,16,0,12"
 								Grid.Row="0" />
-				
+
 				<!-- Recent Project list -->
 				<ListView ItemsSource="{Binding Projects.Result}"
 						  ItemTemplate="{StaticResource ProjectItemTemplate}"

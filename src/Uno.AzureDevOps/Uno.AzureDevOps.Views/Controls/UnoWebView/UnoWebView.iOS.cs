@@ -1,5 +1,4 @@
 ﻿#if __IOS__
-using System;
 using Foundation;
 using UIKit;
 using WebKit;
@@ -7,10 +6,18 @@ using WebKit;
 namespace Uno.AzureDevOps.Views.Controls
 {
 	partial class UnoWebView
-    {
+	{
+
 		partial void ClearCacheAndCookies()
 		{
 			NSUrlCache.SharedCache.RemoveAllCachedResponses();
+
+			// Calling both methods as there are cookies in both SharedStorage & HttpCookieStore even if ios >= 11
+			var cookieStorage = NSHttpCookieStorage.SharedStorage;
+			foreach (var cookie in cookieStorage.Cookies)
+			{
+				cookieStorage.DeleteCookie(cookie);
+			}
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
@@ -21,13 +28,6 @@ namespace Uno.AzureDevOps.Views.Controls
 						WKWebsiteDataStore.DefaultDataStore.HttpCookieStore.DeleteCookie(cookie, null);
 					}
 				});
-			}
-			else
-			{
-				foreach (var cookie in NSHttpCookieStorage.SharedStorage.Cookies)
-				{
-					NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
-				}
 			}
 		}
 	}

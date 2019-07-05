@@ -19,6 +19,7 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IStackNavigationService _navigationService;
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IVSTSRepository _vstsRespository;
+		private ITaskNotifier<UserProfile> _userProfile;
 		private string _appVersion;
 
 		public ProfilePageViewModel()
@@ -27,17 +28,21 @@ namespace Uno.AzureDevOps.Presentation
 			_authenticationService = SimpleIoc.Default.GetInstance<IAuthenticationService>();
 			_vstsRespository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
 
-			User = new TaskNotifier<UserProfile>(_vstsRespository.GetUserProfile());
+			UserProfile = new TaskNotifier<UserProfile>(_vstsRespository.GetUserProfile());
 			Logout = new RelayCommand(() => _authenticationService.Logout());
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
 
-			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/uno.azuredevops")));
+			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/Uado")));
 
 			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
 
-		public ITaskNotifier<UserProfile> User { get; private set; }
+		public ITaskNotifier<UserProfile> UserProfile
+		{
+			get => _userProfile;
+			set => Set(() => UserProfile, ref _userProfile, value);
+		}
 
 		public ICommand ReloadPage { get; }
 
@@ -55,7 +60,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		private void ReloadPageCommand()
 		{
-			User = new TaskNotifier<UserProfile>(_vstsRespository.GetUserProfile());
+			UserProfile = new TaskNotifier<UserProfile>(_vstsRespository.GetUserProfile());
 		}
 	}
 }

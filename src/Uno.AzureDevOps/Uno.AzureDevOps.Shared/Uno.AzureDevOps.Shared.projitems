@@ -68,8 +68,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\ISecureStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\IVSTSRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\VSTSRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\ClientConstants.cs" />
@@ -82,15 +80,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\AsyncCommand.Generic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\IAsyncCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\IAsyncCommand.Generic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Wasm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\ITaskNotifier.Generic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Tasks\TaskNotifier.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Version\VersionHelper.Xamarin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Module.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\AboutPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\LoginPageViewModel.cs" />

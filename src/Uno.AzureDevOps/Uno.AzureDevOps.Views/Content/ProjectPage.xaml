@@ -127,7 +127,7 @@
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding LoadingSuccess, Converter={StaticResource BoolToInvertBool}}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
@@ -147,7 +147,7 @@
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="An error occurred, please reload to try again."
+			<TextBlock Text="{Binding Teams.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
@@ -175,7 +175,8 @@
 
 			<!-- Teams ComboBox -->
 			<!-- The combobox is disabled if only one item exists in its list -->
-			<ComboBox ItemsSource="{Binding Teams.Result}"
+			<ComboBox x:Name="TeamsComboBox"
+					  ItemsSource="{Binding Teams.Result}"
 					  SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"
 					  ItemTemplate="{StaticResource TeamComboBoxItemTemplate}"
 					  Height="{StaticResource SmallComboBoxHeight}"
@@ -216,7 +217,8 @@
 
 				<!-- Iterations ComboBox -->
 				<!-- The combobox is disabled if only one item exists in its list -->
-				<ComboBox Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+				<ComboBox x:Name="IterationsComboBox"
+						  Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 						  ItemsSource="{Binding Iterations.Result}"
 						  IsEnabled="{Binding Iterations.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
 						  SelectedItem="{Binding SelectedIteration, Mode=TwoWay}"
@@ -249,7 +251,7 @@
 					  BorderThickness="0,0,0,1">
 
 					<!-- Progress Ring -->
-					<ProgressRing IsActive="{Binding Iterations.IsExecuting}"
+					<ProgressRing IsActive="True"
 								  Foreground="{StaticResource Color03Brush}"
 								  Height="20"
 								  Width="20"
@@ -265,7 +267,7 @@
 						  IsItemClickEnabled="True"
 						  ItemClick="ListView_ItemClick"
 						  Grid.Row="1"
-						  Padding="0,0,0,80"/>
+						  Padding="0,0,0,80" />
 
 				<!-- Empty List Message -->
 				<TextBlock Text="No work items in this iteration"
@@ -273,18 +275,19 @@
 						   Style="{StaticResource Typo15}"
 						   Margin="16,12"
 						   Grid.Row="1" />
-		
+
 				<!-- Error state for work items list -->
 				<Grid Visibility="{Binding IterationWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				      Background="{StaticResource Color07Brush}"
-				      Grid.Row="1">
+					  Background="{StaticResource Color07Brush}"
+					  Grid.Row="1">
 
 					<!-- Message -->
-					<TextBlock Text="An error occurred, please try again."
-					           Style="{StaticResource Typo10}"
-					           HorizontalAlignment="Center"
-					           VerticalAlignment="Center"
-					           TextAlignment="Center"/>
+					<TextBlock Text="{Binding IterationWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+							   Style="{StaticResource Typo10}"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   TextAlignment="Center"
+							   Margin="25,0,25,24" />
 				</Grid>
 
 				<!-- Loading State -->
@@ -295,7 +298,7 @@
 								HorizontalAlignment="Center">
 
 						<!-- Progress Ring -->
-						<ProgressRing IsActive="{Binding IterationWorkItems.IsExecuting}"
+						<ProgressRing IsActive="True"
 									  Foreground="{StaticResource Color03Brush}"
 									  Height="20"
 									  Width="20"
@@ -308,6 +311,18 @@
 								   Style="{StaticResource Typo08}" />
 					</StackPanel>
 				</Grid>
+
+				<!-- ComboBox Popup BG 1 -->
+				<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
+					  Background="Black"
+					  Opacity="0.6"
+					  Grid.RowSpan="2" />
+
+				<!-- ComboBox Popup BG 2 -->
+				<Grid Visibility="{Binding IsDropDownOpen, ElementName=IterationsComboBox, Converter={StaticResource TrueToVisible}}"
+					  Background="Black"
+					  Opacity="0.6"
+					  Grid.RowSpan="2" />
 			</Grid>
 
 			<!-- Members -->
@@ -380,17 +395,17 @@
 
 				<!-- Error state for member listview -->
 				<Grid Visibility="{Binding TeamMembers.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				      Background="{StaticResource Color07Brush}">
+					  Background="{StaticResource Color07Brush}">
 
 					<!-- Message -->
-					<TextBlock Text="An error occurred, please try again."
+					<TextBlock Text="{Binding TeamMembers.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 							   Style="{StaticResource Typo10}"
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"
 							   TextAlignment="Center"
 							   Margin="50,0,50,48" />
 				</Grid>
-				
+
 
 				<!-- Loading State -->
 				<Grid Visibility="{Binding TeamMembers.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
@@ -399,7 +414,7 @@
 								HorizontalAlignment="Center">
 
 						<!-- Progress Ring -->
-						<ProgressRing IsActive="{Binding TeamMembers.IsExecuting}"
+						<ProgressRing IsActive="True"
 									  Foreground="{StaticResource Color03Brush}"
 									  Height="20"
 									  Width="20"

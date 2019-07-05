@@ -18,6 +18,8 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
 
+		private ITaskNotifier<List<AccountData>> _organizations;
+
 		public OrganizationListPageViewModel()
 		{
 			_navigationService = SimpleIoc.Default.GetInstance<IStackNavigationService>();
@@ -29,12 +31,14 @@ namespace Uno.AzureDevOps.Presentation
 
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 
-			Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
-
 			ReloadPage = new RelayCommand(() => Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations()));
 		}
 
-		public ITaskNotifier<List<AccountData>> Organizations { get; private set; }
+		public ITaskNotifier<List<AccountData>> Organizations
+		{
+			get => _organizations;
+			set => Set(() => Organizations, ref _organizations, value);
+		}
 
 		public ICommand ToProjectListPage { get; }
 
@@ -43,6 +47,15 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToProfilePage { get; }
 
 		public ICommand ReloadPage { get; }
+
+		public void OnNavigatedTo()
+		{
+			// Check IsFaulted too here as user might come from ProfilePage
+			if (Organizations == null || Organizations.IsFaulted)
+			{
+				Organizations = new TaskNotifier<List<AccountData>>(GetOrganizations());
+			}
+		}
 
 		public void NavigateToProjectListPage(AccountData account)
 		{

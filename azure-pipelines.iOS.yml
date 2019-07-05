@@ -1,3 +1,5 @@
+# iOS-only pipeline for internal iOS builds
+
 trigger:
   batch: true
   branches:
@@ -10,10 +12,13 @@ pr:
       - master
 
 jobs:
-  - job: Windows
+  - job: macOS
 
     pool:
-      name: 'Hosted VS2017'
+      name: Default
+      demands:
+        - Agent.OS -equals Darwin
+        - Xamarin.iOS -equals Latest
 
     workspace:
       clean: all
@@ -23,16 +28,20 @@ jobs:
         value: $(Build.ArtifactStagingDirectory)
 
     strategy:
-      maxParallel: 3
+      maxParallel: 1
       matrix:
-        Release_UWP:
-          BuildPlatform: UWP
-        Release_Android:
-          BuildPlatform: Android
-        Release_Wasm:
-          BuildPlatform: Wasm
+        Release_iPhone:
+          BuildPlatform: iPhone
 
     steps:
+
+    #Fixes gitversion task
+    - bash: |
+        shopt -s nullglob
+        function join_by { local IFS="$1"; shift; echo "$*"; }
+        lib_path=$(join_by ';' $(Agent.WorkFolder)/_tasks/GitVersion*/4.0.*/lib/osx)
+        echo LD_LIBRARY_PATH: $lib_path
+        echo "##vso[task.setvariable variable=LD_LIBRARY_PATH]$lib_path"
 
     - task: gittools.gitversion.gitversion-task.GitVersion@4
 
@@ -46,7 +55,7 @@ jobs:
         restoreSolution: src/Uno.AzureDevOps.sln
         feedsToUse: select
 
-    - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
+    - powershell: ((Get-Content src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Encoding UTF8
       displayName: Set client secrets
 
     - task: MSBuild@1

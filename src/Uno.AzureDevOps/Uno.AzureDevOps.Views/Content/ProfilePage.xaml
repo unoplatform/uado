@@ -33,14 +33,14 @@
 		<CommandBar Content="Profile" />
 
 		<!-- Loading State -->
-		<Grid Visibility="{Binding User.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color02Brush}"
 			  Grid.Row="1">
 			<StackPanel VerticalAlignment="Center"
 						HorizontalAlignment="Center">
 
 				<!-- Progress Ring -->
-				<ProgressRing IsActive="{Binding User.IsExecuting}"
+				<ProgressRing IsActive="True"
 							  Foreground="{StaticResource Color03Brush}"
 							  Height="20"
 							  Width="20"
@@ -55,12 +55,12 @@
 		</Grid>
 
 		<!-- Error State -->
-		<Grid Visibility="{Binding User.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+		<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 			  Background="{StaticResource Color07Brush}"
 			  Grid.Row="1">
 
 			<!-- Message -->
-			<TextBlock Text="An error occurred, please reload to try again."
+			<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 					   Style="{StaticResource Typo10}"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
@@ -76,7 +76,7 @@
 		</Grid>
 
 		<!-- Content -->
-		<Grid Visibility="{Binding User.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
+		<Grid Visibility="{Binding UserProfile.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
 			  Grid.Row="1">
 
 			<Grid x:Name="RootLayout">
@@ -100,7 +100,7 @@
 							  Margin="16,0,0,0">
 
 							<!-- Initials -->
-							<TextBlock Text="{Binding User.Result.Name, Converter={StaticResource MemberInitials}}"
+							<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
 									   Style="{StaticResource MemberInitialsTextBlock}" />
 
 							<!-- Image -->
@@ -108,7 +108,7 @@
 								  Height="32"
 								  Width="32">
 								<Grid.Background>
-									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding User.Result.Image}" />
+									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
 								</Grid.Background>
 							</Grid>
 						</Grid>
@@ -119,12 +119,12 @@
 									Grid.Column="1">
 
 							<!-- Name -->
-							<TextBlock Text="{Binding User.Result.Name}"
+							<TextBlock Text="{Binding UserProfile.Result.Name}"
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 
 							<!-- Email -->
-							<TextBlock Text="{Binding User.Result.Email}"
+							<TextBlock Text="{Binding UserProfile.Result.Email}"
 									   Style="{StaticResource Typo18}"
 									   TextWrapping="NoWrap"
 									   Margin="0,-2,0,0" />
@@ -144,22 +144,21 @@
 				<!-- Source Code Info -->
 				<StackPanel Grid.Row="1">
 
-					<!-- Message -->
-					<TextBlock Text="Source Code available at"
-							   Style="{StaticResource Typo13}"
-							   HorizontalAlignment="Center" />
+						<!-- Message -->
+						<TextBlock Text="Source Code available on"
+								   Style="{StaticResource Typo13}"
+								   HorizontalAlignment="Center" />
 
-					<!-- Hyperlink to source code -->
-					<HyperlinkButton Content="https://github.com/nventive/uno.azuredevops"
-									 HorizontalAlignment="Center"
-									 Command="{Binding NavigateToSourceCode}"
-									 Margin="16,-6,16,32" />
+						<!-- Hyperlink to source code -->
+						<HyperlinkButton Content="GitHub"
+										 HorizontalAlignment="Center"
+										 Command="{Binding NavigateToSourceCode}" />
 
-					<!-- Version Number -->
+						<!-- Version Number -->
 					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
 							   Style="{StaticResource Typo18}"
 							   HorizontalAlignment="Center"
-							   Margin="0,4,0,19">
+							   Margin="0,4,0,0">
 						<Run Text="Version" />
 						<Run Text="{Binding AppVersion}" />
 					</TextBlock>
@@ -168,7 +167,7 @@
 					<Button Content="Log Out"
 							Style="{StaticResource PrimaryButtonStyle}"
 							Command="{Binding Logout}"
-							Margin="16,0,16,24" />
+							Margin="16,19,16,24" />
 				</StackPanel>
 			</Grid>
 		</Grid>

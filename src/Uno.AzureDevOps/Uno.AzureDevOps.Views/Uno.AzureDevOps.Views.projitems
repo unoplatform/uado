@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.UWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.Wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromBoolToCustomStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEmptyStringToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromDateToStringConverter.cs" />
