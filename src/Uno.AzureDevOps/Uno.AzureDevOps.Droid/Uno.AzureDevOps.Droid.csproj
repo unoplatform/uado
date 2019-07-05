@@ -143,17 +143,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\UserProfilePlaceholder.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\UserProfilePlaceholder.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\UserProfilePlaceholder.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\UserProfilePlaceholder.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\more.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\more.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\more.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\more.png" />
-    <LinkDescription Include="LinkerExclusions.xml">
-      <SubType>Designer</SubType>
-    </LinkDescription>
     <Content Include="Resources\values\Colors.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -171,9 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\splashscreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\uno.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\splashscreen.png" />
