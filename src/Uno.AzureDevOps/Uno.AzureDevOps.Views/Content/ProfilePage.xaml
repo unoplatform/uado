@@ -83,6 +83,7 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*" />
 					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
 				<StackPanel>
@@ -141,20 +142,28 @@
 							Style="{StaticResource ListItemButtonStyle}" />
 				</StackPanel>
 
+				<!--<Grid Grid.Row="1" HorizontalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+				</Grid>-->
+
 				<!-- Source Code Info -->
 				<StackPanel Grid.Row="1">
 
-						<!-- Message -->
-						<TextBlock Text="Source Code available on"
+					<!-- Message -->
+					<TextBlock Text="Source Code available on"
 								   Style="{StaticResource Typo13}"
 								   HorizontalAlignment="Center" />
 
-						<!-- Hyperlink to source code -->
-						<HyperlinkButton Content="GitHub"
+					<!-- Hyperlink to source code -->
+					<HyperlinkButton Content="GitHub"
 										 HorizontalAlignment="Center"
 										 Command="{Binding NavigateToSourceCode}" />
 
-						<!-- Version Number -->
+					<!-- Version Number -->
 					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
 							   Style="{StaticResource Typo18}"
 							   HorizontalAlignment="Center"
@@ -162,13 +171,14 @@
 						<Run Text="Version" />
 						<Run Text="{Binding AppVersion}" />
 					</TextBlock>
-
-					<!-- Log out button -->
-					<Button Content="Log Out"
-							Style="{StaticResource PrimaryButtonStyle}"
-							Command="{Binding Logout}"
-							Margin="16,19,16,24" />
 				</StackPanel>
+
+				<!-- Log out button -->
+				<Button Grid.Row="2"
+						Content="Log Out"
+						Style="{StaticResource PrimaryButtonStyle}"
+						Command="{Binding Logout}"
+						Margin="16,19,16,24" />
 			</Grid>
 		</Grid>
 	</Grid>
