@@ -25,7 +25,7 @@ jobs:
         value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
       - name: ANDROID_NDK_PATH
         value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-      - name:AndroidNdkDirectory
+      - name: AndroidNdkDirectory
         value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
 
     strategy:
