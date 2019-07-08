@@ -77,7 +77,8 @@
 							   VerticalAlignment="Center"
 							   TextWrapping="NoWrap"
 							   Margin="10,0"
-							   Grid.Column="1" />
+							   Grid.Column="1">
+					</TextBlock>
 				</Grid>
 
 				<!-- Separator -->
