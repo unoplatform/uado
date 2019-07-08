@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="82d129c9-82b4-4d68-96fb-95f22be36129" Publisher="CN=nventive" Version="1.0.0.0" />
+  <Identity Name="uno.platform.azuredevops" Publisher="CN=nventive" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="1897f84c-689e-44d3-a8b7-c521a62818ae" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Uno.AzureDevOps</DisplayName>
-    <PublisherDisplayName>Uno.AzureDevOps</PublisherDisplayName>
+    <DisplayName>uado</DisplayName>
+    <PublisherDisplayName>nventive</PublisherDisplayName>
     <Logo>Assets\LaunchIcon\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
