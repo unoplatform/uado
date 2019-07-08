@@ -66,14 +66,14 @@ namespace Uno.AzureDevOps.Framework.Tasks
 			taskToExecute.ContinueWith(
 				task =>
 				{
-#if !__WASM__
-					if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-					{
-						IsInternetFaulted = true;
-					}
-#endif
 					if (task.IsFaulted)
 					{
+#if !__WASM__
+						if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+						{
+							IsInternetFaulted = true;
+						}
+#endif
 						Console.Error.WriteLine(task.Exception);
 						_onFaulted?.Invoke(task.Exception);
 					}
