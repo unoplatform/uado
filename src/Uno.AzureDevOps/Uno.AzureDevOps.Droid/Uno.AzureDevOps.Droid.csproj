@@ -147,6 +147,10 @@
 		</AndroidResource>
 	</ItemGroup>
 	<ItemGroup>
+		<AndroidResource Include="Resources\mipmap-v26\ic_launcher.xml" />
+		<AndroidResource Include="Resources\drawable\ic_launcher_round.xml" />
+	</ItemGroup>
+	<ItemGroup>
 		<!-- DRAWABLES START -->
 		<!-- 
 		**** WARNING **** WARNING **** WARNING **** WARNING **** WARNING ****
