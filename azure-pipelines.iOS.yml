@@ -58,6 +58,9 @@ jobs:
     - powershell: ((Get-Content src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Encoding UTF8
       displayName: Set client secrets
 
+    - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--appcenter-secret-ios--','$(AppCenterSecretiOS)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
+      displayName: Set AppCenter secret
+
     - task: MSBuild@1
       inputs:
         solution: src/Uno.AzureDevOps.sln
