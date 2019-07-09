@@ -27,6 +27,7 @@ jobs:
         value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
       - name: AndroidNdkDirectory
         value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+      - group: 'UADO Keystore'
 
     strategy:
       maxParallel: 3
@@ -46,6 +47,12 @@ jobs:
       inputs:
         versionSpec: 4.9.1
 
+    - task: DownloadSecureFile@1
+      condition: eq(variables['BuildPlatform'], 'Android')
+      name: Keystore
+      inputs:
+        secureFile: nventive.jks
+
     - task: NuGetCommand@2
       inputs:
         command: restore
@@ -64,6 +71,7 @@ jobs:
         configuration: Release
         platform: $(BuildPlatform)
         restoreNugetPackages: false
+        msbuildArguments: /p:AndroidSigningKeyStore=$(Keystore.secureFilePath) /p:AndroidSigningKeyAlias=$(AndroidSigningKeyAlias) /p:AndroidSigningKeyPass=$(AndroidSigningKeyPass) /p:AndroidSigningStorePass=$(AndroidSigningStorePass)
 
     - task: PublishBuildArtifacts@1
       inputs:
