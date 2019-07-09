@@ -289,6 +289,13 @@
 							   VerticalAlignment="Center"
 							   TextAlignment="Center"
 							   Margin="25,0,25,24" />
+
+					<!-- Reload button -->
+					<Button Content="Reload"
+							Command="{Binding ReloadPage}"
+							Style="{StaticResource ReloadButtonStyle}"
+							VerticalAlignment="Bottom"
+							Margin="16,22" />
 				</Grid>
 
 				<!-- Loading State -->
