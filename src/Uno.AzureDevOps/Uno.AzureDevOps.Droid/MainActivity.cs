@@ -10,6 +10,10 @@ using Uno.AzureDevOps.Client;
 namespace Uno.AzureDevOps.Droid
 {
 	[Activity(
+		// We need to set Name, otherwise a random one is generated at every build, which causes the app to be removed from the home screen on app-updates. 
+		// The Name must be the fully qualified name of the class, with the namespace part in lowercase.
+		// https://developer.xamarin.com/releases/android/xamarin.android_5/xamarin.android_5.1/#Android_Callable_Wrapper_Naming
+		Name = "uno.azuredevops.droid.MainActivity",
 		Theme = "@style/splashscreen",
 		MainLauncher = true,
 		ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,

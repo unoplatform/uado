@@ -13,7 +13,7 @@ jobs:
   - job: Windows
 
     pool:
-      name: 'Hosted VS2017'
+      name: 'Hosted Windows 2019 with VS2019'
 
     workspace:
       clean: all
@@ -21,6 +21,12 @@ jobs:
     variables:
       - name: UnoPackageOutputPath
         value: $(Build.ArtifactStagingDirectory)
+      - name: ANDROID_NDK_HOME
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+      - name: ANDROID_NDK_PATH
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+      - name: AndroidNdkDirectory
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
 
     strategy:
       maxParallel: 3
