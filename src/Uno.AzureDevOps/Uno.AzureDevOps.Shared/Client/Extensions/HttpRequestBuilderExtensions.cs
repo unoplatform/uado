@@ -8,7 +8,8 @@ namespace Uno.AzureDevOps.Client
 		{
 			return builder
 				.QueryParameter("api-version", "5.0")
-				.Header("Authorization", "Bearer " + accessToken);
+				.Header("Authorization", "Bearer " + accessToken)
+				.Header("Accept-Encoding", "gzip");
 		}
 	}
 }

@@ -18,11 +18,17 @@ namespace Uno.AzureDevOps
 		public static void Initialize(SimpleIoc serviceProvider)
 		{
 			var adoUnauthorizedCodes = new[] { HttpStatusCode.NonAuthoritativeInformation, HttpStatusCode.Unauthorized };
+			var unoHttpClientHandler = new UnoHttpClientHandler();
+
+			// iOS & wasm httpclient enabled by default
+#if NETFX_CORE || __ANDROID__
+			unoHttpClientHandler.AutomaticDecompression = DecompressionMethods.GZip;
+#endif
 
 			// Client wire-up
-			serviceProvider.Register(() => new HttpClient(new UnoHttpClientHandler(), false) { BaseAddress = new Uri(ClientConstants.BaseAzureDevOpsApiUrl) }, "VSSPS");
+			serviceProvider.Register(() => new HttpClient(unoHttpClientHandler, false) { BaseAddress = new Uri(ClientConstants.BaseAzureDevOpsApiUrl) }, "VSSPS");
 
-			serviceProvider.Register(() => new HttpClient(new UnoHttpClientHandler(), false) { BaseAddress = new Uri(ClientConstants.AzureDevOpsRepositoryPath) }, "Repo");
+			serviceProvider.Register(() => new HttpClient(unoHttpClientHandler, false) { BaseAddress = new Uri(ClientConstants.AzureDevOpsRepositoryPath) }, "Repo");
 
 			serviceProvider.Register<IHttpRequestService>(
 				() => new HttpRequestService(
