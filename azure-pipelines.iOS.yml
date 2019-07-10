@@ -12,64 +12,76 @@ pr:
       - master
 
 jobs:
-  - job: macOS
+- job: macOS
 
-    pool:
-      name: Default
-      demands:
-        - Agent.OS -equals Darwin
-        - Xamarin.iOS -equals Latest
+  pool:
+    name: Default
+    demands:
+    - Agent.OS -equals Darwin
+    - Xamarin.iOS -equals Latest
 
-    workspace:
-      clean: all
+  workspace:
+    clean: all
 
-    variables:
-      - name: UnoPackageOutputPath
-        value: $(Build.ArtifactStagingDirectory)
+  variables:
+  - name: UnoPackageOutputPath
+    value: $(Build.ArtifactStagingDirectory)
+  - group: 'iOS Signing'
 
-    strategy:
-      maxParallel: 1
-      matrix:
-        Release_iPhone:
-          BuildPlatform: iPhone
+  strategy:
+    maxParallel: 1
+    matrix:
+      Release_iPhone:
+        BuildPlatform: iPhone
 
-    steps:
+  steps:
 
-    #Fixes gitversion task
-    - bash: |
-        shopt -s nullglob
-        function join_by { local IFS="$1"; shift; echo "$*"; }
-        lib_path=$(join_by ';' $(Agent.WorkFolder)/_tasks/GitVersion*/4.0.*/lib/osx)
-        echo LD_LIBRARY_PATH: $lib_path
-        echo "##vso[task.setvariable variable=LD_LIBRARY_PATH]$lib_path"
+  - task: InstallAppleCertificate@2
+    name: Certificate
+    inputs:
+      certSecureFile: 'nventive.p12'
+      certPwd: $(CertificatePassword)
 
-    - task: gittools.gitversion.gitversion-task.GitVersion@4
+  - task: InstallAppleProvisioningProfile@1
+    name: Profile
+    inputs:
+      provProfileSecureFile: 'Universal_Azure_DevOps_Organizer.mobileprovision'
 
-    - task: NuGetToolInstaller@0
-      inputs:
-        versionSpec: 4.9.1
+  #Fixes gitversion task
+  - bash: |
+      shopt -s nullglob
+      function join_by { local IFS="$1"; shift; echo "$*"; }
+      lib_path=$(join_by ';' $(Agent.WorkFolder)/_tasks/GitVersion*/4.0.*/lib/osx)
+      echo LD_LIBRARY_PATH: $lib_path
+      echo "##vso[task.setvariable variable=LD_LIBRARY_PATH]$lib_path"
 
-    - task: NuGetCommand@2
-      inputs:
-        command: restore
-        restoreSolution: src/Uno.AzureDevOps.sln
-        feedsToUse: select
+  - task: gittools.gitversion.gitversion-task.GitVersion@4
 
-    - powershell: ((Get-Content src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Encoding UTF8
-      displayName: Set client secrets
+  - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: 4.9.1
 
-    - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--appcenter-secret-ios--','$(AppCenterSecretiOS)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
-      displayName: Set AppCenter secret
+  - task: NuGetCommand@2
+    inputs:
+      command: restore
+      restoreSolution: src/Uno.AzureDevOps.sln
+      feedsToUse: select
 
-    - task: MSBuild@1
-      inputs:
-        solution: src/Uno.AzureDevOps.sln
-        configuration: Release
-        platform: $(BuildPlatform)
-        restoreNugetPackages: false
+  - powershell: ((Get-Content src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/ClientConstants.cs -Encoding UTF8
+    displayName: Set client secrets
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        ArtifactName: $(BuildPlatform)
-        PathtoPublish: $(UnoPackageOutputPath)
-        publishLocation: Container
+  - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--appcenter-secret-ios--','$(AppCenterSecretiOS)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
+    displayName: Set AppCenter secret
+
+  - task: MSBuild@1
+    inputs:
+      solution: src/Uno.AzureDevOps.sln
+      configuration: Release
+      platform: $(BuildPlatform)
+      restoreNugetPackages: false
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      ArtifactName: $(BuildPlatform)
+      PathtoPublish: $(UnoPackageOutputPath)
+      publishLocation: Container
