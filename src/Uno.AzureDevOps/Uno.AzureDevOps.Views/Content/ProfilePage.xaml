@@ -79,107 +79,110 @@
 		<Grid Visibility="{Binding UserProfile.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
 			  Grid.Row="1">
 
-			<Grid x:Name="RootLayout">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
+			<ScrollViewer>
+				<Grid x:Name="RootLayout">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 
-				<StackPanel>
+					<StackPanel>
+						<Grid Height="60">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
 
-					<Grid Height="60">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-
-						<Grid Background="{StaticResource Color07Brush}"
-							  CornerRadius="16"
-							  Height="32"
-							  Width="32"
-							  Margin="16,0,0,0">
-
-							<!-- Initials -->
-							<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
-									   Style="{StaticResource MemberInitialsTextBlock}" />
-
-							<!-- Image -->
-							<Grid CornerRadius="16"
+							<Grid Background="{StaticResource Color07Brush}"
+								  CornerRadius="16"
 								  Height="32"
-								  Width="32">
-								<Grid.Background>
-									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
-								</Grid.Background>
+								  Width="32"
+								  Margin="16,0,0,0">
+
+								<!-- Initials -->
+								<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
+										   Style="{StaticResource MemberInitialsTextBlock}" />
+
+								<!-- Image -->
+								<Grid CornerRadius="16"
+									  Height="32"
+									  Width="32">
+									<Grid.Background>
+										<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
+									</Grid.Background>
+								</Grid>
 							</Grid>
+
+							<!-- Info -->
+							<StackPanel Margin="11,12,16,0"
+										VerticalAlignment="Top"
+										Grid.Column="1">
+
+								<!-- Name -->
+								<TextBlock Text="{Binding UserProfile.Result.Name}"
+										   Style="{StaticResource Typo08}"
+										   TextWrapping="NoWrap" />
+
+								<!-- Email -->
+								<TextBlock Text="{Binding UserProfile.Result.Email}"
+										   Style="{StaticResource Typo18}"
+										   TextWrapping="NoWrap"
+										   Margin="0,-2,0,0" />
+							</StackPanel>
 						</Grid>
 
-						<!-- Info -->
-						<StackPanel Margin="11,12,16,0"
-									VerticalAlignment="Top"
-									Grid.Column="1">
+						<!-- Separator -->
+						<Rectangle Fill="{StaticResource Color07Brush}"
+								   Height="1" />
 
-							<!-- Name -->
-							<TextBlock Text="{Binding UserProfile.Result.Name}"
-									   Style="{StaticResource Typo08}"
-									   TextWrapping="NoWrap" />
+						<!-- About Us Button -->
+						<Button Content="About Us"
+								Command="{Binding ToAboutPage}"
+								Style="{StaticResource ListItemButtonStyle}" />
 
-							<!-- Email -->
-							<TextBlock Text="{Binding UserProfile.Result.Email}"
-									   Style="{StaticResource Typo18}"
-									   TextWrapping="NoWrap"
-									   Margin="0,-2,0,0" />
-						</StackPanel>
-					</Grid>
+						<!-- Terms & Conditions Button -->
+						<Button Content="Terms and Conditions"
+								Command="{Binding NavigateToTermsAndConditions}"
+								Style="{StaticResource ListItemButtonStyle}" />
 
-					<!-- Separator -->
-					<Rectangle Fill="{StaticResource Color07Brush}"
-							   Height="1" />
+						<!-- Privacy Policy Button -->
+						<Button Content="Privacy Policy"
+								Command="{Binding NavigateToPrivacyPolicy}"
+								Style="{StaticResource ListItemButtonStyle}" />
+					</StackPanel>
 
-					<!-- About Us Button -->
-					<Button Content="About Us"
-							Command="{Binding ToAboutPage}"
-							Style="{StaticResource ListItemButtonStyle}" />
-				</StackPanel>
+					<!-- Source Code Info -->
+					<StackPanel Grid.Row="1">
 
-				<!--<Grid Grid.Row="1" HorizontalAlignment="Center">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-
-				</Grid>-->
-
-				<!-- Source Code Info -->
-				<StackPanel Grid.Row="1">
-
-					<!-- Message -->
-					<TextBlock Text="Source Code available on"
+						<!-- Message -->
+						<TextBlock Text="Source Code available on"
 								   Style="{StaticResource Typo13}"
 								   HorizontalAlignment="Center" />
 
-					<!-- Hyperlink to source code -->
-					<HyperlinkButton Content="GitHub"
+						<!-- Hyperlink to source code -->
+						<HyperlinkButton Content="GitHub"
 										 HorizontalAlignment="Center"
 										 Command="{Binding NavigateToSourceCode}" />
 
-					<!-- Version Number -->
-					<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
-							   Style="{StaticResource Typo18}"
-							   HorizontalAlignment="Center"
-							   Margin="0,4,0,0">
+						<!-- Version Number -->
+						<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
+								   Style="{StaticResource Typo18}"
+								   HorizontalAlignment="Center"
+								   Margin="0,0,0,0">
 						<Run Text="Version" />
 						<Run Text="{Binding AppVersion}" />
-					</TextBlock>
-				</StackPanel>
+						</TextBlock>
+					</StackPanel>
 
-				<!-- Log out button -->
-				<Button Grid.Row="2"
-						Content="Log Out"
-						Style="{StaticResource PrimaryButtonStyle}"
-						Command="{Binding Logout}"
-						Margin="16,19,16,24" />
-			</Grid>
+					<!-- Log out button -->
+					<Button Grid.Row="2"
+							Content="Log Out"
+							Style="{StaticResource PrimaryButtonStyle}"
+							Command="{Binding Logout}"
+							Margin="16,19,16,24" />
+				</Grid>
+			</ScrollViewer>
 		</Grid>
 	</Grid>
 </Page>
