@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Uno.AzureDevOps.Business.Authentication;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
+using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.AppVersion;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
@@ -32,7 +33,9 @@ namespace Uno.AzureDevOps.Presentation
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
 
-			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri("https://github.com/nventive/Uado")));
+			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.GitHubUadoUrl)));
+			NavigateToPrivacyPolicy = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.PrivacyPolicyUrl)));
+			NavigateToTermsAndConditions = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.TermsAndConditionsUrl)));
 
 			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
@@ -50,6 +53,10 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToAboutPage { get; }
 
 		public ICommand NavigateToSourceCode { get; }
+
+		public ICommand NavigateToPrivacyPolicy { get; }
+
+		public ICommand NavigateToTermsAndConditions { get; }
 
 		public string AppVersion { get; }
 
