@@ -41,7 +41,7 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 
-			ReloadPage = new AsyncCommand(async () => await ReloadPageCommand());
+			ReloadPage = new AsyncCommand(async () => await LoadTeamsAndWorkItems());
 
 			CurrentView = "Sprint";
 		}
@@ -140,17 +140,16 @@ namespace Uno.AzureDevOps.Presentation
 			_project = project;
 			SelectedProjectName = _project.Name;
 
-			// When navigation occurs from a back-nav, we fetch the iteration work items to have the latest set
+			await LoadTeamsAndWorkItems();
+		}
+
+		private async Task LoadTeamsAndWorkItems()
+		{
 			if (_selectedIteration != null)
 			{
 				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetIterationWorkItems(_project, SelectedTeam, _selectedIteration));
 			}
 
-			await LoadTeams();
-		}
-
-		private async Task ReloadPageCommand()
-		{
 			await LoadTeams();
 		}
 

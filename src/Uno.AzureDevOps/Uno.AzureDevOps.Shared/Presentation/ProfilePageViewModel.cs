@@ -20,7 +20,6 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IVSTSRepository _vstsRespository;
 		private ITaskNotifier<UserProfile> _userProfile;
-		private string _appVersion;
 
 		public ProfilePageViewModel()
 		{
@@ -52,11 +51,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		public ICommand NavigateToSourceCode { get; }
 
-		public string AppVersion
-		{
-			get => _appVersion;
-			set => Set(() => AppVersion, ref _appVersion, value);
-		}
+		public string AppVersion { get; }
 
 		private void ReloadPageCommand()
 		{
