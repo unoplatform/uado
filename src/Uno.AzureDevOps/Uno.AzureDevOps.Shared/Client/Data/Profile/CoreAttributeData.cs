@@ -12,6 +12,6 @@ namespace Uno.AzureDevOps.Client
 		public T Value { get; set; }
 
 		[JsonProperty("timeStamp")]
-		public DateTime TimeStamp { get; set; }
+		public DateTimeOffset TimeStamp { get; set; }
 	}
 }

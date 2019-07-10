@@ -22,7 +22,7 @@ namespace Uno.AzureDevOps.Client
 
 		[JsonProperty("timeStamp")]
 
-		public DateTime TimeStamp { get; set; }
+		public DateTimeOffset TimeStamp { get; set; }
 
 		[JsonProperty("id")]
 

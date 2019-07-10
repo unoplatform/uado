@@ -4,9 +4,9 @@ namespace Uno.AzureDevOps.Client
 {
 	public class TeamIterationAttributes
 	{
-		public DateTime? StartDate { get; set; }
+		public DateTimeOffset? StartDate { get; set; }
 
-		public DateTime? FinishDate { get; set; }
+		public DateTimeOffset? FinishDate { get; set; }
 
 		public TimeFrame? TimeFrame { get; set; }
 	}
