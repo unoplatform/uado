@@ -29,6 +29,10 @@
 		<Output TaskParameter="ConsoleOutput"
 				PropertyName="PackageBuildNumber" />
 	</Exec>
+	<PropertyGroup>
+		<!-- Increasing the build number since the commit count was reset when the code went public -->
+		<PackageBuildNumber>$([MSBuild]::Add($(PackageBuildNumber), 305))</PackageBuildNumber>
+	</PropertyGroup>
 
 	<Message Text="Package version: $(PackageVersion)" />
 	<Message Text="Package informational version: $(PackageInformationalVersion)" />
