@@ -7,7 +7,7 @@ But, UADO is more than just a showcase app - **it also is a real app** aiming to
 Lastly, UADO is meant to help you learn and experiment with Uno Platform. As we continue building it you will be able to see how we handle authentication, events etc. See more at 
 https://platform.uno
 
-### How does it look like ? 
+### What does it look like ? 
 
 
 <p>
