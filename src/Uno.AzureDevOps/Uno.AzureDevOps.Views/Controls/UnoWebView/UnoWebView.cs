@@ -34,10 +34,15 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		// Using a DependencyProperty as the backing store for SourceUri.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty SourceUriProperty = DependencyProperty.Register(
-			"SourceUri",
-			typeof(Uri),
-			typeof(UnoWebView),
-			new PropertyMetadata(default(Uri)));
+		"SourceUri",
+		typeof(Uri),
+		typeof(UnoWebView),
+		new PropertyMetadata(default(Uri), (d, e) => OnSourceUriChanged((UnoWebView)d)));
+
+		private static void OnSourceUriChanged(UnoWebView webView)
+		{
+			webView.SetWebView();
+		}
 
 		public Uri NavigatedUri
 		{
@@ -135,7 +140,7 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
 		{
-			Visibility = Visibility.Visible;
+			//Visibility = Visibility.Visible;
 		}
 	}
 }

@@ -52,6 +52,18 @@
 					Margin="16,22" />
 		</Grid>
 
+		<Grid Visibility="{Binding IsConnected, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed}"
+			  Background="{StaticResource Color07Brush}">
+
+			<!-- Message -->
+			<TextBlock Text="No connection detected, please check your device settings to ensure a network connection is setup."
+					   Style="{StaticResource Typo10}"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   TextAlignment="Center"
+					   Margin="0,0,0,48" />
+		</Grid>
+
 		<!-- Content -->
 		<Grid Visibility="{Binding IsAuthenticating.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
 
@@ -77,12 +89,12 @@
 
 				</StackPanel>
 			</wasm:Grid>
-			
+
 			<!-- Login Webview -->
 			<controls:UnoWebView IsClearCacheAndCookies="True"
 								 NavigatedUri="{Binding NavigatedUri, Mode=TwoWay}"
 								 SourceUri="{Binding SourceUri}"
-								 Visibility="Collapsed" />
+								 Visibility="{Binding IsConnected}" />
 		</Grid>
 	</Grid>
 </Page>
