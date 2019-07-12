@@ -48,6 +48,7 @@
 	<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 	<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 	<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+	<PackageReference Include="Uno.Core" Version="1.28.0" />
 	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
 	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
 	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.265" />
