@@ -127,8 +127,12 @@ namespace Uno.AzureDevOps.Views.Controls
 				}
 			}
 #if __IOS__
-			// Needed as webview keeps for unknown reason the token, delete cookies each time avoid this behavior
-			ClearCacheAndCookies();
+			//Only apply clear cache when user logged out once (fixes bug for accept microsoft condition loop login)
+			if (App.LoggedOut)
+			{
+				// Needed as webview keeps for unknown reason the token, delete cookies each time avoid this behavior
+				ClearCacheAndCookies();
+			}
 #endif
 			NavigatedUri = args.Uri;
 		}
