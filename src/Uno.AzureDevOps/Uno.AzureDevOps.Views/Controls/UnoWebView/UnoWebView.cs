@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using GalaSoft.MvvmLight.Ioc;
+using Uno.AzureDevOps.Business.Authentication;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,12 +11,16 @@ namespace Uno.AzureDevOps.Views.Controls
 	[SuppressMessage("", "CA1720", Justification = "Control properties")]
 	public partial class UnoWebView : ContentControl
 	{
+		private static bool _loggedOut;
+		private readonly IAuthenticationService _authenticationService;
 		private WebView _webView;
 		private bool _isFirstNavigation;
 
 		public UnoWebView()
 		{
 			DefaultStyleKey = nameof(UnoWebView);
+			_authenticationService = SimpleIoc.Default.GetInstance<IAuthenticationService>();
+			_authenticationService.LoggedOut += OnLoggedOut;
 
 			Loaded += OnLoaded;
 			Unloaded += OnUnloaded;
@@ -126,20 +132,25 @@ namespace Uno.AzureDevOps.Views.Controls
 					ClearCacheAndCookies();
 				}
 			}
-#if __IOS__
-			//Only apply clear cache when user logged out once (fixes bug for accept microsoft condition loop login)
-			if (App.LoggedOut)
+
+			if (_loggedOut)
 			{
-				// Needed as webview keeps for unknown reason the token, delete cookies each time avoid this behavior
+#if __IOS__
 				ClearCacheAndCookies();
-			}
 #endif
+			}
+
 			NavigatedUri = args.Uri;
 		}
 
 		private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
 		{
 			Visibility = Visibility.Visible;
+		}
+
+		private void OnLoggedOut(LoggedOutEventArgs args)
+		{
+			_loggedOut = true;
 		}
 	}
 }
