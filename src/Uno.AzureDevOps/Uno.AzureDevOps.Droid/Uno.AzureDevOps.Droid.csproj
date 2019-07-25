@@ -52,13 +52,13 @@
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AotAssemblies>true</AotAssemblies>
+		<AndroidAotAdditionalArguments>nodebug,no-write-symbols</AndroidAotAdditionalArguments>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <LangVersion>7.1</LangVersion>
     <BundleAssemblies>false</BundleAssemblies>
     <UseHighDPIResources>true</UseHighDPIResources>
-    <AndroidLinkSkip>
-    </AndroidLinkSkip>
+		<AndroidLinkSkip>$(AssemblyName)</AndroidLinkSkip>
     <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
