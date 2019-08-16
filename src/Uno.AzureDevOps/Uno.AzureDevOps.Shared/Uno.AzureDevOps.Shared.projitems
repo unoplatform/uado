@@ -66,7 +66,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\OnNavigatingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Navigation\StackNavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\ISecureStorage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Storage\SecureStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\IVSTSRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Business\VSTS\VSTSRepository.cs" />
