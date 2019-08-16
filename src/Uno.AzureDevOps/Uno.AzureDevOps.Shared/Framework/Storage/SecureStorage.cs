@@ -21,9 +21,7 @@ namespace Uno.AzureDevOps.Framework.Storage
 	{
 		private const string UadoResourceId = "Uno.AzureDevOps";
 
-#if !__ANDROID__
         private readonly PasswordVault _passwordVault = new PasswordVault();
-#endif
 
 		public bool Delete(string key)
 		{
@@ -78,7 +76,6 @@ namespace Uno.AzureDevOps.Framework.Storage
 			}
 		}
 
-#if !__ANDROID__
         private void DeleteValue(string key, ref bool isDeleted)
 		{
 			var credential = _passwordVault.Retrieve(UadoResourceId, key);
@@ -130,6 +127,5 @@ namespace Uno.AzureDevOps.Framework.Storage
 				isSet = false;
 			}
 		}
-#endif
 	}
 }
