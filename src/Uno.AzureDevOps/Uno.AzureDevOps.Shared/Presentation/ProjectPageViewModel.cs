@@ -12,6 +12,7 @@ using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Commands;
 using Uno.AzureDevOps.Framework.Navigation;
+using Uno.AzureDevOps.Framework.Storage;
 using Uno.AzureDevOps.Framework.Tasks;
 
 namespace Uno.AzureDevOps.Presentation
@@ -21,6 +22,7 @@ namespace Uno.AzureDevOps.Presentation
 	{
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
+		private readonly ISecureStorage secureStorage;
 
 		private string _currentView;
 		private bool _loadingSuccess;
@@ -28,10 +30,12 @@ namespace Uno.AzureDevOps.Presentation
 		private TeamProjectReference _project;
 		private TeamSettingsIteration _selectedIteration;
 		private WebApiTeam _selectedTeam;
+
 		private ITaskNotifier<List<RichWorkItem>> _iterationWorkItems;
 		private ITaskNotifier<List<TeamSettingsIteration>> _iterations;
 		private ITaskNotifier<List<TeamMember>> _teamMembers;
 		private ITaskNotifier<List<WebApiTeam>> _teams;
+		private ITaskNotifier<TeamProjectReference> _savedProject;
 
 		public ProjectPageViewModel()
 		{
@@ -164,6 +168,11 @@ namespace Uno.AzureDevOps.Presentation
 		private async Task<List<WebApiTeam>> GetTeams(TeamProjectReference project)
 		{
 			return await _vstsRepository.GetTeams(project.Id);
+		}
+
+		private async Task<TeamProjectReference> GetProject(TeamProjectReference project)
+		{
+			return await _vstsRepository.GetTeamProjectReference(project.Id);
 		}
 
 		private async Task<List<TeamMember>> GetTeamMembers(TeamProjectReference project, WebApiTeam team)

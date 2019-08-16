@@ -49,6 +49,18 @@ namespace Uno.AzureDevOps.Business.VSTS
 				ct);
 		}
 
+		public Task<TeamProjectReference> GetTeamProjectReference(Guid projectId, CancellationToken ct = default)
+		{
+			return _authenticationService.AuthenticatedExecution(
+				async (token, authData) =>
+				{
+					var project = await _teamClient.GetProject(_accountName, projectId, authData.AccessToken);
+
+					return project;
+				},
+				ct);
+		}
+
 		public Task<TeamSetting> GetTeamSettings(Guid projectId, Guid teamId, CancellationToken ct = default)
 		{
 			return _authenticationService.AuthenticatedExecution(

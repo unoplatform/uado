@@ -13,6 +13,8 @@ namespace Uno.AzureDevOps.Business.VSTS
 
 		Task<List<TeamProjectReference>> GetTeamProjectReferences(CancellationToken ct = default);
 
+		Task<TeamProjectReference> GetTeamProjectReference(Guid projectId, CancellationToken ct = default);
+
 		Task<List<AccountData>> GetOrganizations(CancellationToken ct = default);
 
 		Task<List<WebApiTeam>> GetTeams(Guid projectId, CancellationToken ct = default);
