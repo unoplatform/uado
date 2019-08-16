@@ -75,6 +75,22 @@ namespace Uno.AzureDevOps.Client
 			}
 		}
 
+		public async Task<TeamProjectReference> GetProject(
+			string accountName,
+			Guid projectId,
+			string accessToken,
+			CancellationToken ct = default)
+		{
+			using (var builder = _httpRequestService.RequestBuilderFactory.Create())
+			{
+				var projectReference = await builder
+					.SetDefaultADORequestValues(accessToken)
+					.Get<TeamProjectReference>($"{accountName}/_apis/projects/{projectId}", ct);
+
+				return projectReference;
+			}
+		}
+
 		public async Task<List<TeamMember>> GetTeamMembers(string accountName, Guid projectId, Guid teamId, string accessToken, CancellationToken ct = default)
 		{
 			using (var builder = _httpRequestService.RequestBuilderFactory.Create())

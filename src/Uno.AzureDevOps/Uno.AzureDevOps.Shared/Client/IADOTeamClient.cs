@@ -19,6 +19,12 @@ namespace Uno.AzureDevOps.Client
 			int offset = 1000,
 			CancellationToken ct = default);
 
+		Task<TeamProjectReference> GetProject(
+			string accountName,
+			Guid projectId,
+			string accessToken,
+			CancellationToken ct = default);
+
 		Task<List<TeamMember>> GetTeamMembers(string accountName, Guid projectId, Guid teamId, string accessToken, CancellationToken ct = default);
 
 		Task<List<WebApiTeam>> GetTeams(string accountName, Guid projectId, string accessToken, CancellationToken ct = default);
