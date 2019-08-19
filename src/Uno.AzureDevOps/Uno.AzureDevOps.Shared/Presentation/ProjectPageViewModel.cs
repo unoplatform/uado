@@ -7,6 +7,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Uno.AzureDevOps.Business;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
@@ -22,7 +23,7 @@ namespace Uno.AzureDevOps.Presentation
 	{
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
-		private readonly ISecureStorage secureStorage;
+		private readonly IUserPreferencesService _userPreferencesService;
 
 		private string _currentView;
 		private bool _loadingSuccess;
@@ -35,12 +36,12 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<List<TeamSettingsIteration>> _iterations;
 		private ITaskNotifier<List<TeamMember>> _teamMembers;
 		private ITaskNotifier<List<WebApiTeam>> _teams;
-		private ITaskNotifier<TeamProjectReference> _savedProject;
 
 		public ProjectPageViewModel()
 		{
 			_navigationService = SimpleIoc.Default.GetInstance<IStackNavigationService>();
 			_vstsRepository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
+			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
@@ -141,6 +142,23 @@ namespace Uno.AzureDevOps.Presentation
 
 		public async Task OnNavigatedTo(TeamProjectReference project)
 		{
+			// if project is null, that means we navigate here from login page
+			if (project == null)
+			{
+				if (_userPreferencesService.TryGetPreferredProjectId(out var projectId))
+				{
+					// Get account name to be able to do calls in vstsRepository
+					var accountName = _userPreferencesService.GetPreferredAccountName();
+					_vstsRepository.SetVSTSAccount(accountName);
+					project = await GetProject(projectId);
+				}
+			}
+			else
+			{
+				// project is not null, navigation has been done from listview, saving it as preferred project
+				_userPreferencesService.SavePreferredProject(project.Id);
+			}
+
 			_project = project;
 			SelectedProjectName = _project.Name;
 
@@ -170,9 +188,14 @@ namespace Uno.AzureDevOps.Presentation
 			return await _vstsRepository.GetTeams(project.Id);
 		}
 
-		private async Task<TeamProjectReference> GetProject(TeamProjectReference project)
+		/// <summary>
+		/// Get a single project
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <returns></returns>
+		private async Task<TeamProjectReference> GetProject(Guid projectId)
 		{
-			return await _vstsRepository.GetTeamProjectReference(project.Id);
+			return await _vstsRepository.GetTeamProjectReference(projectId);
 		}
 
 		private async Task<List<TeamMember>> GetTeamMembers(TeamProjectReference project, WebApiTeam team)
