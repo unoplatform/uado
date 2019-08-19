@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Windows.Security.Credentials;
 #if __WASM__
@@ -30,6 +31,15 @@ namespace Uno.AzureDevOps.Framework.Storage
 			var isDeleted = false;
 
 			DeleteValue(key, ref isDeleted);
+
+			return isDeleted;
+		}
+
+		public bool DeleteAll()
+		{
+			var isDeleted = false;
+
+			DeleteAllValues(ref isDeleted);
 
 			return isDeleted;
 		}
@@ -76,7 +86,12 @@ namespace Uno.AzureDevOps.Framework.Storage
 			}
 		}
 
-        private void DeleteValue(string key, ref bool isDeleted)
+		/// <summary>
+		/// Delete a Credential locker from password vault
+		/// </summary>
+		/// <param name="key">Key of the credential to delete</param>
+		/// <param name="isDeleted">Bool to determine if delete were sucessfull</param>
+		private void DeleteValue(string key, ref bool isDeleted)
 		{
 			var credential = _passwordVault.Retrieve(UadoResourceId, key);
 
@@ -92,7 +107,29 @@ namespace Uno.AzureDevOps.Framework.Storage
 			}
 		}
 
-        private void GetValue(string key, ref string value)
+		/// <summary>
+		/// Delete all Credentials locker from the password vault
+		/// </summary>
+		/// <param name="isDeleted">Bool to determine if delete were sucessfull</param>
+		private void DeleteAllValues(ref bool isDeleted)
+		{
+			var credentials = _passwordVault.RetrieveAll();
+
+			foreach (var credential in credentials)
+			{
+				if (credential != null)
+				{
+					_passwordVault.Remove(credential);
+					isDeleted = true;
+				}
+				else
+				{
+					isDeleted = false;
+				}
+			}
+		}
+
+		private void GetValue(string key, ref string value)
 		{
 			try
 			{

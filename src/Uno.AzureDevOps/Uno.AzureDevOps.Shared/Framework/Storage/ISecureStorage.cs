@@ -4,6 +4,8 @@
 	{
 		bool Delete(string key);
 
+		bool DeleteAll();
+
 		T GetValue<T>(string key);
 
 		bool HasKey(string key);
