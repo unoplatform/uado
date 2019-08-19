@@ -6,7 +6,7 @@
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="">
 
-	<Grid Background="{StaticResource Color02Brush}"
+	<Grid Background="{StaticResource Color07Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -15,7 +15,14 @@
 						<AdaptiveTrigger MinWindowWidth="700" />
 					</VisualState.StateTriggers>
 
-					<VisualState.Setters />
+					<VisualState.Setters>
+						<Setter Target="RootGrid.Margin"
+								Value="200,0" />
+						<Setter Target="RootGrid.Padding"
+								Value="16,24" />
+						<Setter Target="RootGrid.BorderThickness"
+								Value="1,0" />
+					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
@@ -29,33 +36,40 @@
 		<CommandBar Content="About Us" />
 
 		<ScrollViewer Grid.Row="1">
-			<StackPanel Margin="16">
-				<!-- Paragraph 1 -->
-				<TextBlock Margin="0,0,0,24"
-						   Style="{StaticResource Typo08}">
-					<Run Text="We built UADO to show you just what's possible with Uno Platform –a single codebase, native mobile and WebAssembly app, using only C# and XAML – currently" />
-					<Run Text="the only platform to do so."
-						 FontWeight="Bold" />
-				</TextBlock>
 
-				<!-- Paragraph 2 -->
-				<TextBlock Margin="0,0,0,24"
-						   Style="{StaticResource Typo08}">
-					<Run Text="But, UADO is more than just a showcase app -" />
-					<Run Text="it also is a real app"
-						 FontWeight="Bold" />
-					<Run Text="aiming to help you organize Work Items in Microsoft Azure DevOps projects. UADO gives you an easy to digest overview of work items, and the ability to assign them to yourself while on your way to daily meetings. As a sprint lead you will have an easy to access, native mobile app to help facilitate stand-up and ad-hoc meetings." />
-				</TextBlock>
+			<Grid x:Name="RootGrid"
+				  Background="{StaticResource Color02Brush}"
+				  BorderBrush="{StaticResource Color06Brush}">
+				
+				<StackPanel Margin="16">
+					
+					<!-- Paragraph 1 -->
+					<TextBlock Margin="0,0,0,24"
+							   Style="{StaticResource Typo08}">
+						<Run Text="We built UADO to show you just what's possible with Uno Platform –a single codebase, native mobile and WebAssembly app, using only C# and XAML – currently" />
+						<Run Text="the only platform to do so."
+							 FontWeight="Bold" />
+					</TextBlock>
 
-				<!-- Paragraph 3 -->
-				<TextBlock Text="Lastly, UADO is meant to help you learn and experiment with Uno Platform. As we continue building it you will be able to see how we handle authentication, events etc. See more at"
-						   Style="{StaticResource Typo08}" />
+					<!-- Paragraph 2 -->
+					<TextBlock Margin="0,0,0,24"
+							   Style="{StaticResource Typo08}">
+						<Run Text="But, UADO is more than just a showcase app -" />
+						<Run Text="it also is a real app"
+							 FontWeight="Bold" />
+						<Run Text="aiming to help you organize Work Items in Microsoft Azure DevOps projects. UADO gives you an easy to digest overview of work items, and the ability to assign them to yourself while on your way to daily meetings. As a sprint lead you will have an easy to access, native mobile app to help facilitate stand-up and ad-hoc meetings." />
+					</TextBlock>
 
-				<!-- Hyperlink to website -->
-				<HyperlinkButton Content="https://platform.uno"
-								 Command="{Binding NavigateToSourceCode}"
-								 HorizontalAlignment="Left" />
-			</StackPanel>
+					<!-- Paragraph 3 -->
+					<TextBlock Text="Lastly, UADO is meant to help you learn and experiment with Uno Platform. As we continue building it you will be able to see how we handle authentication, events etc. See more at"
+							   Style="{StaticResource Typo08}" />
+
+					<!-- Hyperlink to website -->
+					<HyperlinkButton Content="https://platform.uno"
+									 Command="{Binding NavigateToSourceCode}"
+									 HorizontalAlignment="Left" />
+				</StackPanel>
+			</Grid>
 		</ScrollViewer>
 	</Grid>
 </Page>

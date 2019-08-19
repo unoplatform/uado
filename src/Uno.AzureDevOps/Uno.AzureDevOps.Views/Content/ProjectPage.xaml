@@ -104,6 +104,24 @@
 					</VisualState.StateTriggers>
 
 					<VisualState.Setters>
+						<Setter Target="NavigationTabRoot.MaxWidth"
+								Value="600" />
+						<Setter Target="LargeViewNavigation.Visibility"
+								Value="Visible" />
+						<Setter Target="ProfileButton.Visibility"
+								Value="Collapsed" />
+						<Setter Target="ReloadButton_1.MaxWidth"
+								Value="300" />
+						<Setter Target="ReloadButton_2.MaxWidth"
+								Value="300" />
+						<Setter Target="SummarySideCollum.Width"
+								Value="2*" />
+						<Setter Target="SummarySideData.Grid.Column"
+								Value="1" />
+						<Setter Target="SummarySideData.Grid.Row"
+								Value="0" />
+						<Setter Target="SummarySideData.Margin"
+								Value="16,0,0,0" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -114,328 +132,484 @@
 			<CommandBar.PrimaryCommands>
 
 				<!-- Profile Button -->
-				<AppBarButton Style="{StaticResource UserProfileButtonStyle}"
-							  Command="{Binding ToProfilePage}" />
+				<AppBarButton x:Name="ProfileButton"
+							  Style="{StaticResource UserProfileButtonStyle}">
+					<AppBarButton.Flyout>
+						<MenuFlyout>
+
+							<!-- Organizations Button -->
+							<MenuFlyoutItem Text="Organization"
+											Command="{Binding NavigateToOrganizations}" />
+
+							<!-- Projects Button -->
+							<MenuFlyoutItem Text="Projects"
+											Command="{Binding NavigateToProjects}" />
+
+							<!-- Profile Button -->
+							<MenuFlyoutItem Text="Profile"
+											Command="{Binding ToProfilePage}" />
+						</MenuFlyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
 			</CommandBar.PrimaryCommands>
 		</CommandBar>
 
-		<!-- Loading State -->
-		<Grid Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-			  Background="{StaticResource Color02Brush}"
-			  Grid.Row="1">
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-			<StackPanel VerticalAlignment="Center"
-						HorizontalAlignment="Center">
+			<Grid x:Name="LargeViewNavigation"
+				  Background="{StaticResource Color06Brush}"
+				  Visibility="Collapsed"
+				  Width="300">
 
-				<!-- Progress Ring -->
-				<ProgressRing IsActive="True"
-							  Foreground="{StaticResource Color03Brush}"
-							  Height="20"
-							  Width="20"
-							  HorizontalAlignment="Center"
-							  VerticalAlignment="Center"
-							  Margin="0,12" />
+				<StackPanel VerticalAlignment="Top">
 
-				<!-- Verifying Message -->
-				<TextBlock Text="Loading..."
-						   Style="{StaticResource Typo08}" />
-			</StackPanel>
-		</Grid>
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
 
-		<!-- Error State -->
-		<Grid Visibility="{Binding Teams.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-			  Background="{StaticResource Color07Brush}"
-			  Grid.Row="1">
+					<!-- Organization Button -->
+					<Button Content="Organization"
+							Command="{Binding NavigateToOrganizations}"
+							Style="{StaticResource NavigationButtonStyle}" />
 
-			<!-- Message -->
-			<TextBlock Text="{Binding Teams.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-					   Style="{StaticResource Typo10}"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"
-					   TextAlignment="Center"
-					   Margin="50,0,50,48" />
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
 
-			<!-- Reload button -->
-			<Button Content="Reload"
-					Command="{Binding ReloadPage}"
-					Style="{StaticResource ReloadButtonStyle}"
-					VerticalAlignment="Bottom"
-					Margin="16,22" />
-		</Grid>
+					<!-- Project Button -->
+					<Button Content="Project"
+							Command="{Binding NavigateToProjects}"
+							Style="{StaticResource NavigationButtonStyle}" />
 
-		<!-- Content -->
-		<Grid x:Name="RootLayout"
-			  Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed, UpdateSourceTrigger=PropertyChanged}"
-			  Background="{StaticResource Color02Brush}"
-			  Grid.Row="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+				</StackPanel>
 
-			<!-- Teams ComboBox -->
-			<!-- The combobox is disabled if only one item exists in its list -->
-			<ComboBox x:Name="TeamsComboBox"
-					  ItemsSource="{Binding Teams.Result}"
-					  SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"
-					  ItemTemplate="{StaticResource TeamComboBoxItemTemplate}"
-					  Height="{StaticResource SmallComboBoxHeight}"
-					  IsEnabled="{Binding Teams.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
-					  xamarin:DeferLoadStrategy="Lazy" />
+				<StackPanel VerticalAlignment="Bottom"
+							Margin="0,0,0,42">
 
-			<!-- Navigation tabs -->
-			<Grid BorderBrush="{StaticResource Color07Brush}"
-				  BorderThickness="0,0,0,1"
-				  Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
 
-				<!-- Srpint View Tab -->
-				<RadioButton x:Name="SprintBtn"
-							 GroupName="ViewTabsThin"
-							 Content="Sprint"
-							 IsChecked="{Binding Path=CurrentView, Mode=TwoWay, Converter={StaticResource ProjectViewToIsCheckedConverter}, ConverterParameter=Sprint}"
-							 Grid.Column="0" />
+					<!-- Profile Button -->
+					<Button Content="Profile"
+							Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}" />
 
-				<!-- Members View Tab -->
-				<RadioButton x:Name="MembersBtn"
-							 GroupName="ViewTabsThin"
-							 Content="Members"
-							 IsChecked="{Binding Path=CurrentView, Mode=TwoWay, Converter={StaticResource ProjectViewToIsCheckedConverter}, ConverterParameter=Members}"
-							 Grid.Column="1" />
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<!-- Log Out Button -->
+					<Button Content="Log Out"
+							Command="{Binding Logout}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+				</StackPanel>
 			</Grid>
 
-			<!-- Sprint -->
-			<Grid Visibility="{Binding IsChecked,ElementName=SprintBtn, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				  Grid.Row="2">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="64" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
+			<Grid Grid.Column="1">
 
-				<!-- Iterations ComboBox -->
-				<!-- The combobox is disabled if only one item exists in its list -->
-				<ComboBox x:Name="IterationsComboBox"
-						  Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-						  ItemsSource="{Binding Iterations.Result}"
-						  IsEnabled="{Binding Iterations.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
-						  SelectedItem="{Binding SelectedIteration, Mode=TwoWay}"
-						  ItemTemplate="{StaticResource SprintComboBoxItemTemplate}"
-						  Height="{StaticResource LargeComboBoxHeight}"
-						  xamarin:DeferLoadStrategy="Lazy" />
+				<!-- Loading State -->
+				<Grid Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 
-				<!-- No Sprint State -->
-				<Grid Visibility="{Binding Iterations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed }"
-					  Background="{StaticResource Color02Brush}"
-					  BorderBrush="{StaticResource Color07Brush}"
-					  BorderThickness="0,0,0,1">
 					<StackPanel VerticalAlignment="Center"
-								Margin="16,0">
+								HorizontalAlignment="Center">
 
-						<!-- Name -->
-						<TextBlock Text="No sprint available"
-								   Style="{StaticResource Typo03}" />
+						<!-- Progress Ring -->
+						<ProgressRing IsActive="True"
+									  Foreground="{StaticResource Color03Brush}"
+									  Height="20"
+									  Width="20"
+									  HorizontalAlignment="Center"
+									  VerticalAlignment="Center"
+									  Margin="0,12" />
 
-						<!-- TimeSpan -->
-						<TextBlock Text="N.A."
-								   Style="{StaticResource Typo12}" />
+						<!-- Verifying Message -->
+						<TextBlock Text="Loading..."
+								   Style="{StaticResource Typo08}" />
 					</StackPanel>
 				</Grid>
 
-				<!-- Loading State -->
-				<Grid Visibility="{Binding Iterations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-					  Background="{StaticResource Color02Brush}"
-					  BorderBrush="{StaticResource Color07Brush}"
-					  BorderThickness="0,0,0,1">
-
-					<!-- Progress Ring -->
-					<ProgressRing IsActive="True"
-								  Foreground="{StaticResource Color03Brush}"
-								  Height="20"
-								  Width="20"
-								  HorizontalAlignment="Center"
-								  VerticalAlignment="Center"
-								  Margin="0,12" />
-
-				</Grid>
-
-				<!-- Work Items List -->
-				<ListView ItemsSource="{Binding IterationWorkItems.Result}"
-						  ItemTemplate="{StaticResource WorkItemTemplate}"
-						  IsItemClickEnabled="True"
-						  ItemClick="ListView_ItemClick"
-						  Grid.Row="1"
-						  Padding="0,0,0,80" />
-
-				<!-- Empty List Message -->
-				<TextBlock Text="No work items in this iteration"
-						   Visibility="{Binding IterationWorkItems.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
-						   Style="{StaticResource Typo15}"
-						   Margin="16,12"
-						   Grid.Row="1" />
-
-				<!-- Error state for work items list -->
-				<Grid Visibility="{Binding IterationWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-					  Background="{StaticResource Color07Brush}"
-					  Grid.Row="1">
+				<!-- Error State -->
+				<Grid Visibility="{Binding Teams.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
 
 					<!-- Message -->
-					<TextBlock Text="{Binding IterationWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+					<TextBlock Text="{Binding Teams.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
 							   Style="{StaticResource Typo10}"
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"
 							   TextAlignment="Center"
-							   Margin="25,0,25,24" />
+							   Margin="50,0,50,48" />
 
 					<!-- Reload button -->
-					<Button Content="Reload"
+					<Button x:Name="ReloadButton_1"
+							Content="Reload"
 							Command="{Binding ReloadPage}"
 							Style="{StaticResource ReloadButtonStyle}"
 							VerticalAlignment="Bottom"
 							Margin="16,22" />
 				</Grid>
 
-				<!-- Loading State -->
-				<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-					  Grid.Row="1">
+				<!-- Content -->
+				<Grid x:Name="RootLayout"
+					  Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed, UpdateSourceTrigger=PropertyChanged}"
+					  Background="{StaticResource Color02Brush}">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
 
-					<StackPanel VerticalAlignment="Center"
-								HorizontalAlignment="Center">
+					<!-- Teams ComboBox -->
+					<!-- The combobox is disabled if only one item exists in its list -->
+					<ComboBox x:Name="TeamsComboBox"
+							  ItemsSource="{Binding Teams.Result}"
+							  SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"
+							  ItemTemplate="{StaticResource TeamComboBoxItemTemplate}"
+							  Height="{StaticResource SmallComboBoxHeight}"
+							  IsEnabled="{Binding Teams.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
+							  xamarin:DeferLoadStrategy="Lazy" />
 
-						<!-- Progress Ring -->
-						<ProgressRing IsActive="True"
-									  Foreground="{StaticResource Color03Brush}"
-									  Height="20"
-									  Width="20"
-									  HorizontalAlignment="Center"
-									  VerticalAlignment="Center"
-									  Margin="0,12" />
+					<!-- Navigation tabs -->
+					<Grid BorderBrush="{StaticResource Color07Brush}"
+						  BorderThickness="0,0,0,1"
+						  Grid.Row="1">
+						<Grid x:Name="NavigationTabRoot">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
 
-						<!-- Verifying Message -->
-						<TextBlock Text="Loading..."
-								   Style="{StaticResource Typo08}" />
-					</StackPanel>
-				</Grid>
+							<!-- Summary View Tab -->
+							<RadioButton x:Name="SummaryBtn"
+										 GroupName="ViewTabsThin"
+										 Content="Summary"
+										 IsChecked="{Binding Path=CurrentView, Mode=TwoWay, Converter={StaticResource ProjectViewToIsCheckedConverter}, ConverterParameter=Summary}"
+										 Grid.Column="0" />
 
-				<!-- ComboBox Popup BG 1 -->
-				<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
-					  Background="Black"
-					  Opacity="0.6"
-					  Grid.RowSpan="2" />
+							<!-- Srpint View Tab -->
+							<RadioButton x:Name="SprintBtn"
+										 GroupName="ViewTabsThin"
+										 Content="Sprint"
+										 IsChecked="{Binding Path=CurrentView, Mode=TwoWay, Converter={StaticResource ProjectViewToIsCheckedConverter}, ConverterParameter=Sprint}"
+										 Grid.Column="1" />
 
-				<!-- ComboBox Popup BG 2 -->
-				<Grid Visibility="{Binding IsDropDownOpen, ElementName=IterationsComboBox, Converter={StaticResource TrueToVisible}}"
-					  Background="Black"
-					  Opacity="0.6"
-					  Grid.RowSpan="2" />
-			</Grid>
+							<!-- Members View Tab -->
+							<RadioButton x:Name="MembersBtn"
+										 GroupName="ViewTabsThin"
+										 Content="Members"
+										 IsChecked="{Binding Path=CurrentView, Mode=TwoWay, Converter={StaticResource ProjectViewToIsCheckedConverter}, ConverterParameter=Members}"
+										 Grid.Column="2" />
+						</Grid>
+					</Grid>
 
-			<!-- Members -->
-			<Grid Visibility="{Binding IsChecked, ElementName=MembersBtn, Converter={StaticResource TrueToVisible}}"
-				  Grid.Row="2">
+					<!-- Summary -->
+					<Grid Visibility="{Binding IsChecked, ElementName=SummaryBtn, Converter={StaticResource TrueToVisible}}"
+						  Grid.Row="2">
+						<ScrollViewer>
+							<Grid Background="{StaticResource Color07Brush}"
+								  Padding="16,16,16,16">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="3*" />
+									<ColumnDefinition x:Name="SummarySideCollum"
+													  Width="0" />
+								</Grid.ColumnDefinitions>
 
-				<!-- Project Members -->
-				<ListView ItemsSource="{Binding TeamMembers.Result}"
-						  IsItemClickEnabled="False"
-						  SelectionMode="None">
-					<ListView.ItemTemplate>
-						<DataTemplate>
-							<Grid>
-								<StackPanel>
-									<Grid Background="Transparent"
-										  Height="56">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition Width="*" />
-										</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
 
-										<!-- Project Member Image -->
-										<Grid Background="{StaticResource Color07Brush}"
-											  Height="32"
-											  Width="32"
-											  CornerRadius="16"
-											  VerticalAlignment="Center"
-											  Margin="16,0,0,0"
-											  Grid.Column="0">
+								<Grid Background="{StaticResource Color02Brush}"
+									  MinHeight="500"
+									  CornerRadius="5"
+									  Margin="0,0,0,0"
+									  Grid.Column="0">
 
-											<!-- Initials -->
-											<TextBlock Text="{Binding Identity.DisplayName, Converter={StaticResource MemberInitials}}"
-													   Style="{StaticResource MemberInitialsTextBlock}" />
+									<TextBlock Text="A"
+											   Foreground="Black"
+											   FontSize="80"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Center" />
+								</Grid>
 
-											<!-- Profile image -->
-											<Grid Height="32"
-												  Width="32"
-												  CornerRadius="16">
-												<Grid.Background>
-													<ImageBrush ImageSource="{Binding Identity.Links.Links[avatar].Href}" />
-												</Grid.Background>
-											</Grid>
-										</Grid>
+								<Grid x:Name="SummarySideData"
+									  Margin="0,16,0,0"
+									  Grid.Column="0"
+									  Grid.Row="1">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="*" />
+									</Grid.RowDefinitions>
 
-										<!-- Project Member Name -->
-										<TextBlock Text="{Binding Identity.DisplayName}"
-												   Style="{StaticResource Typo08}"
+									<Grid Background="{StaticResource Color02Brush}"
+										  MinHeight="200"
+										  CornerRadius="5"
+										  Margin="0,0,0,8"
+										  Grid.Row="0">
+
+										<TextBlock Text="B"
+												   Foreground="Black"
+												   FontSize="80"
 												   VerticalAlignment="Center"
-												   Margin="10,0,0,0"
-												   MaxLines="1"
-												   Grid.Column="1" />
+												   HorizontalAlignment="Center" />
 									</Grid>
 
-									<!-- Separator -->
-									<Rectangle Height="1"
-											   Fill="{StaticResource Color07Brush}"
-											   Margin="16,1,0,0" />
-								</StackPanel>
+									<Grid Background="{StaticResource Color02Brush}"
+										  MinHeight="200"
+										  CornerRadius="5"
+										  Margin="0,8,0,0"
+										  Grid.Row="1">
+
+										<TextBlock Text="C"
+												   Foreground="Black"
+												   FontSize="80"
+												   VerticalAlignment="Center"
+												   HorizontalAlignment="Center" />
+									</Grid>
+								</Grid>
 							</Grid>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
+						</ScrollViewer>
+					</Grid>
 
-				<!-- Empty List Message -->
-				<TextBlock Text="No members in this project"
-						   Visibility="{Binding TeamMembers.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
-						   Style="{StaticResource Typo15}"
-						   Margin="16,12" />
+					<!-- Sprint -->
+					<Grid Visibility="{Binding IsChecked,ElementName=SprintBtn, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+						  Grid.Row="2">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="64" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<!-- Iterations ComboBox -->
+						<!-- The combobox is disabled if only one item exists in its list -->
+						<ComboBox x:Name="IterationsComboBox"
+								  Visibility="{Binding Iterations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+								  ItemsSource="{Binding Iterations.Result}"
+								  IsEnabled="{Binding Iterations.Result, Converter={StaticResource EnumerableHasMinimumToTrue}}"
+								  SelectedItem="{Binding SelectedIteration, Mode=TwoWay}"
+								  ItemTemplate="{StaticResource SprintComboBoxItemTemplate}"
+								  Height="{StaticResource LargeComboBoxHeight}"
+								  xamarin:DeferLoadStrategy="Lazy" />
+
+						<!-- No Sprint State -->
+						<Grid Visibility="{Binding Iterations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed }">
+							<StackPanel VerticalAlignment="Center"
+										Margin="16,0">
+
+								<!-- Name -->
+								<TextBlock Text="No sprint available"
+										   Style="{StaticResource Typo03}" />
+
+								<!-- TimeSpan -->
+								<TextBlock Text="N.A."
+										   Style="{StaticResource Typo12}" />
+							</StackPanel>
+						</Grid>
+
+						<!-- Loading State -->
+						<Grid Visibility="{Binding Iterations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
+
+							<!-- Progress Ring -->
+							<ProgressRing IsActive="True"
+										  Foreground="{StaticResource Color03Brush}"
+										  Height="20"
+										  Width="20"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"
+										  Margin="0,12" />
+						</Grid>
+
+						<!-- Work Items List -->
+						<ListView ItemsSource="{Binding IterationWorkItems.Result}"
+								  ItemTemplate="{StaticResource WorkItemTemplate}"
+								  IsItemClickEnabled="True"
+								  ItemClick="ListView_ItemClick"
+								  Padding="0,0,0,80"
+								  Grid.Row="1" />
+
+						<!-- Empty List Message -->
+						<TextBlock Visibility="{Binding IterationWorkItems.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+								   Text="No work items in this iteration"
+								   Style="{StaticResource Typo15}"
+								   Margin="16,12"
+								   Grid.Row="1" />
+
+						<!-- Error state for work items list -->
+						<Grid Visibility="{Binding IterationWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+							  Background="{StaticResource Color07Brush}"
+							  Grid.Row="1">
+
+							<!-- Message -->
+							<TextBlock Text="{Binding IterationWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+									   Style="{StaticResource Typo10}"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center"
+									   TextAlignment="Center"
+									   Margin="25,0,25,24" />
+
+							<!-- Reload button -->
+							<Button x:Name="ReloadButton_2"
+									Content="Reload"
+									Command="{Binding ReloadPage}"
+									Style="{StaticResource ReloadButtonStyle}"
+									VerticalAlignment="Bottom"
+									Margin="16,22" />
+						</Grid>
+
+						<!-- Loading State -->
+						<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+							  Grid.Row="1">
+
+							<StackPanel VerticalAlignment="Center"
+										HorizontalAlignment="Center">
+
+								<!-- Progress Ring -->
+								<ProgressRing IsActive="True"
+											  Foreground="{StaticResource Color03Brush}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"
+											  Height="20"
+											  Width="20"
+											  Margin="0,12" />
+
+								<!-- Verifying Message -->
+								<TextBlock Text="Loading..."
+										   Style="{StaticResource Typo08}" />
+							</StackPanel>
+						</Grid>
+					</Grid>
+
+					<!-- Members -->
+					<Grid Visibility="{Binding IsChecked, ElementName=MembersBtn, Converter={StaticResource TrueToVisible}}"
+						  Grid.Row="2">
+
+						<!-- Project Members -->
+						<ListView ItemsSource="{Binding TeamMembers.Result}"
+								  IsItemClickEnabled="False"
+								  SelectionMode="None">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<StackPanel>
+											<Grid Background="Transparent"
+												  Height="56">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Width="*" />
+												</Grid.ColumnDefinitions>
+
+												<!-- Project Member Image -->
+												<Grid Background="{StaticResource Color07Brush}"
+													  VerticalAlignment="Center"
+													  CornerRadius="16"
+													  Height="32"
+													  Width="32"
+													  Margin="16,0,0,0"
+													  Grid.Column="0">
+
+													<!-- Initials -->
+													<TextBlock Text="{Binding Identity.DisplayName, Converter={StaticResource MemberInitials}}"
+															   Style="{StaticResource MemberInitialsTextBlock}" />
+
+													<!-- Profile image -->
+													<Grid Height="32"
+														  Width="32"
+														  CornerRadius="16">
+														<Grid.Background>
+															<ImageBrush ImageSource="{Binding Identity.Links.Links[avatar].Href}" />
+														</Grid.Background>
+													</Grid>
+												</Grid>
+
+												<!-- Project Member Name -->
+												<TextBlock Text="{Binding Identity.DisplayName}"
+														   Style="{StaticResource Typo08}"
+														   VerticalAlignment="Center"
+														   Margin="10,0,0,0"
+														   MaxLines="1"
+														   Grid.Column="1" />
+											</Grid>
+
+											<!-- Separator -->
+											<Rectangle Height="1"
+													   Fill="{StaticResource Color07Brush}"
+													   Margin="16,1,0,0" />
+										</StackPanel>
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+
+						<!-- Empty List Message -->
+						<TextBlock Text="No members in this project"
+								   Visibility="{Binding TeamMembers.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+								   Style="{StaticResource Typo15}"
+								   Margin="16,12" />
 
 
-				<!-- Error state for member listview -->
-				<Grid Visibility="{Binding TeamMembers.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-					  Background="{StaticResource Color07Brush}">
+						<!-- Error state for member listview -->
+						<Grid Visibility="{Binding TeamMembers.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+							  Background="{StaticResource Color07Brush}">
 
-					<!-- Message -->
-					<TextBlock Text="{Binding TeamMembers.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-							   Style="{StaticResource Typo10}"
-							   HorizontalAlignment="Center"
-							   VerticalAlignment="Center"
-							   TextAlignment="Center"
-							   Margin="50,0,50,48" />
-				</Grid>
+							<!-- Message -->
+							<TextBlock Text="{Binding TeamMembers.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+									   Style="{StaticResource Typo10}"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center"
+									   TextAlignment="Center"
+									   Margin="50,0,50,48" />
+						</Grid>
 
+						<!-- Loading State -->
+						<Grid Visibility="{Binding TeamMembers.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 
-				<!-- Loading State -->
-				<Grid Visibility="{Binding TeamMembers.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
+							<StackPanel VerticalAlignment="Center"
+										HorizontalAlignment="Center">
 
-					<StackPanel VerticalAlignment="Center"
-								HorizontalAlignment="Center">
+								<!-- Progress Ring -->
+								<ProgressRing IsActive="True"
+											  Foreground="{StaticResource Color03Brush}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"
+											  Height="20"
+											  Width="20"
+											  Margin="0,12" />
 
-						<!-- Progress Ring -->
-						<ProgressRing IsActive="True"
-									  Foreground="{StaticResource Color03Brush}"
-									  Height="20"
-									  Width="20"
-									  HorizontalAlignment="Center"
-									  VerticalAlignment="Center"
-									  Margin="0,12" />
-
-						<!-- Verifying Message -->
-						<TextBlock Text="Loading..."
-								   Style="{StaticResource Typo08}" />
-					</StackPanel>
+								<!-- Verifying Message -->
+								<TextBlock Text="Loading..."
+										   Style="{StaticResource Typo08}" />
+							</StackPanel>
+						</Grid>
+					</Grid>
 				</Grid>
 			</Grid>
+		</Grid>
+
+		<Grid x:Name="LargeScreenOverLay"
+			  Grid.Row="1">
+
+			<!-- ComboBox Popup BG 1 -->
+			<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
+				  Background="Black"
+				  Opacity="0.6"
+				  Grid.RowSpan="2" />
+
+			<!-- ComboBox Popup BG 2 -->
+			<Grid Visibility="{Binding IsDropDownOpen, ElementName=IterationsComboBox, Converter={StaticResource TrueToVisible}}"
+				  Background="Black"
+				  Opacity="0.6"
+				  Grid.RowSpan="2" />
 		</Grid>
 	</Grid>
 </Page>
