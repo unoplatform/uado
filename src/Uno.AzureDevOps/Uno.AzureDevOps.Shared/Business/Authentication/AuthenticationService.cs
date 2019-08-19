@@ -72,7 +72,7 @@ namespace Uno.AzureDevOps.Business.Authentication
 		{
 			lock (_lock)
 			{
-				_secureStorage.Delete(StorageKey);
+				_secureStorage.DeleteAll();
 				LoggedOut?.Invoke(new LoggedOutEventArgs() { Exception = exception });
 			}
 		}

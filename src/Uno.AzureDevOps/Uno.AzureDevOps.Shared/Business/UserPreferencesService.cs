@@ -7,6 +7,9 @@ using Uno.AzureDevOps.Framework.Storage;
 
 namespace Uno.AzureDevOps.Business
 {
+	///<summary>
+	/// Holds all logic linked with user preferences (i.e locally saved data)
+	///</summary>
 	public partial class UserPreferencesService : IUserPreferencesService
 	{
 		private const string ProjectStorageKey = "Uado.SavedProject";
@@ -19,29 +22,16 @@ namespace Uno.AzureDevOps.Business
 			_secureStorage = secureStorage ?? throw new ArgumentNullException(nameof(secureStorage));
 		}
 
-		/// <summary>
-		/// Returns if a preferred project exists for the current user
-		/// </summary>
-		/// <returns></returns>
 		public bool HasPreferredProject()
 		{
 			return _secureStorage.HasKey(ProjectStorageKey);
 		}
 
-		/// <summary>
-		/// Returns if a saved account exists for the current user
-		/// </summary>
-		/// <returns></returns>
 		public bool HasPreferredAccountName()
 		{
 			return _secureStorage.HasKey(AccountStorageKey);
 		}
 
-		/// <summary>
-		/// Set the preferredProject.
-		/// If one already exists remove it and save the new one.
-		/// </summary>
-		/// <param name="projectId"></param>
 		public void SavePreferredProject(Guid projectId)
 		{
 			if (!HasPreferredProject())
@@ -59,11 +49,6 @@ namespace Uno.AzureDevOps.Business
 			}
 		}
 
-		/// <summary>
-		/// Parses the stored string projectId to Guid
-		/// </summary>
-		/// <param name="projectGuid"></param>
-		/// <returns></returns>
 		public bool TryGetPreferredProjectId(out Guid projectGuid)
 		{
 			return Guid.TryParse(_secureStorage.GetValue<string>(ProjectStorageKey), out projectGuid);
@@ -74,11 +59,6 @@ namespace Uno.AzureDevOps.Business
 			return _secureStorage.GetValue<string>(AccountStorageKey);
 		}
 
-		/// <summary>
-		/// Set the preferredAccountName
-		/// If one already exists, remove it and save the new one
-		/// </summary>
-		/// <param name="accountName"></param>
 		public void SavePreferredAccountName(string accountName)
 		{
 			if (!HasPreferredAccountName())
