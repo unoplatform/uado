@@ -222,7 +222,7 @@
 		</DataTemplate>
 	</Page.Resources>
 
-	<Grid Background="{StaticResource Color02Brush}"
+	<Grid Background="{StaticResource Color07Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -239,6 +239,14 @@
 					</VisualState.StateTriggers>
 
 					<VisualState.Setters>
+						<Setter Target="RootGrid.Margin"
+								Value="200,0" />
+						<Setter Target="RootGrid.BorderThickness"
+								Value="1,0" />
+						<Setter Target="ReloadButton_1.MaxWidth"
+								Value="300" />
+						<Setter Target="ReloadButton_2.MaxWidth"
+								Value="300" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -309,83 +317,79 @@
 			</Button>
 		</wasm:Border>
 
-		<!-- Loading State -->
-		<Grid Visibility="{Binding ChildrenWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-			  Background="{StaticResource Color02Brush}"
-			  Grid.Row="1">
-			<StackPanel VerticalAlignment="Center"
-						HorizontalAlignment="Center">
+		<ScrollViewer Grid.Row="1">
+			<Grid x:Name="RootGrid"
+				  Background="{StaticResource Color02Brush}">
 
-				<!-- Progress Ring -->
-				<ProgressRing IsActive="True"
-							  Foreground="{StaticResource Color03Brush}"
-							  Height="20"
-							  Width="20"
-							  HorizontalAlignment="Center"
-							  VerticalAlignment="Center"
-							  Margin="0,12" />
+				<!-- Loading State -->
+				<Grid Visibility="{Binding ChildrenWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+					
+					<StackPanel VerticalAlignment="Center"
+								HorizontalAlignment="Center">
 
-				<!-- Loading Message -->
-				<TextBlock Text="Loading..."
-						   Style="{StaticResource Typo11}" />
-			</StackPanel>
-		</Grid>
+						<!-- Progress Ring -->
+						<ProgressRing IsActive="True"
+									  Foreground="{StaticResource Color03Brush}"
+									  Height="20"
+									  Width="20"
+									  HorizontalAlignment="Center"
+									  VerticalAlignment="Center"
+									  Margin="0,12" />
 
-		<!-- Error State WorkItem -->
-		<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-			  Background="{StaticResource Color07Brush}"
-			  Grid.Row="1">
+						<!-- Loading Message -->
+						<TextBlock Text="Loading..."
+								   Style="{StaticResource Typo11}" />
+					</StackPanel>
+				</Grid>
 
-			<!-- Message -->
-			<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-					   Style="{StaticResource Typo10}"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"
-					   TextAlignment="Center"
-					   Margin="50,0,50,48" />
+				<!-- Error State WorkItem -->
+				<Grid Visibility="{Binding UserProfile.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
 
-			<!-- Reload button -->
-			<Button Content="Reload"
-					Command="{Binding ReloadPage}"
-					Style="{StaticResource ReloadButtonStyle}"
-					VerticalAlignment="Bottom"
-					Margin="16,22" />
-		</Grid>
+					<!-- Message -->
+					<TextBlock Text="{Binding UserProfile.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+							   Style="{StaticResource Typo10}"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   TextAlignment="Center"
+							   Margin="50,0,50,48" />
 
-		<!-- Error State RelatedWorkItems -->
-		<Grid Visibility="{Binding ChildrenWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-			  Background="{StaticResource Color07Brush}"
-			  Grid.Row="1">
+					<!-- Reload button -->
+					<Button x:Name="ReloadButton_1"
+							Content="Reload"
+							Command="{Binding ReloadPage}"
+							Style="{StaticResource ReloadButtonStyle}"
+							VerticalAlignment="Bottom"
+							Margin="16,22" />
+				</Grid>
 
-			<!-- Message -->
-			<TextBlock Text="{Binding ChildrenWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-					   Style="{StaticResource Typo10}"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"
-					   TextAlignment="Center"
-					   Margin="50,0,50,48" />
+				<!-- Error State RelatedWorkItems -->
+				<Grid Visibility="{Binding ChildrenWorkItems.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
 
-			<!-- Reload button -->
-			<Button Content="Reload"
-					Command="{Binding ReloadPage}"
-					Style="{StaticResource ReloadButtonStyle}"
-					VerticalAlignment="Bottom"
-					Margin="16,22" />
-		</Grid>
+					<!-- Message -->
+					<TextBlock Text="{Binding ChildrenWorkItems.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+							   Style="{StaticResource Typo10}"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   TextAlignment="Center"
+							   Margin="50,0,50,48" />
 
-		<ScrollViewer Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-					  Grid.Row="1">
-			<Grid>
-				<Grid Visibility="{Binding WorkItem.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-					  Background="{StaticResource Color02Brush}">
+					<!-- Reload button -->
+					<Button x:Name="ReloadButton_2"
+							Content="Reload"
+							Command="{Binding ReloadPage}"
+							Style="{StaticResource ReloadButtonStyle}"
+							VerticalAlignment="Bottom"
+							Margin="16,22" />
+				</Grid>
+
+				<Grid Visibility="{Binding WorkItem.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
 					<!-- Content -->
-					<Grid Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-						  Background="{StaticResource Color02Brush}">
+					<Grid Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -399,8 +403,7 @@
 											 ContentTemplate="{StaticResource PageHeaderInformationTemplate}" />
 
 						<!-- RelatedWorkItems List -->
-						<ListView Grid.Row="1"
-								  ItemsSource="{Binding ChildrenWorkItems.Result}"
+						<ListView ItemsSource="{Binding ChildrenWorkItems.Result}"
 								  ItemTemplate="{StaticResource WorkItemTemplate}"
 								  Header="{Binding}"
 								  HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
@@ -408,7 +411,8 @@
 								  FooterTemplate="{StaticResource ListFooterTemplate}"
 								  SelectionMode="None"
 								  IsItemClickEnabled="True"
-								  ItemClick="ListView_ItemClick" />
+								  ItemClick="ListView_ItemClick"
+								  Grid.Row="1" />
 
 						<!-- Show the ListView footer below the ListView (wasm only) -->
 						<wasm:ContentControl Content="{Binding}"
@@ -429,8 +433,7 @@
 					  MaxWidth="340"
 					  CornerRadius="8"
 					  toolkit:UIElementExtensions.Elevation="10"
-					  Margin="16"
-					  Grid.Row="1">
+					  Margin="16">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />

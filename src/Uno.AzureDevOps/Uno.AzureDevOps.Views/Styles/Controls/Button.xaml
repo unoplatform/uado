@@ -523,6 +523,102 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="NavigationButtonStyle"
+		   TargetType="Button">
+
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="TabNavigation"
+				Value="Local" />
+		<Setter Property="IsHoldingEnabled"
+				Value="True" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Height"
+				Value="44" />
+		<Setter Property="UseSystemFocusVisuals"
+				Value="True" />
+		<Setter Property="Padding"
+				Value="16,0,50,0" />
+		<Setter Property="Margin"
+				Value="0" />
+		<Setter Property="FontWeight"
+				Value="Normal" />
+		
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+
+					<TextBlock Text="{Binding}"
+							   Style="{StaticResource Typo19}"
+							   TextWrapping="NoWrap" />
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid x:Name="RootBorder"
+							Height="{TemplateBinding Height}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver" />
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.7" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Selected" />
+								<VisualState x:Name="PointerOverSelected" />
+								<VisualState x:Name="PressedSelected" />
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="DisabledStates">
+								<VisualState x:Name="Enabled" />
+								<VisualState x:Name="Disabled">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.5" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="MultiSelectStates" />
+							<VisualStateGroup x:Name="ReorderHintStates" />
+							<VisualStateGroup x:Name="DragStates" />
+						</VisualStateManager.VisualStateGroups>
+
+						<Grid>
+							<ContentPresenter x:Name="ContentPresenter"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentTransitions="{TemplateBinding ContentTransitions}"
+											  Content="{TemplateBinding Content}"
+											  Margin="{TemplateBinding Padding}"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+							<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
+								  Fill="{StaticResource Color02Brush}"
+								  VerticalAlignment="Center"
+								  HorizontalAlignment="Right"
+								  Width="12"
+								  Height="12"
+								  Margin="0,0,16,0" />
+						</Grid>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<!-- Default Style -->
 	<Style TargetType="Button"
 		   BasedOn="{StaticResource DefaultButtonStyle}" />

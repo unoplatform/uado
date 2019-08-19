@@ -12,38 +12,64 @@
 				<ControlTemplate TargetType="controls:ItemDetailsSegment">
 					<StackPanel>
 
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup>
+
+								<VisualState x:Name="wide">
+
+									<VisualState.StateTriggers>
+										<AdaptiveTrigger MinWindowWidth="700" />
+									</VisualState.StateTriggers>
+
+									<VisualState.Setters>
+										<Setter Target="MoreIndicator.HorizontalAlignment"
+												Value="Left" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						
 						<Button Style="{StaticResource BasicEmptyButtonStyle}"
 								Command="{TemplateBinding Command}">
-							
+
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 
-								<!-- Description Label -->
-								<TextBlock Text="{TemplateBinding MainLabel}"
-										   Style="{StaticResource Typo09}"
-										   VerticalAlignment="Center"
-										   Margin="16,16,0,0" />
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
 
-								<!-- More Indicator -->
-								<StackPanel Orientation="Horizontal"
-											HorizontalAlignment="Right"
-											Margin="0,16,16,0"
-											Visibility="{Binding TextContent, Converter={StaticResource EmptyStringToCollapsed}, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Collapsed}">
-
-									<!-- More -->
-									<TextBlock Text="More"
-											   Style="{StaticResource Typo16}"
+									<!-- Description Label -->
+									<TextBlock Text="{TemplateBinding MainLabel}"
+											   Style="{StaticResource Typo09}"
 											   VerticalAlignment="Center"
-											   Margin="0,0,8,0" />
+											   Margin="16,16,0,0" />
 
-									<!-- Icon -->
-									<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
-										  Fill="{StaticResource Color05Brush}"
-										  VerticalAlignment="Center" />
-								</StackPanel>
+									<!-- More Indicator -->
+									<StackPanel x:Name="MoreIndicator"
+												Visibility="{Binding TextContent, Converter={StaticResource EmptyStringToCollapsed}, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Collapsed}"
+												Orientation="Horizontal"
+												HorizontalAlignment="Right"
+												Margin="16,16,16,0"
+												Grid.Column="1">
+
+										<!-- More -->
+										<TextBlock Text="More"
+												   Style="{StaticResource Typo16}"
+												   VerticalAlignment="Center"
+												   Margin="0,0,8,0" />
+
+										<!-- Icon -->
+										<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
+											  Fill="{StaticResource Color05Brush}"
+											  VerticalAlignment="Center" />
+									</StackPanel>
+								</Grid>
 
 								<!-- Content -->
 								<TextBlock x:Name="TxtContent"

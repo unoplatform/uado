@@ -55,7 +55,7 @@
 		</DataTemplate>
 	</Page.Resources>
 
-	<Grid Background="{StaticResource Color02Brush}"
+	<Grid Background="{StaticResource Color07Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -67,13 +67,18 @@
 					</VisualState.StateTriggers>
 
 					<VisualState.Setters>
+						<Setter Target="RootGrid.Margin"
+								Value="200,0" />
+						<Setter Target="RootGrid.BorderThickness"
+								Value="1,0" />
+						<Setter Target="ReloadButton.MaxWidth"
+								Value="300" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<Grid x:Name="RootLayout"
-			  Background="{StaticResource Color02Brush}">
+		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
@@ -89,90 +94,93 @@
 				</CommandBar.PrimaryCommands>
 			</CommandBar>
 
-			<!-- Loading -->
-			<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				  Background="{StaticResource Color02Brush}"
-				  Grid.Row="1">
-				<StackPanel VerticalAlignment="Center"
-							HorizontalAlignment="Center">
+			<ScrollViewer Grid.Row="1">
+				<Grid x:Name="RootGrid"
+					  Background="{StaticResource Color02Brush}"
+					  BorderBrush="{StaticResource Color06Brush}">
 
-					<!-- Progress Ring -->
-					<ProgressRing IsActive="True"
-								  Foreground="{StaticResource Color03Brush}"
-								  Height="20"
-								  Width="20"
-								  HorizontalAlignment="Center"
-								  VerticalAlignment="Center"
-								  Margin="0,12" />
+					<!-- Loading -->
+					<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+						<StackPanel VerticalAlignment="Center"
+									HorizontalAlignment="Center">
 
-					<!-- Loading Message -->
-					<TextBlock Text="Loading..."
-							   Style="{StaticResource Typo11}" />
-				</StackPanel>
-			</Grid>
+							<!-- Progress Ring -->
+							<ProgressRing IsActive="True"
+										  Foreground="{StaticResource Color03Brush}"
+										  Height="20"
+										  Width="20"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"
+										  Margin="0,12" />
 
-			<!-- Error State -->
-			<Grid Visibility="{Binding Projects.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-				  Background="{StaticResource Color07Brush}"
-				  Grid.Row="1">
+							<!-- Loading Message -->
+							<TextBlock Text="Loading..."
+									   Style="{StaticResource Typo11}" />
+						</StackPanel>
+					</Grid>
 
-				<!-- Message -->
-				<TextBlock Text="{Binding Projects.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-						   Style="{StaticResource Typo10}"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   TextAlignment="Center"
-						   Margin="50,0,50,48" />
+					<!-- Error State -->
+					<Grid Visibility="{Binding Projects.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
 
-				<!-- Reload button -->
-				<Button Content="Reload"
-						Command="{Binding ReloadPage}"
-						Style="{StaticResource ReloadButtonStyle}"
-						VerticalAlignment="Bottom"
-						Margin="16,22" />
-			</Grid>
+						<!-- Message -->
+						<TextBlock Text="{Binding Projects.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+								   Style="{StaticResource Typo10}"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"
+								   TextAlignment="Center"
+								   Margin="50,0,50,48" />
 
-			<!-- Content -->
-			<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}"
-				  Grid.Row="1">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
+						<!-- Reload button -->
+						<Button x:Name="ReloadButton"
+								Content="Reload"
+								Command="{Binding ReloadPage}"
+								Style="{StaticResource ReloadButtonStyle}"
+								VerticalAlignment="Bottom"
+								Margin="16,22" />
+					</Grid>
 
-				<!-- Label -->
-				<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
-				<wasm:TextBlock Text="ALL PROJECTS"
-								Style="{StaticResource Typo09}"
-								HorizontalAlignment="Left"
-								Margin="16,16,0,12"
-								Grid.Row="0" />
-
-				<!-- Recent Project list -->
-				<ListView ItemsSource="{Binding Projects.Result}"
-						  ItemTemplate="{StaticResource ProjectItemTemplate}"
-						  IsItemClickEnabled="True"
-						  ItemClick="ListView_ItemClick"
-						  Padding="0,0,0,80"
-						  Grid.Row="1">
-					<ListView.Header>
+					<!-- Content -->
+					<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
 
 						<!-- Label -->
-						<TextBlock Text="ALL PROJECTS"
-								   Style="{StaticResource Typo09}"
-								   HorizontalAlignment="Left"
-								   Margin="16,16,0,12" />
-					</ListView.Header>
-				</ListView>
+						<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
+						<wasm:TextBlock Text="ALL PROJECTS"
+										Style="{StaticResource Typo09}"
+										HorizontalAlignment="Left"
+										Margin="16,16,0,12"
+										Grid.Row="0" />
 
-				<!-- Empty List Message -->
-				<TextBlock Text="No projects"
-						   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
-						   Style="{StaticResource Typo15}"
-						   VerticalAlignment="Top"
-						   Margin="16,0"
-						   Grid.Row="1" />
-			</Grid>
+						<!-- Recent Project list -->
+						<ListView ItemsSource="{Binding Projects.Result}"
+								  ItemTemplate="{StaticResource ProjectItemTemplate}"
+								  ItemClick="ListView_ItemClick"
+								  IsItemClickEnabled="True"
+								  Padding="0,0,0,80"
+								  Grid.Row="1">
+							<ListView.Header>
+
+								<!-- Label -->
+								<TextBlock Text="ALL PROJECTS"
+										   Style="{StaticResource Typo09}"
+										   HorizontalAlignment="Left"
+										   Margin="16,16,0,12" />
+							</ListView.Header>
+						</ListView>
+
+						<!-- Empty List Message -->
+						<TextBlock Text="No projects"
+								   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+								   Style="{StaticResource Typo15}"
+								   VerticalAlignment="Top"
+								   Margin="16,0"
+								   Grid.Row="1" />
+					</Grid>
+				</Grid>
+			</ScrollViewer>
 		</Grid>
 	</Grid>
 </Page>
