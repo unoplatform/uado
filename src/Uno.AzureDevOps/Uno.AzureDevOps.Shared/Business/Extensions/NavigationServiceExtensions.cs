@@ -29,6 +29,8 @@ namespace Uno.AzureDevOps.Business.Extensions
 
 		public static void ToProjectPage(this IStackNavigationService navigationService, TeamProjectReference project) => navigationService.NavigateTo(nameof(ProjectPage), project);
 
+		public static void ToProjectPage(this IStackNavigationService navigationService) => navigationService.NavigateTo(nameof(ProjectPage));
+
 		public static void ToAboutPage(this IStackNavigationService navigationService) => navigationService.NavigateTo(nameof(AboutPage));
 	}
 }

@@ -7,10 +7,12 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 #endif
 using Microsoft.Extensions.Logging;
+using Uno.AzureDevOps.Business;
 using Uno.AzureDevOps.Business.Authentication;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Navigation;
+using Uno.AzureDevOps.Framework.Storage;
 using Uno.AzureDevOps.Views.Content;
 using Uno.Extensions;
 using Windows.ApplicationModel;
@@ -151,6 +153,7 @@ namespace Uno.AzureDevOps
 		{
 			var navigationService = ServiceProvider.GetInstance<IStackNavigationService>();
 			var authenticationService = ServiceProvider.GetInstance<IAuthenticationService>();
+			var userPreferencesService = ServiceProvider.GetInstance<IUserPreferencesService>();
 
 			navigationService.OnNavigating += async (s, e) => await RunOnDispatcher(() =>
 			{
@@ -165,7 +168,15 @@ namespace Uno.AzureDevOps
 
 			if (authenticationService.IsAuthenticated())
 			{
-				navigationService.ToOrganizationListPage();
+				// Redirect user to project detail page (both are mandatory for API calls later)
+				if (userPreferencesService.HasPreferredProject() && userPreferencesService.HasPreferredAccountName())
+				{
+					navigationService.ToProjectPage();
+				}
+				else
+				{
+					navigationService.ToOrganizationListPage();
+				}
 			}
 			else
 			{

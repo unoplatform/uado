@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Business\Authentication\LoggedOutEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\IUserPreferencesService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Business\UserPreferencesService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\ApplicationContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\ADOCollectionData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\IdentityRef.cs" />

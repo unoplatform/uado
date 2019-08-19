@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using GalaSoft.MvvmLight.Ioc;
+using Uno.AzureDevOps.Business;
 using Uno.AzureDevOps.Business.Authentication;
 using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
@@ -67,6 +68,9 @@ namespace Uno.AzureDevOps
 				serviceProvider.GetInstanceWithoutCaching<IADOOrganizationClient>(),
 				serviceProvider.GetInstanceWithoutCaching<IADOTeamClient>(),
 				serviceProvider.GetInstance<IAuthenticationService>()));
+
+			serviceProvider.Register<IUserPreferencesService>(() => new UserPreferencesService(
+				serviceProvider.GetInstance<ISecureStorage>()));
 		}
 	}
 }
