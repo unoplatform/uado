@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Presentation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -28,6 +29,23 @@ namespace Uno.AzureDevOps.Views.Content
 		private void ListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			(DataContext as ProjectListPageViewModel)?.NavigateToProjectPage(e.ClickedItem as TeamProjectReference);
+		}
+
+		private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (LargeViewNavigation.Visibility == Visibility.Collapsed)
+			{
+				LargeViewNavigation.Visibility = Visibility.Visible;
+				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
+				ContentView.SetValue(Grid.ColumnProperty, 0);
+			}
+			else
+			{
+				LargeViewNavigation.Visibility = Visibility.Collapsed;
+				ContentView.SetValue(Grid.ColumnProperty, 1);
+			}
+
+			// LargeViewNavigation.Visibility = LargeViewNavigation.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
 		}
 	}
 }

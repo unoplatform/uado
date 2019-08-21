@@ -40,7 +40,7 @@ namespace Uno.AzureDevOps.Views.Content
 			(DataContext as ProjectPageViewModel).OnWorkItemClicked(e.ClickedItem as RichWorkItem);
 		}
 
-		private void ProfileButton_Click(object sender, RoutedEventArgs e)
+		private void HamburgerButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (LargeViewNavigation.Visibility == Visibility.Collapsed)
 			{
@@ -51,7 +51,7 @@ namespace Uno.AzureDevOps.Views.Content
 			else
 			{
 				LargeViewNavigation.Visibility = Visibility.Collapsed;
-				ContentView.SetValue(Grid.ColumnProperty, 1);
+				// ContentView.SetValue(Grid.ColumnProperty, 1);
 			}
 
 			// LargeViewNavigation.Visibility = LargeViewNavigation.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;

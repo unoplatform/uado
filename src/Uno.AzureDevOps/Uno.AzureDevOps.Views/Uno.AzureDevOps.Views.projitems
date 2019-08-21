@@ -34,6 +34,9 @@
       <DependentUpon>ProjectListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ItemDetailsSegment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Menu\SideMenu.xaml.cs">
+      <DependentUpon>SideMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.iOS.cs" />
@@ -87,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Content\ProjectListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\Menu\SideMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
