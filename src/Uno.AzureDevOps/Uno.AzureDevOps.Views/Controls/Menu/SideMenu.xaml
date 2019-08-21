@@ -1,0 +1,80 @@
+﻿<UserControl
+    x:Class="Uno.AzureDevOps.Views.Controls.SideMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Uno.AzureDevOps.Views.Controls.Menu"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+	<Grid Background="{StaticResource Color06Brush}">
+
+		<StackPanel VerticalAlignment="Top">
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<!-- Organization Button -->
+			<Button Content="Organizations"
+					Command="{Binding ToOrganizationListPage}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<!-- Project Button -->
+			<Button Content="Projects"
+					Command="{Binding ToProjectListPage}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+		</StackPanel>
+
+		<StackPanel VerticalAlignment="Bottom"
+					Margin="0,0,0,0">
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<!-- Profile Button -->
+			<Button Content="Profile"
+					Command="{Binding ToProfilePage}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<Button Content="About"
+					Command="{Binding ToProfilePage}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<Button Content="Source code"
+					Command="{Binding ToProfilePage}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+
+			<!-- Log Out Button -->
+			<Button Content="Log Out"
+					Command="{Binding Logout}"
+					Style="{StaticResource NavigationButtonStyle}" />
+
+			<!-- Separation -->
+			<Rectangle Fill="{StaticResource Color02Brush}"
+					   Height="1" />
+		</StackPanel>
+	</Grid>
+</UserControl>
