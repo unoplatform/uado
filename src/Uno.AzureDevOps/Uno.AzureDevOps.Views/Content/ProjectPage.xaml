@@ -5,6 +5,8 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:xamarin="http://nventive.com/xamarin"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
+	  xmlns:android="http://nventive.com/android"
+	  xmlns:ios="http://nventive.com/ios"
 	  mc:Ignorable="xamarin">
 
 	<Page.Resources>
@@ -102,19 +104,22 @@
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
-
 					<VisualState.Setters>
 						<Setter Target="NavigationTabRoot.MaxWidth"
 								Value="600" />
 						<Setter Target="LargeViewNavigation.Visibility"
 								Value="Visible" />
-						<Setter Target="ProfileButton.Visibility"
+						<!--<Setter Target="LargeViewNavigation.Width"
+								Value="300" />-->
+						<Setter Target="HamburgerButton.Visibility"
 								Value="Collapsed" />
+						<Setter Target="ContentView.Grid.Column"
+								Value="1" />
 						<Setter Target="ReloadButton_1.MaxWidth"
 								Value="300" />
 						<Setter Target="ReloadButton_2.MaxWidth"
 								Value="300" />
-						<Setter Target="SummarySideCollum.Width"
+						<Setter Target="SummarySideColumn.Width"
 								Value="2*" />
 						<Setter Target="SummarySideData.Grid.Column"
 								Value="1" />
@@ -126,99 +131,27 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-
+		
 		<!-- CommandBar -->
 		<CommandBar Content="{Binding SelectedProjectName}">
 			<CommandBar.PrimaryCommands>
-
-				<!-- Profile Button -->
-				<AppBarButton x:Name="ProfileButton"
-							  Style="{StaticResource UserProfileButtonStyle}">
-					<AppBarButton.Flyout>
-						<MenuFlyout>
-
-							<!-- Organizations Button -->
-							<MenuFlyoutItem Text="Organization"
-											Command="{Binding NavigateToOrganizations}" />
-
-							<!-- Projects Button -->
-							<MenuFlyoutItem Text="Projects"
-											Command="{Binding NavigateToProjects}" />
-
-							<!-- Profile Button -->
-							<MenuFlyoutItem Text="Profile"
-											Command="{Binding ToProfilePage}" />
-						</MenuFlyout>
-					</AppBarButton.Flyout>
+				<!-- Profile Button  -->
+				<AppBarButton x:Name="HamburgerButton"
+							  Click="ProfileButton_Click"
+							  Style="{StaticResource BurgerMenuButtonStyle}">
 				</AppBarButton>
 			</CommandBar.PrimaryCommands>
 		</CommandBar>
 
+		
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<Grid x:Name="LargeViewNavigation"
-				  Background="{StaticResource Color06Brush}"
-				  Visibility="Collapsed"
-				  Width="300">
-
-				<StackPanel VerticalAlignment="Top">
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-
-					<!-- Organization Button -->
-					<Button Content="Organization"
-							Command="{Binding NavigateToOrganizations}"
-							Style="{StaticResource NavigationButtonStyle}" />
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-
-					<!-- Project Button -->
-					<Button Content="Project"
-							Command="{Binding NavigateToProjects}"
-							Style="{StaticResource NavigationButtonStyle}" />
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-				</StackPanel>
-
-				<StackPanel VerticalAlignment="Bottom"
-							Margin="0,0,0,42">
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-
-					<!-- Profile Button -->
-					<Button Content="Profile"
-							Command="{Binding ToProfilePage}"
-							Style="{StaticResource NavigationButtonStyle}" />
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-
-					<!-- Log Out Button -->
-					<Button Content="Log Out"
-							Command="{Binding Logout}"
-							Style="{StaticResource NavigationButtonStyle}" />
-
-					<!-- Separation -->
-					<Rectangle Fill="{StaticResource Color02Brush}"
-							   Height="1" />
-				</StackPanel>
-			</Grid>
-
-			<Grid Grid.Column="1">
-
+			<!-- ContentView -->
+			<Grid x:Name="ContentView" Grid.Column="1">
 				<!-- Loading State -->
 				<Grid Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 
@@ -322,7 +255,7 @@
 								  Padding="16,16,16,16">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="3*" />
-									<ColumnDefinition x:Name="SummarySideCollum"
+									<ColumnDefinition x:Name="SummarySideColumn"
 													  Width="0" />
 								</Grid.ColumnDefinitions>
 
@@ -350,29 +283,15 @@
 									  Grid.Row="1">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="*" />
-										<RowDefinition Height="*" />
+
 									</Grid.RowDefinitions>
 
 									<Grid Background="{StaticResource Color02Brush}"
-										  MinHeight="200"
+										  MinHeight="500"
 										  CornerRadius="5"
-										  Margin="0,0,0,8"
 										  Grid.Row="0">
 
 										<TextBlock Text="B"
-												   Foreground="Black"
-												   FontSize="80"
-												   VerticalAlignment="Center"
-												   HorizontalAlignment="Center" />
-									</Grid>
-
-									<Grid Background="{StaticResource Color02Brush}"
-										  MinHeight="200"
-										  CornerRadius="5"
-										  Margin="0,8,0,0"
-										  Grid.Row="1">
-
-										<TextBlock Text="C"
 												   Foreground="Black"
 												   FontSize="80"
 												   VerticalAlignment="Center"
@@ -593,6 +512,81 @@
 						</Grid>
 					</Grid>
 				</Grid>
+			</Grid>
+			
+			<!-- Side hamburger menu -->
+			<Grid x:Name="LargeViewNavigation"
+				  Background="{StaticResource Color06Brush}"
+				  Visibility="Collapsed"
+				  HorizontalAlignment="Left"
+				  Width="300">
+
+				<StackPanel VerticalAlignment="Top">
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<!-- Organization Button -->
+					<Button Content="Organization"
+							Command="{Binding ToOrganizationListPage}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<!-- Project Button -->
+					<Button Content="Project"
+							Command="{Binding ToProjectListPage}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+				</StackPanel>
+
+				<StackPanel VerticalAlignment="Bottom"
+							Margin="0,0,0,0">
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<!-- Profile Button -->
+					<Button Content="Profile"
+							Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<Button Content="About"
+							Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}" />
+					
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<Button Content="Source code"
+							Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+
+					<!-- Log Out Button -->
+					<Button Content="Log Out"
+							Command="{Binding Logout}"
+							Style="{StaticResource NavigationButtonStyle}" />
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color02Brush}"
+							   Height="1" />
+				</StackPanel>
 			</Grid>
 		</Grid>
 

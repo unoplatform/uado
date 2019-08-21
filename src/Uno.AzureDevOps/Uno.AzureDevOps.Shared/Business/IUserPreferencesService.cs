@@ -17,7 +17,7 @@ namespace Uno.AzureDevOps.Business
 		/// Returns if a saved account exists for the current user
 		/// </summary>
 		/// <returns>boolean</returns>
-		bool HasPreferredAccountName();
+		bool HasPreferredAccount();
 
 		/// <summary>
 		/// Save the preferredProject.
@@ -31,7 +31,7 @@ namespace Uno.AzureDevOps.Business
 		/// If one already exists, remove it and save the new one
 		/// </summary>
 		/// <param name="accountName"></param>
-		void SavePreferredAccountName(string accountName);
+		void SavePreferredAccount(AccountData accountData);
 
 		/// <summary>
 		/// Get & parses the stored string projectId to Guid
@@ -44,6 +44,6 @@ namespace Uno.AzureDevOps.Business
 		/// Get the preferred account name
 		/// </summary>
 		/// <returns></returns>
-		string GetPreferredAccountName();
+		AccountData GetPreferredAccount();
 	}
 }

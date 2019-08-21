@@ -11,6 +11,7 @@ using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
+using Uno.AzureDevOps.Views.Content;
 
 namespace Uno.AzureDevOps.Presentation
 {
@@ -30,7 +31,7 @@ namespace Uno.AzureDevOps.Presentation
 			_vstsRepository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
 			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
-			ToProjectPage = new RelayCommand<TeamProjectReference>(project => _navigationService.ToProjectPage(project));
+			ToProjectPage = new RelayCommand<TeamProjectReference>(project => _navigationService.NavigateToAndClearStack(nameof(ProjectPage), project));
 
 			ReloadPage = new RelayCommand(() => Projects = new TaskNotifier<List<TeamProjectReference>>(GetProjects()));
 
@@ -60,8 +61,8 @@ namespace Uno.AzureDevOps.Presentation
 			Account = account;
 
 			// Saving the accountName to be able to retrieve it later
-			_userPreferencesService.SavePreferredAccountName(account.AccountName);
-			_vstsRepository.SetVSTSAccount(_account.AccountName);
+			_userPreferencesService.SavePreferredAccount(account);
+			_vstsRepository.SetVSTSAccount(account.AccountName);
 
 			if (Projects == null)
 			{

@@ -39,5 +39,22 @@ namespace Uno.AzureDevOps.Views.Content
 		{
 			(DataContext as ProjectPageViewModel).OnWorkItemClicked(e.ClickedItem as RichWorkItem);
 		}
+
+		private void ProfileButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (LargeViewNavigation.Visibility == Visibility.Collapsed)
+			{
+				LargeViewNavigation.Visibility = Visibility.Visible;
+				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
+				ContentView.SetValue(Grid.ColumnProperty, 0);
+			}
+			else
+			{
+				LargeViewNavigation.Visibility = Visibility.Collapsed;
+				ContentView.SetValue(Grid.ColumnProperty, 1);
+			}
+
+			// LargeViewNavigation.Visibility = LargeViewNavigation.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+		}
 	}
 }

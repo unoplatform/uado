@@ -139,6 +139,33 @@
 		</wasm:Setter>
 	</Style>
 
+	<Style x:Key="BurgerMenuButtonStyle"
+		   TargetType="AppBarButton"
+		   BasedOn="{StaticResource DefaulAppBarButtonStyle}">
+
+		<Setter Property="Foreground"
+				Value="{StaticResource Color02Brush}" />
+
+		<Setter Property="Icon">
+			<Setter.Value>
+				<BitmapIcon UriSource="ms-appx:///Assets/burgerMenu.png"
+							win:Width="26" />
+			</Setter.Value>
+		</Setter>
+
+		<!-- TODO: 151974 [WASM] Remove Work Around for AppBarButton Icons -->
+		<!-- Icon in wasm do not strech properly and always have a black foreground -->
+		<wasm:Setter Property="Content">
+			<Setter.Value>
+				<Image Source="ms-appx:///Assets/burgerMenu.scale-100.png"
+					   Stretch="None"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   wasm:Width="26" />
+			</Setter.Value>
+		</wasm:Setter>
+	</Style>
+
 	<Style x:Key="MoreOptionsButtonStyle"
 		   TargetType="AppBarButton"
 		   BasedOn="{StaticResource DefaulAppBarButtonStyle}">

@@ -15,6 +15,7 @@ using Uno.AzureDevOps.Framework.Commands;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Storage;
 using Uno.AzureDevOps.Framework.Tasks;
+using Uno.AzureDevOps.Views.Content;
 
 namespace Uno.AzureDevOps.Presentation
 {
@@ -31,6 +32,7 @@ namespace Uno.AzureDevOps.Presentation
 		private TeamProjectReference _project;
 		private TeamSettingsIteration _selectedIteration;
 		private WebApiTeam _selectedTeam;
+		private AccountData _account;
 
 		private ITaskNotifier<List<RichWorkItem>> _iterationWorkItems;
 		private ITaskNotifier<List<TeamSettingsIteration>> _iterations;
@@ -45,6 +47,8 @@ namespace Uno.AzureDevOps.Presentation
 
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
+			ToProjectListPage = new RelayCommand(() => _navigationService.ToProjectListPage(_account));
+			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
 
 			ReloadPage = new AsyncCommand(async () => await LoadTeamsAndWorkItems());
 
@@ -109,6 +113,10 @@ namespace Uno.AzureDevOps.Presentation
 
 		public ICommand ToProfilePage { get; }
 
+		public ICommand ToOrganizationListPage { get; }
+
+		public ICommand ToProjectListPage { get; }
+
 		public ICommand ReloadPage { get; }
 
 		public bool LoadingSuccess
@@ -121,6 +129,12 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			get => _currentView;
 			set => Set(() => CurrentView, ref _currentView, value);
+		}
+
+		public AccountData Account
+		{
+			get => _account;
+			set => Set(() => Account, ref _account, value);
 		}
 
 		public string SelectedProjectName
@@ -142,14 +156,16 @@ namespace Uno.AzureDevOps.Presentation
 
 		public async Task OnNavigatedTo(TeamProjectReference project)
 		{
+			var account = _userPreferencesService.GetPreferredAccount();
+			_account = account;
+
 			// if project is null, that means we navigate here from login page
 			if (project == null)
 			{
 				if (_userPreferencesService.TryGetPreferredProjectId(out var projectId))
 				{
 					// Get account name to be able to do calls in vstsRepository
-					var accountName = _userPreferencesService.GetPreferredAccountName();
-					_vstsRepository.SetVSTSAccount(accountName);
+					_vstsRepository.SetVSTSAccount(_account.AccountName);
 					project = await GetProject(projectId);
 				}
 			}

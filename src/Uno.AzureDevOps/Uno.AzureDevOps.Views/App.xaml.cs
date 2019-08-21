@@ -169,7 +169,7 @@ namespace Uno.AzureDevOps
 			if (authenticationService.IsAuthenticated())
 			{
 				// Redirect user to project detail page (both are mandatory for API calls later)
-				if (userPreferencesService.HasPreferredProject() && userPreferencesService.HasPreferredAccountName())
+				if (userPreferencesService.HasPreferredProject() && userPreferencesService.HasPreferredAccount())
 				{
 					navigationService.ToProjectPage();
 				}
