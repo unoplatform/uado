@@ -186,6 +186,11 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\burgerMenu.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\burgerMenu.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\burgerMenu.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\burgerMenu.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\burgerMenu.scale-400.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\LockScreenLogo.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\more.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\more.scale-150.png" />

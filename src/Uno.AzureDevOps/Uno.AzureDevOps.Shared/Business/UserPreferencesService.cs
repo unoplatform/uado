@@ -27,7 +27,7 @@ namespace Uno.AzureDevOps.Business
 			return _secureStorage.HasKey(ProjectStorageKey);
 		}
 
-		public bool HasPreferredAccountName()
+		public bool HasPreferredAccount()
 		{
 			return _secureStorage.HasKey(AccountStorageKey);
 		}
@@ -54,24 +54,24 @@ namespace Uno.AzureDevOps.Business
 			return Guid.TryParse(_secureStorage.GetValue<string>(ProjectStorageKey), out projectGuid);
 		}
 
-		public string GetPreferredAccountName()
+		public AccountData GetPreferredAccount()
 		{
-			return _secureStorage.GetValue<string>(AccountStorageKey);
+			return _secureStorage.GetValue<AccountData>(AccountStorageKey);
 		}
 
-		public void SavePreferredAccountName(string accountName)
+		public void SavePreferredAccount(AccountData accountData)
 		{
-			if (!HasPreferredAccountName())
+			if (!HasPreferredAccount())
 			{
-				_secureStorage.SetValue(AccountStorageKey, accountName);
+				_secureStorage.SetValue(AccountStorageKey, accountData);
 			}
 			else
 			{
-				var savedAccountName = _secureStorage.GetValue<string>(AccountStorageKey);
-				if (savedAccountName != accountName)
+				var savedAccountName = _secureStorage.GetValue<AccountData>(AccountStorageKey);
+				if (savedAccountName != accountData)
 				{
 					_secureStorage.Delete(AccountStorageKey);
-					_secureStorage.SetValue(AccountStorageKey, accountName);
+					_secureStorage.SetValue(AccountStorageKey, accountData);
 				}
 			}
 		}
