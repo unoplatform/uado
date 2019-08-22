@@ -41,7 +41,7 @@
 		<Setter Property="FontWeight"
 				Value="Bold" />
 		<Setter Property="Foreground"
-				Value="{StaticResource Color02Brush}" />
+				Value="{StaticResource Color01Brush}" />
 		<Setter Property="FontFamily"
 				Value="{StaticResource FontFamily01Bold}" />
 	</Style>
