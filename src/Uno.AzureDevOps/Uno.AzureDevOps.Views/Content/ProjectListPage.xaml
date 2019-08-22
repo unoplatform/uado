@@ -56,8 +56,18 @@
 		</DataTemplate>
 	</Page.Resources>
 
-	<Grid Background="{StaticResource Color07Brush}"
+	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition x:Name="MainGridViewColumn_1"
+							  Width="*" />
+			<ColumnDefinition x:Name="MainGridViewColumn_2"
+							  Width="0" />
+		</Grid.ColumnDefinitions>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 
@@ -72,132 +82,140 @@
 								Value="300" />
 						<Setter Target="LargeViewNavigation.Visibility"
 								Value="Visible" />
+						<Setter Target="LargeViewNavigation.Margin"
+								Value="0,0,0,0" />
 						<Setter Target="HamburgerButton.Visibility"
 								Value="Collapsed" />
 						<Setter Target="ContentView.Grid.Column"
 								Value="1" />
+						<Setter Target="MainGridViewColumn_1.Width"
+								Value="Auto" />
+						<Setter Target="MainGridViewColumn_2.Width"
+								Value="*" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
+		<!-- CommandBar -->
+		<CommandBar x:Name="CommandBarView"
+					Content="All projects"
+					Grid.Column="0"
+					Grid.ColumnSpan="2">
+			<CommandBar.PrimaryCommands>
+				<!-- Hamburger Button  -->
+				<AppBarButton x:Name="HamburgerButton"
+							  Click="HamburgerButton_Click"
+							  Style="{StaticResource BurgerMenuButtonStyle}">
+				</AppBarButton>
+			</CommandBar.PrimaryCommands>
+		</CommandBar>
 
-			<!-- CommandBar -->
-			<CommandBar Content="{Binding Account.AccountName}">
-				<CommandBar.PrimaryCommands>
-					<!-- Hamburger Button  -->
-					<AppBarButton x:Name="HamburgerButton"
-								  Click="HamburgerButton_Click"
-								  Style="{StaticResource BurgerMenuButtonStyle}">
-					</AppBarButton>
-				</CommandBar.PrimaryCommands>
-			</CommandBar>
 
-			<Grid Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<ScrollViewer x:Name="ContentView"
-							  Grid.Column="1">
-					<Grid x:Name="RootGrid"
-						  Background="{StaticResource Color02Brush}"
-						  BorderBrush="{StaticResource Color06Brush}">
+		<Grid Grid.Row="1"
+			  x:Name="ContentView">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<ScrollViewer>
+				<Grid x:Name="RootGrid"
+					  Background="{StaticResource Color02Brush}"
+					  BorderBrush="{StaticResource Color06Brush}">
 
-						<!-- Loading -->
-						<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
-							<StackPanel VerticalAlignment="Center"
-										HorizontalAlignment="Center">
+					<!-- Loading -->
+					<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+						<StackPanel VerticalAlignment="Center"
+									HorizontalAlignment="Center">
 
-								<!-- Progress Ring -->
-								<ProgressRing IsActive="True"
-											  Foreground="{StaticResource Color03Brush}"
-											  Height="20"
-											  Width="20"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center"
-											  Margin="0,12" />
+							<!-- Progress Ring -->
+							<ProgressRing IsActive="True"
+										  Foreground="{StaticResource Color03Brush}"
+										  Height="20"
+										  Width="20"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"
+										  Margin="0,12" />
 
-								<!-- Loading Message -->
-								<TextBlock Text="Loading..."
-										   Style="{StaticResource Typo11}" />
-							</StackPanel>
-						</Grid>
-
-						<!-- Error State -->
-						<Grid Visibility="{Binding Projects.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
-
-							<!-- Message -->
-							<TextBlock Text="{Binding Projects.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-									   Style="{StaticResource Typo10}"
-									   HorizontalAlignment="Center"
-									   VerticalAlignment="Center"
-									   TextAlignment="Center"
-									   Margin="50,0,50,48" />
-
-							<!-- Reload button -->
-							<Button x:Name="ReloadButton"
-									Content="Reload"
-									Command="{Binding ReloadPage}"
-									Style="{StaticResource ReloadButtonStyle}"
-									VerticalAlignment="Bottom"
-									Margin="16,22" />
-						</Grid>
-
-						<!-- Content -->
-						<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="*" />
-							</Grid.RowDefinitions>
-
-							<!-- Label -->
-							<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
-							<wasm:TextBlock Text="ALL PROJECTS"
-											Style="{StaticResource Typo09}"
-											HorizontalAlignment="Left"
-											Margin="16,16,0,12"
-											Grid.Row="0" />
-
-							<!-- Recent Project list -->
-							<ListView ItemsSource="{Binding Projects.Result}"
-									  ItemTemplate="{StaticResource ProjectItemTemplate}"
-									  ItemClick="ListView_ItemClick"
-									  IsItemClickEnabled="True"
-									  Padding="0,0,0,80"
-									  Grid.Row="1">
-								<ListView.Header>
-
-									<!-- Label -->
-									<TextBlock Text="ALL PROJECTS"
-											   Style="{StaticResource Typo09}"
-											   HorizontalAlignment="Left"
-											   Margin="16,16,0,12" />
-								</ListView.Header>
-							</ListView>
-
-							<!-- Empty List Message -->
-							<TextBlock Text="No projects"
-									   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
-									   Style="{StaticResource Typo15}"
-									   VerticalAlignment="Top"
-									   Margin="16,0"
-									   Grid.Row="1" />
-						</Grid>
+							<!-- Loading Message -->
+							<TextBlock Text="Loading..."
+									   Style="{StaticResource Typo11}" />
+						</StackPanel>
 					</Grid>
-				</ScrollViewer>
-				<!-- Side hamburger menu -->
-				<uc:SideMenu x:Name="LargeViewNavigation"
-							 Background="{StaticResource Color06Brush}"
-							 Visibility="Collapsed"
-							 HorizontalAlignment="Left"
-							 Width="300" />
-			</Grid>
+
+					<!-- Error State -->
+					<Grid Visibility="{Binding Projects.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+
+						<!-- Message -->
+						<TextBlock Text="{Binding Projects.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+								   Style="{StaticResource Typo10}"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"
+								   TextAlignment="Center"
+								   Margin="50,0,50,48" />
+
+						<!-- Reload button -->
+						<Button x:Name="ReloadButton"
+								Content="Reload"
+								Command="{Binding ReloadPage}"
+								Style="{StaticResource ReloadButtonStyle}"
+								VerticalAlignment="Bottom"
+								Margin="16,22" />
+					</Grid>
+
+					<!-- Content -->
+					<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<!-- Label -->
+						<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
+						<wasm:TextBlock Text="ALL PROJECTS"
+										Style="{StaticResource Typo09}"
+										HorizontalAlignment="Left"
+										Margin="16,16,0,12"
+										Grid.Row="0" />
+
+						<!-- Recent Project list -->
+						<ListView ItemsSource="{Binding Projects.Result}"
+								  ItemTemplate="{StaticResource ProjectItemTemplate}"
+								  ItemClick="ListView_ItemClick"
+								  IsItemClickEnabled="True"
+								  Padding="0,0,0,80"
+								  Grid.Row="1">
+							<ListView.Header>
+
+								<!-- Label -->
+								<TextBlock Text="ALL PROJECTS"
+										   Style="{StaticResource Typo09}"
+										   HorizontalAlignment="Left"
+										   Margin="16,16,0,12" />
+							</ListView.Header>
+						</ListView>
+
+						<!-- Empty List Message -->
+						<TextBlock Text="No projects"
+								   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+								   Style="{StaticResource Typo15}"
+								   VerticalAlignment="Top"
+								   Margin="16,0"
+								   Grid.Row="1" />
+					</Grid>
+				</Grid>
+			</ScrollViewer>
 		</Grid>
+		
+		<!-- Side hamburger menu -->
+		<!-- Setting a default margin top as adaptive trigger on row/rowspan does not work -->
+		<uc:SideMenu x:Name="LargeViewNavigation"
+					 NavLevel="Projects"
+					 Background="{StaticResource Color06Brush}"
+					 Visibility="Collapsed"
+					 Grid.Row="0"
+					 Grid.RowSpan="2"
+					 Margin="0,50,0,0"
+					 HorizontalAlignment="Left"
+					 Width="300" />
 	</Grid>
 </Page>

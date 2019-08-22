@@ -11,15 +11,39 @@
 
 	<Grid Background="{StaticResource Color08Brush}">
 
-		<StackPanel VerticalAlignment="Top">
+		<StackPanel x:Name="TopMenuLogoView"
+					Visibility="Collapsed"
+					Padding="45"
+					Margin="0,15,0,0"
+					VerticalAlignment="Top">
+			<Image Source="ms-appx:///Assets/logoUADO.png" />
+		</StackPanel>
+		
+		<StackPanel x:Name="TopMenuView"
+					Visibility="Visible"
+					VerticalAlignment="Top">
+
+			
 			<!-- Separation -->
 			<Rectangle Fill="{StaticResource Color08Brush}"
 					   Height="1" />
 
 			<!-- Organization Button -->
-			<Button Content="Organizations"
-					Command="{Binding ToOrganizationListPage}"
-					Style="{StaticResource NavigationButtonStyle}" />
+			<StackPanel Orientation="Horizontal">
+				<Grid Background="{StaticResource Color03Brush}"
+					  Height="29"
+					  Width="29"
+					  CornerRadius="4"
+					  VerticalAlignment="Center"
+					  Margin="16,0,0,0">
+					<TextBlock Text="{Binding Account.AccountName, Converter={StaticResource MemberInitials}}"
+							   Style="{StaticResource ProjectInitialsTextBlock}" />
+				</Grid>
+				<Button Content="{Binding Account.AccountName}"
+						Command="{Binding ToOrganizationListPage}"
+						Style="{StaticResource NavigationButtonStyle}" />
+			</StackPanel>
+			
 
 			<!-- Separation -->
 			<Rectangle Fill="{StaticResource Color02Brush}"
@@ -99,6 +123,11 @@
 			<!-- Separation -->
 			<Rectangle Fill="{StaticResource Color02Brush}"
 					   Height="1" />
+			<StackPanel Background="{StaticResource Color08Brush}" Padding="0,15">
+				<TextBlock Text="{Binding AppVersion}"
+						   HorizontalAlignment="Center"
+						   Style="{StaticResource Typo07}" />
+			</StackPanel>
 		</StackPanel>
 	</Grid>
 </UserControl>

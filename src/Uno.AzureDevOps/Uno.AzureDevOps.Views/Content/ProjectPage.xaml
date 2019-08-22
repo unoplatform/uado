@@ -97,8 +97,10 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition x:Name="MainGridViewColumn_1" Width="*" />
-			<ColumnDefinition x:Name="MainGridViewColumn_2" Width="0" />
+			<ColumnDefinition x:Name="MainGridViewColumn_1"
+							  Width="*" />
+			<ColumnDefinition x:Name="MainGridViewColumn_2"
+							  Width="0" />
 		</Grid.ColumnDefinitions>
 
 		<VisualStateManager.VisualStateGroups>
@@ -539,6 +541,7 @@
 
 		<!-- Side hamburger menu -->
 		<uc:SideMenu x:Name="LargeViewNavigation"
+					 NavLevel="Project"
 					 Background="{StaticResource Color06Brush}"
 					 Visibility="Collapsed"
 					 Grid.RowSpan="2"
