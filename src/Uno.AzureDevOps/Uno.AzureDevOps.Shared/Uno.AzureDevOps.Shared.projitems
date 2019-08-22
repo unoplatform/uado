@@ -90,6 +90,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Module.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\AboutPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentation\SideMenuViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\OrganizationListPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\PresentationConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentation\ProfilePageViewModel.cs" />
