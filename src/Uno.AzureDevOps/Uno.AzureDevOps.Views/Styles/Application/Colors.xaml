@@ -42,6 +42,7 @@
 	<Color x:Key="Color05">#FF989497</Color>
 	<Color x:Key="Color06">#FFC2BFC1</Color>
 	<Color x:Key="Color07">#FFD5D3D5</Color>
+	<Color x:Key="Color08">#F8F8F8</Color>
 
 	<!--
 	******************************************************************
@@ -69,6 +70,8 @@
 					 Color="{StaticResource Color06}" />
 	<SolidColorBrush x:Key="Color07Brush"
 					 Color="{StaticResource Color07}" />
+	<SolidColorBrush x:Key="Color08Brush"
+					 Color="{StaticResource Color08}" />
 
 	<SolidColorBrush x:Key="TransparentColorBrush"
 					 Color="Transparent" />
