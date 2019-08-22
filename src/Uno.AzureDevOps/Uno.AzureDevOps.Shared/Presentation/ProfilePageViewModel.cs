@@ -36,8 +36,6 @@ namespace Uno.AzureDevOps.Presentation
 			NavigateToSourceCode = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.GitHubUadoUrl)));
 			NavigateToPrivacyPolicy = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.PrivacyPolicyUrl)));
 			NavigateToTermsAndConditions = new RelayCommand(async () => await Launcher.LaunchUriAsync(new Uri(ClientConstants.TermsAndConditionsUrl)));
-
-			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
 
 		public ITaskNotifier<UserProfile> UserProfile
@@ -57,8 +55,6 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand NavigateToPrivacyPolicy { get; }
 
 		public ICommand NavigateToTermsAndConditions { get; }
-
-		public string AppVersion { get; }
 
 		private void ReloadPageCommand()
 		{

@@ -7,15 +7,24 @@
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="">
 
-	<Grid Background="{StaticResource Color07Brush}"
+	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition x:Name="MainGridViewColumn_1"
+							  Width="*" />
+			<ColumnDefinition x:Name="MainGridViewColumn_2"
+							  Width="0" />
+		</Grid.ColumnDefinitions>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="wide">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
-
 					<VisualState.Setters>
 						<Setter Target="RootGrid.BorderThickness"
 								Value="1,0" />
@@ -27,154 +36,155 @@
 								Value="Collapsed" />
 						<Setter Target="ContentView.Grid.Column"
 								Value="1" />
+						<Setter Target="MainGridViewColumn_1.Width"
+								Value="Auto" />
+						<Setter Target="MainGridViewColumn_2.Width"
+								Value="*" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
+		<!-- CommandBar -->
+		<CommandBar x:Name="CommandBarView"
+					Content="My Organizations"
+					Grid.Column="0"
+					Grid.ColumnSpan="2">
+			<CommandBar.PrimaryCommands>
+				<!-- Hamburger Button  -->
+				<AppBarButton x:Name="HamburgerButton"
+							  Click="HamburgerButton_Click"
+							  Style="{StaticResource BurgerMenuButtonStyle}">
+				</AppBarButton>
+			</CommandBar.PrimaryCommands>
+		</CommandBar>
 
-			<!-- CommandBar -->
-			<CommandBar Content="My Organizations">
-				<CommandBar.PrimaryCommands>
-					<!-- Hamburger Button  -->
-					<AppBarButton x:Name="HamburgerButton"
-								  Click="HamburgerButton_Click"
-								  Style="{StaticResource BurgerMenuButtonStyle}">
-					</AppBarButton>
-				</CommandBar.PrimaryCommands>
-			</CommandBar>
+		<Grid Grid.Row="1"
+			  x:Name="ContentView">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<ScrollViewer>
+				<Grid x:Name="RootGrid"
+					  Background="{StaticResource Color02Brush}"
+					  BorderBrush="{StaticResource Color06Brush}">
 
-			<Grid Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<ScrollViewer x:Name="ContentView"
-							  Grid.Column="1">
+					<!-- Loading State -->
+					<Grid Visibility="{Binding Organizations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Visible, TargetNullValue=Visible}">
 
-					<Grid x:Name="RootGrid"
-						  Background="{StaticResource Color02Brush}"
-						  BorderBrush="{StaticResource Color06Brush}">
+						<StackPanel VerticalAlignment="Center"
+									HorizontalAlignment="Center">
 
-						<!-- Loading State -->
-						<Grid Visibility="{Binding Organizations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Visible, TargetNullValue=Visible}">
+							<!-- Progress Ring -->
+							<ProgressRing IsActive="True"
+										  Foreground="{StaticResource Color03Brush}"
+										  Height="20"
+										  Width="20"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"
+										  Margin="0,12" />
 
-							<StackPanel VerticalAlignment="Center"
-										HorizontalAlignment="Center">
-
-								<!-- Progress Ring -->
-								<ProgressRing IsActive="True"
-											  Foreground="{StaticResource Color03Brush}"
-											  Height="20"
-											  Width="20"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center"
-											  Margin="0,12" />
-
-								<!-- Verifying Message -->
-								<TextBlock Text="Loading..."
-										   Style="{StaticResource Typo08}" />
-							</StackPanel>
-						</Grid>
-
-						<!-- Error State -->
-						<Grid Visibility="{Binding Organizations.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
-
-							<!-- Message -->
-							<TextBlock Text="{Binding Organizations.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
-									   Style="{StaticResource Typo10}"
-									   HorizontalAlignment="Center"
-									   VerticalAlignment="Center"
-									   TextAlignment="Center"
-									   Margin="50,0,50,48" />
-
-							<!-- Reload button -->
-							<Button x:Name="ReloadButton"
-									Content="Reload"
-									Command="{Binding ReloadPage}"
-									Style="{StaticResource ReloadButtonStyle}"
-									VerticalAlignment="Bottom"
-									Margin="16,22" />
-						</Grid>
-
-						<!-- Content -->
-						<Grid Visibility="{Binding Organizations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-							  Background="{StaticResource Color02Brush}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-
-							<!-- Organizations List -->
-							<ListView ItemsSource="{Binding Organizations.Result}"
-									  VerticalAlignment="Top"
-									  IsItemClickEnabled="True"
-									  ItemClick="ListView_ItemClick">
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<Grid Height="44">
-
-											<!-- Organization Name -->
-											<TextBlock Text="{Binding AccountName}"
-													   Style="{StaticResource Typo08}"
-													   TextWrapping="NoWrap"
-													   VerticalAlignment="Center"
-													   Margin="16,0,50,0" />
-
-											<!-- Border -->
-											<Rectangle Fill="{StaticResource Color07Brush}"
-													   Height="1"
-													   VerticalAlignment="Bottom"
-													   Margin="16,0,0,0" />
-
-											<!-- Chevron -->
-											<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
-												  Fill="{StaticResource Color05Brush}"
-												  VerticalAlignment="Center"
-												  HorizontalAlignment="Right"
-												  Margin="0,0,26,0" />
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-
-							<!-- Empty List Message -->
-							<TextBlock Text="No Organization associated with that email, please add an organization to your account and come back."
-									   Visibility="{Binding Organizations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
-									   Style="{StaticResource Typo15}"
-									   Margin="16,12,16,0" />
-
-							<!-- About Message -->
-							<TextBlock Text="Learn more about this app and get source code at"
-									   Style="{StaticResource Typo13}"
-									   HorizontalAlignment="Center"
-									   TextAlignment="Center"
-									   TextWrapping="Wrap"
-									   Margin="16,8"
-									   Grid.Row="1" />
-
-							<!-- Hyperlink to website -->
-							<HyperlinkButton Content="About Us Page"
-											 Command="{Binding ToAboutPage}"
-											 HorizontalAlignment="Center"
-											 Margin="16,0,16,24"
-											 Grid.Row="2" />
-						</Grid>
+							<!-- Verifying Message -->
+							<TextBlock Text="Loading..."
+									   Style="{StaticResource Typo08}" />
+						</StackPanel>
 					</Grid>
-				</ScrollViewer>
 
-				<!-- Navbar side menu hamburger -->
-				<uc:SideMenu x:Name="LargeViewNavigation"
-							 Visibility="Collapsed"
-							 HorizontalAlignment="Left"
-							 Width="300" />
-			</Grid>
+					<!-- Error State -->
+					<Grid Visibility="{Binding Organizations.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+
+						<!-- Message -->
+						<TextBlock Text="{Binding Organizations.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+								   Style="{StaticResource Typo10}"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"
+								   TextAlignment="Center"
+								   Margin="50,0,50,48" />
+
+						<!-- Reload button -->
+						<Button x:Name="ReloadButton"
+								Content="Reload"
+								Command="{Binding ReloadPage}"
+								Style="{StaticResource ReloadButtonStyle}"
+								VerticalAlignment="Bottom"
+								Margin="16,22" />
+					</Grid>
+
+					<!-- Content -->
+					<Grid Visibility="{Binding Organizations.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+						  Background="{StaticResource Color02Brush}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<!-- Organizations List -->
+						<ListView ItemsSource="{Binding Organizations.Result}"
+								  VerticalAlignment="Top"
+								  IsItemClickEnabled="True"
+								  ItemClick="ListView_ItemClick">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<Grid Height="44">
+
+										<!-- Organization Name -->
+										<TextBlock Text="{Binding AccountName}"
+												   Style="{StaticResource Typo08}"
+												   TextWrapping="NoWrap"
+												   VerticalAlignment="Center"
+												   Margin="16,0,50,0" />
+
+										<!-- Border -->
+										<Rectangle Fill="{StaticResource Color07Brush}"
+												   Height="1"
+												   VerticalAlignment="Bottom"
+												   Margin="16,0,0,0" />
+
+										<!-- Chevron -->
+										<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
+											  Fill="{StaticResource Color05Brush}"
+											  VerticalAlignment="Center"
+											  HorizontalAlignment="Right"
+											  Margin="0,0,26,0" />
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+
+						<!-- Empty List Message -->
+						<TextBlock Text="No Organization associated with that email, please add an organization to your account and come back."
+								   Visibility="{Binding Organizations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
+								   Style="{StaticResource Typo15}"
+								   Margin="16,12,16,0" />
+
+						<!-- About Message -->
+						<TextBlock Text="Learn more about this app and get source code at"
+								   Style="{StaticResource Typo13}"
+								   HorizontalAlignment="Center"
+								   TextAlignment="Center"
+								   TextWrapping="Wrap"
+								   Margin="16,8"
+								   Grid.Row="1" />
+
+						<!-- Hyperlink to website -->
+						<HyperlinkButton Content="About Us Page"
+										 Command="{Binding ToAboutPage}"
+										 HorizontalAlignment="Center"
+										 Margin="16,0,16,24"
+										 Grid.Row="2" />
+					</Grid>
+				</Grid>
+			</ScrollViewer>
+
 		</Grid>
+		<!-- Side hamburger menu -->
+		<uc:SideMenu x:Name="LargeViewNavigation"
+					 NavLevel="Organizations"
+					 Background="{StaticResource Color06Brush}"
+					 Visibility="Collapsed"
+					 Grid.RowSpan="2"
+					 HorizontalAlignment="Left"
+					 Width="300" />
 	</Grid>
 </Page>

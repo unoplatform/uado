@@ -9,6 +9,7 @@ using Uno.AzureDevOps.Business;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
+using Uno.AzureDevOps.Framework.AppVersion;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
 
@@ -30,11 +31,13 @@ namespace Uno.AzureDevOps.Presentation
 			_vstsRespository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
 
 			UserProfile = new TaskNotifier<UserProfile>(_vstsRespository.GetUserProfile());
-			_account = _userPreferencesService.GetPreferredAccount();
+			Account = _userPreferencesService.GetPreferredAccount();
 
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 			ToProjectListPage = new RelayCommand(() => _navigationService.ToProjectListPage(_account));
 			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
+
+			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
 
 		public ITaskNotifier<UserProfile> UserProfile
@@ -48,5 +51,13 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToOrganizationListPage { get; }
 
 		public ICommand ToProjectListPage { get; }
+
+		public string AppVersion { get; }
+
+		public AccountData Account
+		{
+			get => _account;
+			set => Set(() => Account, ref _account, value);
+		}
 	}
 }
