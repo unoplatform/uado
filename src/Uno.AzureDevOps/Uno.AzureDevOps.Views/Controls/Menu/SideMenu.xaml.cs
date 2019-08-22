@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Uno.AzureDevOps.Presentation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,6 +21,7 @@ namespace Uno.AzureDevOps.Views.Controls
         public SideMenu()
         {
             this.InitializeComponent();
-        }
+			DataContext = new SideMenuViewModel();
+		}
     }
 }

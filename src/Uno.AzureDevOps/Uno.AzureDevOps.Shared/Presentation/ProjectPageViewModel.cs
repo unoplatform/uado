@@ -46,8 +46,6 @@ namespace Uno.AzureDevOps.Presentation
 			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
-			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
-			ToProjectListPage = new RelayCommand(() => _navigationService.ToProjectListPage(_account));
 			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
 
 			ReloadPage = new AsyncCommand(async () => await LoadTeamsAndWorkItems());
