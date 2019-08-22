@@ -67,8 +67,8 @@ namespace Uno.AzureDevOps.Business
 			}
 			else
 			{
-				var savedAccountName = _secureStorage.GetValue<AccountData>(AccountStorageKey);
-				if (savedAccountName != accountData)
+				var savedAccount = _secureStorage.GetValue<AccountData>(AccountStorageKey);
+				if (savedAccount != accountData)
 				{
 					_secureStorage.Delete(AccountStorageKey);
 					_secureStorage.SetValue(AccountStorageKey, accountData);
