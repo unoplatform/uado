@@ -145,7 +145,7 @@
 							</ListView>
 
 							<!-- Empty List Message -->
-							<TextBlock Text="No Organization associated with that email, please add organization to your account and come back."
+							<TextBlock Text="No Organization associated with that email, please add an organization to your account and come back."
 									   Visibility="{Binding Organizations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
 									   Style="{StaticResource Typo15}"
 									   Margin="16,12,16,0" />

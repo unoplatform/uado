@@ -60,7 +60,7 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			Account = account;
 
-			// Saving the accountName to be able to retrieve it later
+			// Saving the account to be able to retrieve it later
 			_userPreferencesService.SavePreferredAccount(account);
 			_vstsRepository.SetVSTSAccount(account.AccountName);
 

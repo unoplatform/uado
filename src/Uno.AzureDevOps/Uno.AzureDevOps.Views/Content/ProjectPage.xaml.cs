@@ -51,11 +51,7 @@ namespace Uno.AzureDevOps.Views.Content
 			else
 			{
 				LargeViewNavigation.Visibility = Visibility.Collapsed;
-
-				// ContentView.SetValue(Grid.ColumnProperty, 1);
 			}
-
-			// LargeViewNavigation.Visibility = LargeViewNavigation.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
 		}
 	}
 }
