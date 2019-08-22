@@ -47,7 +47,7 @@
 			<StackPanel Spacing="14"
 						Margin="34,0,0,0"
 						Orientation="Horizontal">
-				<Image Source="ms-appx:///Assets/profile.scale-100.png" />
+				<Image Source="ms-appx:///Assets/profile.png" />
 				<Button Content="Profile"
 						Command="{Binding ToProfilePage}"
 						Style="{StaticResource NavigationButtonStyle}" />
@@ -60,7 +60,7 @@
 			<StackPanel Spacing="14"
 						Margin="34,0,0,0"
 						Orientation="Horizontal">
-				<Image Source="ms-appx:///Assets/about.scale-100.png" />
+				<Image Source="ms-appx:///Assets/about.png" />
 				<Button Content="About"
 						Command="{Binding ToProfilePage}"
 						Style="{StaticResource NavigationButtonStyle}" />
@@ -71,14 +71,8 @@
 					   Height="1" />
 
 			<!-- Log Out Button -->
-			<!--<StackPanel Spacing="14"
-						Margin="34,0,0,0"
-						Orientation="Horizontal">
-				<Button Content="Log Out"
-						Command="{Binding Logout}"
-						Style="{StaticResource NavigationButtonStyle}" />
-			</StackPanel>-->
-			<Grid Margin="34,0,0,0" ColumnSpacing="14">
+			<Grid Margin="34,0,0,0"
+				  ColumnSpacing="14">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
@@ -96,6 +90,7 @@
 							Command="{Binding Logout}"
 							Style="{StaticResource NavigationButtonStyle}" />
 					<TextBlock Style="{StaticResource Typo18}"
+							   Margin="15,0,0,0"
 							   Text="{Binding UserProfile.Result.Email}"
 							   TextWrapping="NoWrap" />
 				</StackPanel>
