@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Uno.AzureDevOps.Business;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
@@ -17,6 +18,7 @@ namespace Uno.AzureDevOps.Presentation
 	{
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
+		private readonly IUserPreferencesService _userPreferencesService;
 
 		private ITaskNotifier<List<AccountData>> _organizations;
 
@@ -24,6 +26,7 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			_navigationService = SimpleIoc.Default.GetInstance<IStackNavigationService>();
 			_vstsRepository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
+			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
 			ToProjectListPage = new RelayCommand<AccountData>(account => _navigationService.ToProjectListPage(account));
 
@@ -59,6 +62,8 @@ namespace Uno.AzureDevOps.Presentation
 
 		public void NavigateToProjectListPage(AccountData account)
 		{
+			// Saving the accountName to be able to retrieve it later
+			_userPreferencesService.SavePreferredAccount(account);
 			ToProjectListPage.Execute(account);
 		}
 

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Uno.AzureDevOps.Presentation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -53,7 +54,12 @@ namespace Uno.AzureDevOps.Views.Controls
 				return;
 			}
 
+			var button = sideMenu.ButtonAllProjects;
+			var indicator = sideMenu.IndicatorButtonAllProjects;
 			var currentNavigationLevel = sideMenu.NavLevel.Value;
+
+			button.FontWeight = FontWeights.Normal;
+			indicator.Visibility = Visibility.Collapsed;
 
 			if (currentNavigationLevel == NavigationLevel.Organizations)
 			{
@@ -64,6 +70,8 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+				button.FontWeight = FontWeights.Bold;
+				indicator.Visibility = Visibility.Visible;
 			}
 			else if (currentNavigationLevel == NavigationLevel.Project)
 			{
