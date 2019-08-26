@@ -5,7 +5,9 @@
 	  xmlns:uc="using:Uno.AzureDevOps.Views.Controls"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
-	  mc:Ignorable="">
+	  xmlns:wasm="http:/uno.ui/wasm"
+	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  mc:Ignorable="wasm">
 
 	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
@@ -32,10 +34,14 @@
 								Value="300" />
 						<Setter Target="LargeViewNavigation.Visibility"
 								Value="Visible" />
-						<Setter Target="LargeViewNavigation.(Grid.Row)"
+						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
 								Value="0" />
-						<Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
 								Value="2" />
+						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
+									 Value="0" />
+						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+									 Value="2" />
 						<Setter Target="HamburgerButton.Visibility"
 								Value="Collapsed" />
 						<Setter Target="ContentView.(Grid.Column)"
