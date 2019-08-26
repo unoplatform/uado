@@ -11,6 +11,18 @@
 			 d:DesignHeight="300"
 			 d:DesignWidth="400">
 
+	<UserControl.Resources>
+		<Style x:Key="NavItemImageStyle"
+			   TargetType="Image">
+			<Setter Property="Stretch"
+					Value="Uniform" />
+			<Setter Property="Width"
+					Value="24" />
+			<Setter Property="Height"
+					Value="24" />
+		</Style>
+	</UserControl.Resources>
+
 	<Grid Background="{StaticResource Color08Brush}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
@@ -82,76 +94,98 @@
 
 		<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
 		<StackPanel VerticalAlignment="Bottom">
-			<StackPanel Padding="34,0,0,0"
-						Background="{StaticResource Color02Brush}">
+			<StackPanel Background="{StaticResource Color02Brush}">
 
 				<!-- Separation -->
 				<Rectangle Fill="{StaticResource Color08Brush}"
 						   Height="1" />
 
 				<!-- Profile Button -->
-				<StackPanel Spacing="14"
-							Orientation="Horizontal">
-					<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
-						   not_wasm:Source="ms-appx:///Assets/profile.png" />
-					<Button Content="Profile"
-							Command="{Binding ToProfilePage}"
-							Style="{StaticResource NavigationButtonStyle}" />
-				</StackPanel>
+				<Button Command="{Binding ToProfilePage}"
+						Style="{StaticResource NavigationButtonStyle}">
+					<StackPanel Spacing="14"
+								Orientation="Horizontal">
+						<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
+							   not_wasm:Source="ms-appx:///Assets/profile.png"
+							   Style="{StaticResource NavItemImageStyle}" />
+						<TextBlock Text="Profile"
+								   Style="{StaticResource Typo08}"
+								   TextWrapping="NoWrap" />
+					</StackPanel>
+				</Button>
 
 				<!-- Separation -->
 				<Rectangle Fill="{StaticResource Color08Brush}"
 						   Height="1" />
 
-				<StackPanel Spacing="14"
-							Orientation="Horizontal">
-					<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
-						   not_wasm:Source="ms-appx:///Assets/about.png" />
-					<Button Content="About"
-							Command="{Binding ToProfilePage}"
-							Style="{StaticResource NavigationButtonStyle}" />
-				</StackPanel>
+				<Button Command="{Binding ToProfilePage}"
+						Style="{StaticResource NavigationButtonStyle}">
+					<StackPanel Spacing="14"
+								Orientation="Horizontal">
+						<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
+							   not_wasm:Source="ms-appx:///Assets/about.png"
+							   Style="{StaticResource NavItemImageStyle}" />
+						<TextBlock Text="About"
+								   Style="{StaticResource Typo08}"
+								   TextWrapping="NoWrap" />
+					</StackPanel>
+				</Button>
 
 				<!-- Separation -->
 				<Rectangle Fill="{StaticResource Color08Brush}"
 						   Height="1" />
 
 				<!-- Log Out Button -->
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
+				<Button Command="{Binding Logout}"
+						Style="{StaticResource NavigationButtonStyle}"
+						Height="65">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
 
-					<Grid CornerRadius="16"
-						  Height="24"
-						  Width="24"
-						  Background="{StaticResource Color07Brush}">
-						<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
-								   Style="{StaticResource MemberInitialsTextBlock}" />
-					</Grid>
+						<!-- User initials -->
+						<Grid CornerRadius="16"
+							  Height="24"
+							  Width="24"
+							  Background="{StaticResource Color07Brush}">
+							<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
+									   Style="{StaticResource MemberInitialsTextBlock}" />
+						</Grid>
 
-					<Grid CornerRadius="16"
-						  Height="24"
-						  Width="24">
-						<Grid.Background>
-							<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
-						</Grid.Background>
-					</Grid>
+						<!-- User profile image -->
+						<Grid CornerRadius="16"
+							  Height="24"
+							  Width="24">
+							<Grid.Background>
+								<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
+							</Grid.Background>
+						</Grid>
 
-					<StackPanel Grid.Column="1"
-								Margin="14,0,0,0"
-								Orientation="Vertical">
-						<Button Content="Log Out"
-								Command="{Binding Logout}"
-								Style="{StaticResource NavigationButtonStyle}" />
-						<TextBlock Style="{StaticResource Typo18}"
-								   Margin="15,0,0,0"
-								   Text="{Binding UserProfile.Result.Email}"
+						<!-- Logout Text -->
+						<TextBlock Text="Log Out"
+								   Grid.Column="1"
+								   Margin="14,0,0,0"
+								   Style="{StaticResource Typo08}"
 								   TextWrapping="NoWrap" />
-					</StackPanel>
-				</Grid>
+
+						<!-- User Email -->
+						<TextBlock Grid.Row="1"
+								   Grid.Column="1"
+								   Margin="14,0,0,0"
+								   Style="{StaticResource Typo18}"
+								   Text="{Binding UserProfile.Result.Email}"
+								   TextWrapping="NoWrap"
+								   TextTrimming="CharacterEllipsis" />
+					</Grid>
+				</Button>
 			</StackPanel>
+
 			<!-- Separation -->
 			<Rectangle Fill="{StaticResource Color02Brush}"
 					   Height="1" />
