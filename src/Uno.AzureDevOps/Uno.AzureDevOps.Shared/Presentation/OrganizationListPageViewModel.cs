@@ -62,7 +62,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		public void NavigateToProjectListPage(AccountData account)
 		{
-			// Saving the accountName to be able to retrieve it later
+			// Saving the account to be able to retrieve it later
 			_userPreferencesService.SavePreferredAccount(account);
 			ToProjectListPage.Execute(account);
 		}
