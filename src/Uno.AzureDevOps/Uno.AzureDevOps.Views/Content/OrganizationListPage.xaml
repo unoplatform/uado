@@ -74,7 +74,7 @@
 					  BorderBrush="{StaticResource Color06Brush}">
 			
 					<!-- Loading State -->
-					<Grid Visibility="{Binding Organizations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Visible, TargetNullValue=Visible}">
+					<Grid Visibility="{Binding Organizations.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
 
 						<StackPanel VerticalAlignment="Center"
 									HorizontalAlignment="Center">
@@ -183,6 +183,7 @@
 
 		</Grid>
 		<!-- Side hamburger menu -->
+		<!-- Workaround, set RowSpan 1 as 0 causes a crash -->
 		<uc:SideMenu x:Name="LargeViewNavigation"
 					 NavLevel="Organizations"
 					 Background="{StaticResource Color06Brush}"

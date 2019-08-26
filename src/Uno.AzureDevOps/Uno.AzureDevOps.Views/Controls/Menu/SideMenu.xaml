@@ -117,7 +117,7 @@
 						   Height="1" />
 
 				<!-- Log Out Button -->
-				<Grid ColumnSpacing="14">
+				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="Auto" />
@@ -140,6 +140,7 @@
 					</Grid>
 
 					<StackPanel Grid.Column="1"
+								Margin="14,0,0,0"
 								Orientation="Vertical">
 						<Button Content="Log Out"
 								Command="{Binding Logout}"
