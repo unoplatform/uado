@@ -1,12 +1,13 @@
 ﻿<Page x:Class="Uno.AzureDevOps.Views.Content.ProjectPage"
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:xamarin="http://nventive.com/xamarin"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  xmlns:uc="using:Uno.AzureDevOps.Views.Controls"
-	  mc:Ignorable="xamarin">
+	  xmlns:wasm="http:/uno.ui/wasm"
+	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  mc:Ignorable="xamarin wasm">
 
 	<Page.Resources>
 
@@ -118,10 +119,14 @@
 								Value="Collapsed" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
-						<Setter Target="LargeViewNavigation.(Grid.Row)"
-								Value="0" />
-						<Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-								Value="2" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
+									 Value="0" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+									 Value="2" />
+						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
+									Value="0" />
+						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+									Value="2" />
 						<Setter Target="MainGridViewColumn_1.Width"
 								Value="Auto" />
 						<Setter Target="MainGridViewColumn_2.Width"
