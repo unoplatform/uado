@@ -543,23 +543,11 @@
 		<Setter Property="UseSystemFocusVisuals"
 				Value="True" />
 		<Setter Property="Padding"
-				Value="16,0,50,0" />
+				Value="35,0, 14,0" />
 		<Setter Property="Margin"
 				Value="0" />
 		<Setter Property="FontWeight"
 				Value="Normal" />
-
-		<Setter Property="ContentTemplate">
-			<Setter.Value>
-				<DataTemplate>
-
-					<TextBlock Text="{Binding}"
-							   Style="{StaticResource Typo08}"
-							   TextWrapping="NoWrap" />
-				</DataTemplate>
-			</Setter.Value>
-		</Setter>
-
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -602,7 +590,7 @@
 											  ContentTemplate="{TemplateBinding ContentTemplate}"
 											  ContentTransitions="{TemplateBinding ContentTransitions}"
 											  Content="{TemplateBinding Content}"
-											  Padding="{TemplateBinding Padding}"
+											  Margin="{TemplateBinding Padding}"
 											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 						</Grid>
