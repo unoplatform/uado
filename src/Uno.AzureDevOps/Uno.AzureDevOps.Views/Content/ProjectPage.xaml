@@ -552,7 +552,7 @@
 		<uc:SideMenu x:Name="LargeViewNavigation"
 					 NavLevel="Project"
 					 Background="{StaticResource Color06Brush}"
-					 Visibility="Collapsed"
+					 MenuVisibility="Collapsed"
 					 Grid.Row="1"
 					 Grid.RowSpan="1"
 					 HorizontalAlignment="Left"
