@@ -61,11 +61,11 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				if (visibility == Visibility.Visible)
 				{
-					menu.Animate(opacity: 1, duration: 500);
+					menu.Animate(opacity: 1d, duration: 750);
 				}
 				else
 				{
-					menu.Animate(opacity: 0, duration: 1);
+					menu.Animate(opacity: 0d, duration: 1);
 				}
 
 				menu.Visibility = visibility;
