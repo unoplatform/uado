@@ -42,23 +42,24 @@ namespace Uno.AzureDevOps.Views.Controls
 			typeof(SideMenu),
 			new PropertyMetadata(default(NavigationLevel?), (d, e) => OnNavigationLevelChanged((SideMenu)d)));
 
-		public Visibility MenuVisibility
+		public Visibility? MenuVisibility
 		{
-			get => (Visibility)GetValue(MenuVisibilityProperty);
+			get => (Visibility?)GetValue(MenuVisibilityProperty);
 			set => SetValue(MenuVisibilityProperty, value);
 		}
 
 		public static readonly DependencyProperty MenuVisibilityProperty =
 			DependencyProperty.Register(
 				nameof(MenuVisibility),
-				typeof(Visibility),
+				typeof(Visibility?),
 				typeof(SideMenu),
-				new PropertyMetadata(Visibility.Collapsed, MenuVisibilityChanged));
+				new PropertyMetadata(null, MenuVisibilityChanged));
 
 		private static void MenuVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			if (d is SideMenu menu && e.NewValue is Visibility visibility)
 			{
+#if !__WASM__
 				if (visibility == Visibility.Visible)
 				{
 					menu.Animate(opacity: 1d, duration: 750);
@@ -67,7 +68,7 @@ namespace Uno.AzureDevOps.Views.Controls
 				{
 					menu.Animate(opacity: 0d, duration: 1);
 				}
-
+#endif
 				menu.Visibility = visibility;
 			}
 		}
