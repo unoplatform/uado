@@ -78,7 +78,12 @@
 				<!-- Current organization -->
 				<Button Style="{StaticResource NavigationButtonStyle}"
 						Margin="0,40,0,0">
-					<StackPanel Orientation="Horizontal">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						
 						<Grid Background="{StaticResource Color03Brush}"
 							  Height="32"
 							  Width="32"
@@ -90,9 +95,11 @@
 
 						<TextBlock Text="{Binding Account.AccountName}"
 								   Style="{StaticResource Typo01}"
-								   Margin="16,0,0,0"
-								   FontSize="21" />
-					</StackPanel>
+								   Grid.Column="1"
+								   Margin="16,0"
+								   FontSize="21"
+								   TextTrimming="CharacterEllipsis" />
+					</Grid>
 				</Button>
 
 				<!-- TODO create a custom component for that -->
