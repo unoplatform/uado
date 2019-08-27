@@ -81,7 +81,7 @@
 								Value="1,0" />
 						<Setter Target="ReloadButton.MaxWidth"
 								Value="300" />
-						<Setter Target="LargeViewNavigation.Visibility"
+						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
 						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
 									 Value="0" />
