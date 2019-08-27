@@ -36,7 +36,7 @@
 					   Width="1" />
 
 			<StackPanel x:Name="TopMenuLogoView"
-						Opacity="0"
+						not_wasm:Opacity="0"
 						Visibility="Collapsed"
 						Padding="45"
 						Margin="0,15,0,0"
@@ -47,7 +47,7 @@
 
 			<!-- Top Menu, display organization, back, and all projects -->
 			<StackPanel x:Name="TopMenuView"
-						Opacity="0"
+						not_wasm:Opacity="0"
 						VerticalAlignment="Top"
 						Visibility="Visible">
 
@@ -122,7 +122,7 @@
 			<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
 			<StackPanel x:Name="BottomMenuView"
 						VerticalAlignment="Bottom"
-						Opacity="0">
+						not_wasm:Opacity="0">
 				<StackPanel Background="{StaticResource Color02Brush}">
 
 					<!-- Separation -->
