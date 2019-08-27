@@ -42,15 +42,15 @@ namespace Uno.AzureDevOps.Views.Content
 
 		private void HamburgerButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (LargeViewNavigation.Visibility == Visibility.Collapsed)
+			if (LargeViewNavigation.MenuVisibility == Visibility.Collapsed)
 			{
-				LargeViewNavigation.Visibility = Visibility.Visible;
+				LargeViewNavigation.MenuVisibility = Visibility.Visible;
 				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
 				ContentView.SetValue(Grid.ColumnProperty, 0);
 			}
 			else
 			{
-				LargeViewNavigation.Visibility = Visibility.Collapsed;
+				LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
 			}
 		}
 	}

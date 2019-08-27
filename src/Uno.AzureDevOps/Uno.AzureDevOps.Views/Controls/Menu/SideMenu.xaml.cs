@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace Uno.AzureDevOps.Views.Controls
@@ -28,10 +29,10 @@ namespace Uno.AzureDevOps.Views.Controls
 	[SuppressMessage("", "SA1201", Justification = "Control properties")]
 	[SuppressMessage("", "CA1720", Justification = "Control properties")]
 	public sealed partial class SideMenu : UserControl
-    {
-        public SideMenu()
-        {
-            this.InitializeComponent();
+	{
+		public SideMenu()
+		{
+			this.InitializeComponent();
 			DataContext = new SideMenuViewModel();
 		}
 
@@ -41,10 +42,76 @@ namespace Uno.AzureDevOps.Views.Controls
 			typeof(SideMenu),
 			new PropertyMetadata(default(NavigationLevel?), (d, e) => OnNavigationLevelChanged((SideMenu)d)));
 
+		public Visibility MenuVisibility
+		{
+			get => (Visibility)GetValue(MenuVisibilityProperty);
+			set => SetValue(MenuVisibilityProperty, value);
+		}
+
+		public static readonly DependencyProperty MenuVisibilityProperty =
+			DependencyProperty.Register(
+				nameof(MenuVisibility),
+				typeof(Visibility),
+				typeof(SideMenu),
+				new PropertyMetadata(Visibility.Collapsed, MenuVisibilityChanged));
+
+		private static void MenuVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is SideMenu menu && e.NewValue is Visibility visibility)
+			{
+				if (visibility == Visibility.Visible)
+				{
+					menu.Animate(opacity: 1, duration: 500);
+				}
+				else
+				{
+					menu.Animate(opacity: 0, duration: 1);
+				}
+
+				menu.Visibility = visibility;
+			}
+		}
+
 		public NavigationLevel? NavLevel
 		{
 			get => (NavigationLevel)GetValue(NavigationLevelProperty);
 			set => SetValue(NavigationLevelProperty, value);
+		}
+
+		public void Animate(double opacity, double duration)
+		{
+			var stb = new Storyboard() { Duration = new Duration(TimeSpan.FromMilliseconds(duration)) };
+
+			var logoFadeIn = new DoubleAnimation()
+			{
+				To = opacity,
+				EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
+			};
+
+			var topFadeIn = new DoubleAnimation()
+			{
+				To = opacity,
+				EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
+			};
+
+			var bottomFadeIn = new DoubleAnimation()
+			{
+				To = opacity,
+				EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
+			};
+
+			Storyboard.SetTarget(logoFadeIn, TopMenuLogoView);
+			Storyboard.SetTargetProperty(logoFadeIn, "(UIElement.Opacity)");
+			Storyboard.SetTarget(topFadeIn, TopMenuView);
+			Storyboard.SetTargetProperty(topFadeIn, "(UIElement.Opacity)");
+			Storyboard.SetTarget(bottomFadeIn, BottomMenuView);
+			Storyboard.SetTargetProperty(bottomFadeIn, "(UIElement.Opacity)");
+
+			stb.Children.Add(logoFadeIn);
+			stb.Children.Add(topFadeIn);
+			stb.Children.Add(bottomFadeIn);
+
+			stb.Begin();
 		}
 
 		private static void OnNavigationLevelChanged(SideMenu sideMenu)

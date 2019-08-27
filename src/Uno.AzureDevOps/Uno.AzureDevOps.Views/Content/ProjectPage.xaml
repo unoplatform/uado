@@ -113,7 +113,7 @@
 					<VisualState.Setters>
 						<Setter Target="NavigationTabRoot.MaxWidth"
 								Value="600" />
-						<Setter Target="LargeViewNavigation.Visibility"
+						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
 						<Setter Target="HamburgerButton.Visibility"
 								Value="Collapsed" />
