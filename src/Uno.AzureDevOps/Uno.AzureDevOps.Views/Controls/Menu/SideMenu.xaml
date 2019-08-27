@@ -23,179 +23,241 @@
 		</Style>
 	</UserControl.Resources>
 
-	<Grid Background="{StaticResource Color08Brush}">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="Auto" />
-		</Grid.ColumnDefinitions>
+	<Grid>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="wide">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="1024" />
+					</VisualState.StateTriggers>
 
-		<!-- Right border for side menu -->
-		<Rectangle Fill="{StaticResource Color06Brush}"
-				   Grid.Column="1"
-				   Width="1" />
+					<Storyboard>
+						<DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+										 Storyboard.TargetName="TopMenuLogoView"
+										 Duration="0:0:0.75"
+										 To="1">
+							<DoubleAnimation.EasingFunction>
+								<CubicEase EasingMode="EaseInOut" />
+							</DoubleAnimation.EasingFunction>
+						</DoubleAnimation>
+						<DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+										 Storyboard.TargetName="TopMenuView"
+										 Duration="0:0:0.75"
+										 To="1">
+							<DoubleAnimation.EasingFunction>
+								<CubicEase EasingMode="EaseInOut" />
+							</DoubleAnimation.EasingFunction>
+						</DoubleAnimation>
+						<DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+										 Storyboard.TargetName="BottomMenuView"
+										 Duration="0:0:0.75"
+										 BeginTime="0:0:0.25"
+										 To="1">
+							<DoubleAnimation.EasingFunction>
+								<CubicEase EasingMode="EaseInOut" />
+							</DoubleAnimation.EasingFunction>
+						</DoubleAnimation>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 
-		<StackPanel x:Name="TopMenuLogoView"
-					Visibility="Collapsed"
-					Padding="45"
-					Margin="0,15,0,0"
-					VerticalAlignment="Top">
-			<Image wasm:Source="ms-appx:///Assets/logoUADO.scale-100.png"
-				   not_wasm:Source="ms-appx:///Assets/logoUADO.png" />
-		</StackPanel>
+		<Grid Background="{StaticResource Color08Brush}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-		<!-- Top Menu, display organization, back, and all projects -->
-		<StackPanel x:Name="TopMenuView"
-					VerticalAlignment="Top"
-					Visibility="Visible">
+			<!-- Right border for side menu -->
+			<Rectangle Fill="{StaticResource Color06Brush}"
+					   Grid.Column="1"
+					   Width="1" />
 
-			<StackPanel Orientation="Horizontal"
-						HorizontalAlignment="Center"
-						Margin="0,0,0,3">
-
-				<Image wasm:Source="ms-appx:///Assets/backGreen.scale-100.png"
-					   not_wasm:Source="ms-appx:///Assets/backGreen.png" />
-				<Button Content="Back to Organizations"
-						Command="{Binding ToOrganizationListPage}"
-						Style="{StaticResource NavigationBackButtonStyle}" />
-
+			<StackPanel x:Name="TopMenuLogoView"
+						Opacity="0"
+						Visibility="Collapsed"
+						Padding="45"
+						Margin="0,15,0,0"
+						VerticalAlignment="Top">
+				<Image wasm:Source="ms-appx:///Assets/logoUADO.scale-100.png"
+					   not_wasm:Source="ms-appx:///Assets/logoUADO.png" />
 			</StackPanel>
-			<!-- Separation -->
-			<Rectangle Fill="{StaticResource Color07Brush}"
-					   Height="1" />
 
-			<!-- Current organization -->
-			<StackPanel Orientation="Horizontal">
-				<Grid Background="{StaticResource Color03Brush}"
-					  Height="29"
-					  Width="29"
-					  CornerRadius="4"
-					  VerticalAlignment="Center"
-					  Margin="16,0,0,0">
-					<TextBlock Text="{Binding Account.AccountName, Converter={StaticResource MemberInitials}}"
-							   Style="{StaticResource ProjectInitialsTextBlock}" />
-				</Grid>
-				<Button Content="{Binding Account.AccountName}"
-						Style="{StaticResource NavigationButtonStyle}" />
-			</StackPanel>
+			<!-- Top Menu, display organization, back, and all projects -->
+			<StackPanel x:Name="TopMenuView"
+						Opacity="0"
+						VerticalAlignment="Top"
+						Visibility="Visible">
 
-			<!-- TODO create a custom component for that -->
-			<StackPanel Orientation="Horizontal">
-				<Rectangle x:Name="IndicatorButtonAllProjects"
-						   Visibility="Collapsed"
-						   Fill="{StaticResource Color03Brush}"
-						   Height="29" Width="4" />
-				<!-- Project Button -->
-			<Button x:Name="ButtonAllProjects"
-					Content="All Projects"
-					Command="{Binding ToProjectListPage}"
-						Style="{StaticResource NavigationButtonStyle}" />
-			</StackPanel>
-		</StackPanel>
-
-		<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
-		<StackPanel VerticalAlignment="Bottom">
-			<StackPanel Background="{StaticResource Color02Brush}">
-
-				<!-- Separation -->
-				<Rectangle Fill="{StaticResource Color08Brush}"
-						   Height="1" />
-
-				<!-- Profile Button -->
-				<Button Command="{Binding ToProfilePage}"
-						Style="{StaticResource NavigationButtonStyle}">
-					<StackPanel Spacing="14"
-								Orientation="Horizontal">
-						<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
-							   not_wasm:Source="ms-appx:///Assets/profile.png"
-							   Style="{StaticResource NavItemImageStyle}" />
-						<TextBlock Text="Profile"
-								   Style="{StaticResource Typo08}"
-								   TextWrapping="NoWrap" />
-					</StackPanel>
-				</Button>
-
-				<!-- Separation -->
-				<Rectangle Fill="{StaticResource Color08Brush}"
-						   Height="1" />
-
-				<Button Command="{Binding ToProfilePage}"
-						Style="{StaticResource NavigationButtonStyle}">
-					<StackPanel Spacing="14"
-								Orientation="Horizontal">
-						<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
-							   not_wasm:Source="ms-appx:///Assets/about.png"
-							   Style="{StaticResource NavItemImageStyle}" />
-						<TextBlock Text="About"
-								   Style="{StaticResource Typo08}"
-								   TextWrapping="NoWrap" />
-					</StackPanel>
-				</Button>
-
-				<!-- Separation -->
-				<Rectangle Fill="{StaticResource Color08Brush}"
-						   Height="1" />
-
-				<!-- Log Out Button -->
-				<Button Command="{Binding Logout}"
+				<!-- To Organizations button -->
+				<Button Command="{Binding ToOrganizationListPage}"
 						Style="{StaticResource NavigationButtonStyle}"
-						Height="65">
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
+						HorizontalContentAlignment="Left">
+					<StackPanel Orientation="Horizontal"
+								HorizontalAlignment="Center"
+								Margin="0,0,0,3">
+						<Image wasm:Source="ms-appx:///Assets/backGreen.scale-100.png"
+							   not_wasm:Source="ms-appx:///Assets/backGreen.png"
+							   Stretch="Uniform"
+							   Width="12"
+							   Height="12" />
 
-						<!-- User initials -->
-						<Grid CornerRadius="16"
-							  Height="24"
-							  Width="24"
-							  Background="{StaticResource Color07Brush}">
-							<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
-									   Style="{StaticResource MemberInitialsTextBlock}" />
-						</Grid>
-
-						<!-- User profile image -->
-						<Grid CornerRadius="16"
-							  Height="24"
-							  Width="24">
-							<Grid.Background>
-								<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
-							</Grid.Background>
-						</Grid>
-
-						<!-- Logout Text -->
-						<TextBlock Text="Log Out"
-								   Grid.Column="1"
-								   Margin="14,0,0,0"
-								   Style="{StaticResource Typo08}"
-								   TextWrapping="NoWrap" />
-
-						<!-- User Email -->
-						<TextBlock Grid.Row="1"
-								   Grid.Column="1"
-								   Margin="14,0,0,0"
-								   Style="{StaticResource Typo18}"
-								   Text="{Binding UserProfile.Result.Email}"
-								   TextWrapping="NoWrap"
-								   TextTrimming="CharacterEllipsis" />
-					</Grid>
+						<TextBlock Text="Back to Organizations"
+								   VerticalAlignment="Center"
+								   Margin="6,0,0,0"
+								   Style="{StaticResource Typo21}" />
+					</StackPanel>
 				</Button>
+
+				<!-- Separation -->
+				<Rectangle Fill="{StaticResource Color07Brush}"
+						   Height="1" />
+
+				<!-- Current organization -->
+				<Button Style="{StaticResource NavigationButtonStyle}"
+						Margin="0,40,0,0">
+					<StackPanel Orientation="Horizontal">
+						<Grid Background="{StaticResource Color03Brush}"
+							  Height="32"
+							  Width="32"
+							  CornerRadius="4"
+							  VerticalAlignment="Center">
+							<TextBlock Text="{Binding Account.AccountName, Converter={StaticResource MemberInitials}}"
+									   Style="{StaticResource ProjectInitialsTextBlock}" />
+						</Grid>
+
+						<TextBlock Text="{Binding Account.AccountName}"
+								   Style="{StaticResource Typo01}"
+								   Margin="16,0,0,0"
+								   FontSize="21" />
+					</StackPanel>
+				</Button>
+
+				<!-- TODO create a custom component for that -->
+				<StackPanel Orientation="Horizontal">
+					<Rectangle x:Name="IndicatorButtonAllProjects"
+							   Visibility="Collapsed"
+							   Fill="{StaticResource Color03Brush}"
+							   Height="29"
+							   Width="4" />
+					<!-- Project Button -->
+					<Button x:Name="ButtonAllProjects"
+							Command="{Binding ToProjectListPage}"
+							Style="{StaticResource NavigationButtonStyle}">
+						<TextBlock Text="All Projects"
+								   Style="{StaticResource Typo08}" />
+					</Button>
+				</StackPanel>
 			</StackPanel>
 
-			<!-- Separation -->
-			<Rectangle Fill="{StaticResource Color02Brush}"
-					   Height="1" />
-			<!-- Bottom version -->
-			<StackPanel Background="{StaticResource Color08Brush}"
-						Padding="0,15">
-				<TextBlock Text="{Binding AppVersion}"
-						   HorizontalAlignment="Center"
-						   Style="{StaticResource Typo20}" />
+			<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
+			<StackPanel x:Name="BottomMenuView"
+						VerticalAlignment="Bottom"
+						Opacity="0">
+				<StackPanel Background="{StaticResource Color02Brush}">
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color08Brush}"
+							   Height="1" />
+
+					<!-- Profile Button -->
+					<Button Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}">
+						<StackPanel Spacing="14"
+									Orientation="Horizontal">
+							<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
+								   not_wasm:Source="ms-appx:///Assets/profile.png"
+								   Style="{StaticResource NavItemImageStyle}" />
+							<TextBlock Text="Profile"
+									   Style="{StaticResource Typo08}"
+									   TextWrapping="NoWrap" />
+						</StackPanel>
+					</Button>
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color08Brush}"
+							   Height="1" />
+
+					<Button Command="{Binding ToProfilePage}"
+							Style="{StaticResource NavigationButtonStyle}">
+						<StackPanel Spacing="14"
+									Orientation="Horizontal">
+							<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
+								   not_wasm:Source="ms-appx:///Assets/about.png"
+								   Style="{StaticResource NavItemImageStyle}" />
+							<TextBlock Text="About"
+									   Style="{StaticResource Typo08}"
+									   TextWrapping="NoWrap" />
+						</StackPanel>
+					</Button>
+
+					<!-- Separation -->
+					<Rectangle Fill="{StaticResource Color08Brush}"
+							   Height="1" />
+
+					<!-- Log Out Button -->
+					<Button Command="{Binding Logout}"
+							Style="{StaticResource NavigationButtonStyle}"
+							Height="65">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<!-- User initials -->
+							<Grid CornerRadius="16"
+								  Height="24"
+								  Width="24"
+								  Background="{StaticResource Color07Brush}">
+								<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
+										   Style="{StaticResource MemberInitialsTextBlock}" />
+							</Grid>
+
+							<!-- User profile image -->
+							<Grid CornerRadius="16"
+								  Height="24"
+								  Width="24">
+								<Grid.Background>
+									<ImageBrush behaviors:ImageBrushStreamSourceBehavior.Source="{Binding UserProfile.Result.Image}" />
+								</Grid.Background>
+							</Grid>
+
+							<!-- Logout Text -->
+							<TextBlock Text="Log Out"
+									   Grid.Column="1"
+									   Margin="14,0,0,0"
+									   Style="{StaticResource Typo08}"
+									   TextWrapping="NoWrap" />
+
+							<!-- User Email -->
+							<TextBlock Grid.Row="1"
+									   Grid.Column="1"
+									   Margin="14,0,0,0"
+									   Style="{StaticResource Typo18}"
+									   Text="{Binding UserProfile.Result.Email}"
+									   TextWrapping="NoWrap"
+									   TextTrimming="CharacterEllipsis" />
+						</Grid>
+					</Button>
+				</StackPanel>
+
+				<!-- Separation -->
+				<Rectangle Fill="{StaticResource Color02Brush}"
+						   Height="1" />
+				<!-- Bottom version -->
+				<StackPanel Background="{StaticResource Color08Brush}"
+							Padding="0,15">
+					<TextBlock Text="{Binding AppVersion}"
+							   HorizontalAlignment="Center"
+							   Style="{StaticResource Typo20}" />
+				</StackPanel>
 			</StackPanel>
-		</StackPanel>
+		</Grid>
 	</Grid>
+
 </UserControl>
