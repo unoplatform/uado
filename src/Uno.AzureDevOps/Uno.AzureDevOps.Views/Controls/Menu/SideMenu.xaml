@@ -98,6 +98,7 @@
 								   Grid.Column="1"
 								   Margin="16,0"
 								   FontSize="21"
+								   TextWrapping="NoWrap"
 								   TextTrimming="CharacterEllipsis" />
 					</Grid>
 				</Button>

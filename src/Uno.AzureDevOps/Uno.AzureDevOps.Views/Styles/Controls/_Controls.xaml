@@ -9,6 +9,8 @@
 		<ResourceDictionary Source="ComboBox.xaml" />
 		<ResourceDictionary Source="ComboBoxItem.xaml" />
 		<ResourceDictionary Source="Frame.xaml" />
+		<ResourceDictionary Source="GridView.xaml" />
+		<ResourceDictionary Source="GridViewItem.xaml" />
 		<ResourceDictionary Source="HyperlinkButton.xaml" />
 		<ResourceDictionary Source="ItemDetailsSegment.xaml" />
 		<ResourceDictionary Source="ListView.xaml" />

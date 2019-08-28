@@ -9,6 +9,39 @@
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  mc:Ignorable="wasm">
 
+	<Page.Resources>
+		<DataTemplate x:Key="OrganizationListItem">
+			<Border HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					CornerRadius="10"
+					Margin="4">
+				<StackPanel HorizontalAlignment="Center"
+							VerticalAlignment="Top">
+					<Grid Background="{StaticResource Color03Brush}"
+						  CornerRadius="10"
+						  Height="120"
+						  Width="120"
+						  Margin="64,64,64,32"
+						  HorizontalAlignment="Center">
+						<TextBlock Text="{Binding AccountName, Converter={StaticResource MemberInitials}}"
+								   Style="{StaticResource ProjectInitialsTextBlock}"
+								   FontSize="48" />
+					</Grid>
+
+					<!-- Organization Name -->
+					<TextBlock Text="{Binding AccountName}"
+							   Style="{StaticResource Typo03}"
+							   TextWrapping="Wrap"
+							   TextAlignment="Center"
+							   HorizontalAlignment="Center"
+							   MaxLines="2"
+							   FontSize="24"
+							   Margin="16,0,16,32" />
+				</StackPanel>
+			</Border>
+		</DataTemplate>
+	</Page.Resources>
+
 	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
@@ -50,6 +83,10 @@
 								Value="Auto" />
 						<Setter Target="MainGridViewColumn_2.Width"
 								Value="*" />
+						<Setter Target="OrganizationsList.Padding"
+								Value="55,40,55,0" />
+						<Setter Target="OrganizationsList.Style"
+								Value="{StaticResource DefaultGridViewStyle}" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -129,37 +166,15 @@
 					</Grid.RowDefinitions>
 
 					<!-- Organizations List -->
-					<ListView ItemsSource="{Binding Organizations.Result}"
+					<GridView x:Name="OrganizationsList"
+							  ItemsSource="{Binding Organizations.Result}"
+							  ItemTemplate="{StaticResource OrganizationListItem}"
+							  ItemContainerStyle="{StaticResource WrappingListItemStyle}"
+							  Style="{StaticResource CenteredGridViewStyle}"
 							  VerticalAlignment="Top"
 							  IsItemClickEnabled="True"
-							  ItemClick="ListView_ItemClick">
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid Height="44">
-
-									<!-- Organization Name -->
-									<TextBlock Text="{Binding AccountName}"
-											   Style="{StaticResource Typo08}"
-											   TextWrapping="NoWrap"
-											   VerticalAlignment="Center"
-											   Margin="16,0,50,0" />
-
-									<!-- Border -->
-									<Rectangle Fill="{StaticResource Color07Brush}"
-											   Height="1"
-											   VerticalAlignment="Bottom"
-											   Margin="16,0,0,0" />
-
-									<!-- Chevron -->
-									<Path Data="M4.88756313,6 L0.256281566,1.46323438 C-0.0854271888,1.12849928 -0.0854271888,0.585786438 0.256281566,0.25105133 C0.597990322,-0.0836837768 1.15200968,-0.0836837768 1.49371843,0.25105133 L6.74371843,5.39390847 C7.08542719,5.72864358 7.08542719,6.27135642 6.74371843,6.60609153 L1.49371843,11.7489487 C1.15200968,12.0836838 0.597990322,12.0836838 0.256281566,11.7489487 C-0.0854271888,11.4142136 -0.0854271888,10.8715007 0.256281566,10.5367656 L4.88756313,6 Z"
-										  Fill="{StaticResource Color05Brush}"
-										  VerticalAlignment="Center"
-										  HorizontalAlignment="Right"
-										  Margin="0,0,26,0" />
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
+							  ItemClick="ListView_ItemClick"
+							  Padding="0" />
 
 					<!-- Empty List Message -->
 					<TextBlock Text="No Organization associated with that email, please add an organization to your account and come back."
