@@ -278,6 +278,32 @@
 				Value="{StaticResource Color03Brush}" />
 	</Style>
 
+	<Style x:Key="Typo22"
+		   TargetType="TextBlock"
+		   BasedOn="{StaticResource DefaultTextBlockStyle}">
+		<Setter Property="FontSize"
+				Value="21" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+		<Setter Property="Foreground"
+				Value="{StaticResource Color01Brush}" />
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily01Bold}" />
+	</Style>
+
+	<Style x:Key="Typo23"
+		   TargetType="TextBlock"
+		   BasedOn="{StaticResource DefaultTextBlockStyle}">
+		<Setter Property="FontSize"
+				Value="24" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+		<Setter Property="Foreground"
+				Value="{StaticResource Color01Brush}" />
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily01Bold}" />
+	</Style>
+
 	<Style x:Key="HtmlTextBlock"
 		   TargetType="TextBlock"
 		   BasedOn="{StaticResource DefaultTextBlockStyle}">

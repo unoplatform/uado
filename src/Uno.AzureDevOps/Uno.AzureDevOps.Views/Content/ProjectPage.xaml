@@ -111,8 +111,12 @@
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="NavigationTabRoot.MaxWidth"
-								Value="600" />
+						<Setter Target="NavigationTabRoot.Width"
+								Value="500" />
+						<Setter Target="NavigationTabRoot.HorizontalAlignment"
+								Value="Left" />
+						<Setter Target="NavigationTabRoot.Margin"
+								Value="56,0,0,0" />
 						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
 						<Setter Target="HamburgerButton.Visibility"
@@ -136,13 +140,19 @@
 						<Setter Target="ReloadButton_2.MaxWidth"
 								Value="300" />
 						<Setter Target="SummarySideColumn.Width"
-								Value="2*" />
+								Value="Auto" />
 						<Setter Target="SummarySideData.(Grid.Column)"
 								Value="1" />
 						<Setter Target="SummarySideData.(Grid.Row)"
 								Value="0" />
 						<Setter Target="SummarySideData.Margin"
 								Value="16,0,0,0" />
+						<Setter Target="SummaryGridView.Margin"
+								Value="56,42,59,0" />
+						<Setter Target="SummaryGridViewChild.ColumnSpacing"
+								Value="126" />
+						<Setter Target="SummarySideData.HorizontalAlignment"
+								Value="Center" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -150,7 +160,7 @@
 
 		<!-- CommandBar -->
 		<CommandBar x:Name="CommandBarView"
-					Content="{Binding SelectedProjectName}"
+					Content="{Binding Project.Name}"
 					Grid.Column="0"
 					Grid.ColumnSpan="2">
 			<CommandBar.PrimaryCommands>
@@ -266,55 +276,124 @@
 				</Grid>
 
 				<!-- Summary -->
-				<Grid Visibility="{Binding IsChecked, ElementName=SummaryBtn, Converter={StaticResource TrueToVisible}}"
-					  Grid.Row="2">
+				<Grid x:Name="SummaryGridView"
+					  Visibility="{Binding IsChecked, ElementName=SummaryBtn, Converter={StaticResource TrueToVisible}}"
+					  Grid.Row="2"
+					  Margin="25,40">
 					<ScrollViewer>
-						<Grid Background="{StaticResource Color07Brush}"
-							  Padding="16,16,16,16">
+						<Grid x:Name="SummaryGridViewChild"
+							  HorizontalAlignment="Left"
+							  Background="{StaticResource Color02Brush}"
+							  ColumnSpacing="0">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="3*" />
+								<ColumnDefinition Width="*" />
 								<ColumnDefinition x:Name="SummarySideColumn"
 												  Width="0" />
 							</Grid.ColumnDefinitions>
 
 							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 
+							<!-- Project description -->
 							<Grid Background="{StaticResource Color02Brush}"
-								  MinHeight="500"
-								  CornerRadius="5"
-								  Margin="0,0,0,0"
-								  Grid.Column="0">
+								  Grid.Column="0"
+								  MaxWidth="850"
+								  HorizontalAlignment="Left"
+								  Margin="0,0,0,20">
+								<StackPanel Spacing="16">
+									<TextBlock Text="About this project"
+											   Style="{StaticResource Typo22}" />
 
-								<TextBlock Text="A"
-										   Foreground="Black"
-										   FontSize="80"
-										   VerticalAlignment="Center"
-										   HorizontalAlignment="Center" />
+									<TextBlock TextWrapping="Wrap"
+											   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."
+											   Style="{StaticResource Typo08}" />
+								</StackPanel>
 							</Grid>
 
+							<!-- Project statistics -->
 							<Grid x:Name="SummarySideData"
-								  Margin="0,16,0,0"
 								  Grid.Column="0"
 								  Grid.Row="1">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="*" />
+								<StackPanel Spacing="16">
+									<TextBlock Text="Current sprint stats"
+											   Style="{StaticResource Typo22}"
+											   VerticalAlignment="Top"
+											   HorizontalAlignment="Left" />
 
-								</Grid.RowDefinitions>
+									<TextBlock Text="General"
+											   Style="{StaticResource Typo02}"
+											   VerticalAlignment="Top"
+											   HorizontalAlignment="Left" />
+									<StackPanel Orientation="Horizontal"
+												Spacing="70">
+										<StackPanel>
+											<TextBlock Text="3"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="Days remaining"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+										<StackPanel>
+											<TextBlock Text="58"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="Total work items"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+									</StackPanel>
 
-								<Grid Background="{StaticResource Color02Brush}"
-									  MinHeight="500"
-									  CornerRadius="5"
-									  Grid.Row="0">
+									<TextBlock Text="Work items"
+											   Style="{StaticResource Typo02}"
+											   VerticalAlignment="Top"
+											   HorizontalAlignment="Left" />
+									<StackPanel Orientation="Horizontal"
+												Spacing="70">
+										<StackPanel>
+											<TextBlock Text="3"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="PBI in progress"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+										<StackPanel>
+											<TextBlock Text="42"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="Bugs in progress"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+									</StackPanel>
 
-									<TextBlock Text="B"
-											   Foreground="Black"
-											   FontSize="80"
-											   VerticalAlignment="Center"
-											   HorizontalAlignment="Center" />
-								</Grid>
+									<TextBlock Text="Assignments"
+											   Style="{StaticResource Typo02}"
+											   VerticalAlignment="Top"
+											   HorizontalAlignment="Left" />
+									<StackPanel Orientation="Horizontal"
+												Spacing="35">
+										<StackPanel>
+											<TextBlock Text="8"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="Work items assigned"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+										<StackPanel>
+											<TextBlock Text="50"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo23}" />
+											<TextBlock Text="Work items assigned"
+													   HorizontalAlignment="Left"
+													   Style="{StaticResource Typo08}" />
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
 							</Grid>
 						</Grid>
 					</ScrollViewer>
