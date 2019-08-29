@@ -317,7 +317,7 @@
 											   Style="{StaticResource Typo22}" />
 
 									<TextBlock TextWrapping="Wrap"
-											   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."
+											   Text="{Binding Project.Description}"
 											   Style="{StaticResource Typo08}" />
 								</StackPanel>
 							</Grid>
@@ -339,7 +339,7 @@
 									<StackPanel Orientation="Horizontal"
 												Spacing="70">
 										<StackPanel>
-											<TextBlock Text="3"
+											<TextBlock Text="{Binding DaysRemaining}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
 											<TextBlock Text="Days remaining"
@@ -347,7 +347,7 @@
 													   Style="{StaticResource Typo08}" />
 										</StackPanel>
 										<StackPanel>
-											<TextBlock Text="58"
+											<TextBlock Text="{Binding TotalWorkItems}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
 											<TextBlock Text="Total work items"
@@ -363,7 +363,7 @@
 									<StackPanel Orientation="Horizontal"
 												Spacing="70">
 										<StackPanel>
-											<TextBlock Text="3"
+											<TextBlock Text="{Binding NumberOfPbiInProgress}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
 											<TextBlock Text="PBI in progress"
@@ -371,7 +371,7 @@
 													   Style="{StaticResource Typo08}" />
 										</StackPanel>
 										<StackPanel>
-											<TextBlock Text="42"
+											<TextBlock Text="{Binding NumberOfBugInProgress}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
 											<TextBlock Text="Bugs in progress"
@@ -387,7 +387,7 @@
 									<StackPanel Orientation="Horizontal"
 												Spacing="35">
 										<StackPanel>
-											<TextBlock Text="8"
+											<TextBlock Text="{Binding NumberOfAssignedWorkItem}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
 											<TextBlock Text="Work items assigned"
@@ -395,10 +395,10 @@
 													   Style="{StaticResource Typo08}" />
 										</StackPanel>
 										<StackPanel>
-											<TextBlock Text="50"
+											<TextBlock Text="{Binding NumberOfUnassignedWorkItem}"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Work items assigned"
+											<TextBlock Text="Work items unassigned"
 													   HorizontalAlignment="Left"
 													   Style="{StaticResource Typo08}" />
 										</StackPanel>

@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Uno.AzureDevOps.Business;
+using Uno.AzureDevOps.Business.Entities;
 using Uno.AzureDevOps.Business.Extensions;
 using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
@@ -28,11 +29,19 @@ namespace Uno.AzureDevOps.Presentation
 
 		private string _currentView;
 		private bool _loadingSuccess;
-		private string _selectedProjectName;
 		private TeamProjectReference _project;
 		private TeamSettingsIteration _selectedIteration;
 		private WebApiTeam _selectedTeam;
 		private AccountData _account;
+		private List<WorkItemData> _workItemsData;
+
+		private int _daysRemaining;
+		private int _totalWorkItems;
+		private int _numberOfPbiInProgress;
+		private int _numberOfBugInProgress;
+		private int _numberOfAssignedWorkItem;
+		private int _numberOfUnassignedWorkItem;
+		private TeamSettingsIteration _currentIteration;
 
 		private ITaskNotifier<List<RichWorkItem>> _iterationWorkItems;
 		private ITaskNotifier<List<TeamSettingsIteration>> _iterations;
@@ -50,7 +59,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			ReloadPage = new AsyncCommand(async () => await LoadTeamsAndWorkItems());
 
-			CurrentView = "Sprint";
+			CurrentView = "Summary";
 		}
 
 		public WebApiTeam SelectedTeam
@@ -135,10 +144,46 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => Account, ref _account, value);
 		}
 
-		public string SelectedProjectName
+		public TeamProjectReference Project
 		{
-			get => _selectedProjectName;
-			set => Set(() => SelectedProjectName, ref _selectedProjectName, value);
+			get => _project;
+			set => Set(() => Project, ref _project, value);
+		}
+
+		public int DaysRemaining
+		{
+			get => _daysRemaining;
+			set => Set(() => DaysRemaining, ref _daysRemaining, value);
+		}
+
+		public int TotalWorkItems
+		{
+			get => _totalWorkItems;
+			set => Set(() => TotalWorkItems, ref _totalWorkItems, value);
+		}
+
+		public int NumberOfPbiInProgress
+		{
+			get => _numberOfPbiInProgress;
+			set => Set(() => NumberOfPbiInProgress, ref _numberOfPbiInProgress, value);
+		}
+
+		public int NumberOfBugInProgress
+		{
+			get => _numberOfBugInProgress;
+			set => Set(() => NumberOfBugInProgress, ref _numberOfBugInProgress, value);
+		}
+
+		public int NumberOfAssignedWorkItem
+		{
+			get => _numberOfAssignedWorkItem;
+			set => Set(() => NumberOfAssignedWorkItem, ref _numberOfAssignedWorkItem, value);
+		}
+
+		public int NumberOfUnassignedWorkItem
+		{
+			get => _numberOfUnassignedWorkItem;
+			set => Set(() => NumberOfUnassignedWorkItem, ref _numberOfUnassignedWorkItem, value);
 		}
 
 		public void OnWorkItemClicked(RichWorkItem workItem)
@@ -173,17 +218,19 @@ namespace Uno.AzureDevOps.Presentation
 				_userPreferencesService.SavePreferredProject(project.Id);
 			}
 
-			_project = project;
-			SelectedProjectName = _project.Name;
+			Project = project;
 
+			// SelectedProjectName = _project.Name;
 			await LoadTeamsAndWorkItems();
+
+			ComputeValues();
 		}
 
 		private async Task LoadTeamsAndWorkItems()
 		{
 			if (_selectedIteration != null)
 			{
-				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetIterationWorkItems(_project, SelectedTeam, _selectedIteration));
+				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetIterationWorkItems(Project, SelectedTeam, _selectedIteration));
 			}
 
 			await LoadTeams();
@@ -191,7 +238,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		private async Task LoadTeams()
 		{
-			Teams = new TaskNotifier<List<WebApiTeam>>(GetTeams(_project));
+			Teams = new TaskNotifier<List<WebApiTeam>>(GetTeams(Project));
 
 			var teams = await Teams.Task;
 			SelectedTeam = teams[0];
@@ -231,6 +278,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			var teamSettings = await _vstsRepository.GetTeamSettings(project.Id, team.Id);
 			var workItems = await _vstsRepository.GetIterationWorkItems(project.Id, team.Id, iteration.Id);
+			_workItemsData = workItems;
 			var workItemTypes = await _vstsRepository.GetWorkItemTypes(project.Id);
 
 			if (teamSettings.BugsBehavior == BugsBehavior.AsRequirements)
@@ -266,11 +314,42 @@ namespace Uno.AzureDevOps.Presentation
 		private void SetSelectedIteration(List<TeamSettingsIteration> result)
 		{
 			SelectedIteration = result.Where(i => i.Attributes.TimeFrame == TimeFrame.Current).FirstOrDefault();
+			_currentIteration = SelectedIteration;
 
 			// Failsafe for projects without a current sprint
 			if (SelectedIteration == null)
 			{
 				SelectedIteration = result?.FirstOrDefault();
+			}
+		}
+
+		/// <summary>
+		/// Compute values for the currentsprint of the current project
+		/// </summary>
+		private async void ComputeValues()
+		{
+			var iterations = await Iterations.Task;
+			var iterationsWorkItems = await IterationWorkItems.Task;
+			var current = _currentIteration;
+
+			if (current.Attributes.TimeFrame != TimeFrame.Current)
+			{
+				return;
+			}
+
+			TotalWorkItems = _workItemsData.Count;
+			NumberOfPbiInProgress = _workItemsData.Where(wi => wi.WorkItemType == "Product Backlog Item" && wi.State == "Committed").Count();
+			NumberOfBugInProgress = _workItemsData.Where(wi => wi.WorkItemType == "Bug" && wi.State == "Open").Count();
+			NumberOfAssignedWorkItem = _workItemsData.Where(wi => wi.AssignedTo != null).Count();
+			NumberOfUnassignedWorkItem = TotalWorkItems - NumberOfAssignedWorkItem;
+
+			var endDate = current.Attributes.FinishDate;
+			var startDate = current.Attributes.StartDate;
+
+			if (endDate != null && startDate != null)
+			{
+				var dateDifference = (TimeSpan)(endDate - startDate);
+				DaysRemaining = dateDifference.Days;
 			}
 		}
 	}
