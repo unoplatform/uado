@@ -83,10 +83,10 @@
 								Value="Auto" />
 						<Setter Target="MainGridViewColumn_2.Width"
 								Value="*" />
-						<Setter Target="OrganizationsList.Padding"
-								Value="55,40,55,0" />
-						<Setter Target="OrganizationsList.Style"
-								Value="{StaticResource DefaultGridViewStyle}" />
+						<Setter Target="OrganizationsGridView.Visibility"
+								Value="Visible" />
+						<Setter Target="OrganizationsListView.Visibility"
+								Value="Collapsed" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -165,16 +165,26 @@
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
-					<!-- Organizations List -->
-					<GridView x:Name="OrganizationsList"
+					<!-- Organizations (WIDE) -->
+					<GridView x:Name="OrganizationsGridView"
 							  ItemsSource="{Binding Organizations.Result}"
 							  ItemTemplate="{StaticResource OrganizationListItem}"
-							  ItemContainerStyle="{StaticResource WrappingListItemStyle}"
-							  Style="{StaticResource CenteredGridViewStyle}"
+							  ItemContainerStyle="{StaticResource LargeGridItemStyle}"
 							  VerticalAlignment="Top"
 							  IsItemClickEnabled="True"
 							  ItemClick="ListView_ItemClick"
-							  Padding="0" />
+							  Padding="55,40,0,0"
+							  Visibility="Collapsed" />
+
+					<!-- Organizations (NARROW) -->
+					<ListView x:Name="OrganizationsListView"
+							  ItemsSource="{Binding Organizations.Result}"
+							  ItemTemplate="{StaticResource OrganizationListItem}"
+							  ItemContainerStyle="{StaticResource LargeListItemStyle}"
+							  VerticalAlignment="Top"
+							  IsItemClickEnabled="True"
+							  ItemClick="ListView_ItemClick"
+							  Padding="0,16,0,0"/>
 
 					<!-- Empty List Message -->
 					<TextBlock Text="No Organization associated with that email, please add an organization to your account and come back."
