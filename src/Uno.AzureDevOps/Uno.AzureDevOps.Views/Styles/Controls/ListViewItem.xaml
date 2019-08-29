@@ -10,6 +10,10 @@
 	-->
 	<!-- Style for Windows.UI.Xaml.Controls.ListViewItem -->
 
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="../Application/Colors.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
 	<Style x:Key="DefaultListViewItemStyle"
 		   TargetType="ListViewItem">
 
@@ -73,6 +77,52 @@
 										  Margin="{TemplateBinding Padding}"
 										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="LargeListItemStyle"
+		   TargetType="ListViewItem">
+		
+		<Setter Property="Background"
+				Value="{StaticResource TransparentColorBrush}" />
+		<Setter Property="Width"
+				Value="250" />
+		<Setter Property="Height"
+				Value="300" />
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ListViewItem">
+					<Grid>
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver">
+									<VisualState.Setters>
+										<Setter Target="BackgroundBorder.Background"
+												Value="{StaticResource Color08Brush}" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="BackgroundBorder.Background"
+												Value="{StaticResource Color08Brush}" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<Border x:Name="BackgroundBorder"
+								CornerRadius="10"
+								Background="{TemplateBinding Background}"
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}">
+							<ContentPresenter Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
