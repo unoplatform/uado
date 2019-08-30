@@ -36,5 +36,7 @@ namespace Uno.AzureDevOps.Business.VSTS
 		Task AssignToMe(WorkItem workItem, CancellationToken ct = default);
 
 		Task<UserProfile> GetUserProfile(CancellationToken ct = default);
+
+		Task<List<WorkItemStateColor>> GetWorkItemTypeStates(Guid projectId, string workItemType, CancellationToken ct = default);
 	}
 }

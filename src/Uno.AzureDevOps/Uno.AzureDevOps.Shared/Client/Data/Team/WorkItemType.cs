@@ -25,6 +25,8 @@ namespace Uno.AzureDevOps.Client
 
 		public IDictionary<string, WorkItemStateTransition[]> Transitions { get; set; }
 
+		public IEnumerable<WorkItemStateColor> States { get; set; }
+
 		[JsonProperty("_links")]
 		public ReferenceLinks Links { get; set; }
 	}

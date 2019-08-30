@@ -121,6 +121,18 @@ namespace Uno.AzureDevOps.Business.VSTS
 				ct);
 		}
 
+		public Task<List<WorkItemStateColor>> GetWorkItemTypeStates(Guid projectId, string workItemType, CancellationToken ct = default)
+		{
+			return _authenticationService.AuthenticatedExecution(
+				async (token, authData) =>
+				{
+					var workItemTypeStates = await _teamClient.GetWorkItemTypeStates(_accountName, projectId, workItemType, authData.AccessToken);
+
+					return workItemTypeStates;
+				},
+				ct);
+		}
+
 		public async Task<List<WorkItemData>> GetWorkItems(IEnumerable<int?> workItemIds, int limit = -1, CancellationToken ct = default)
 		{
 			return await _authenticationService.AuthenticatedExecution(async (token, authData) =>

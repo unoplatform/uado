@@ -11,5 +11,13 @@ namespace Uno.AzureDevOps.Client
 				.Header("Authorization", "Bearer " + accessToken)
 				.Header("Accept-Encoding", "gzip");
 		}
+
+		public static IHttpRequestBuilder SetDefaultADORequestValuesPreview(this IHttpRequestBuilder builder, string accessToken)
+		{
+			return builder
+				.QueryParameter("api-version", "5.0-preview.1")
+				.Header("Authorization", "Bearer " + accessToken)
+				.Header("Accept-Encoding", "gzip");
+		}
 	}
 }

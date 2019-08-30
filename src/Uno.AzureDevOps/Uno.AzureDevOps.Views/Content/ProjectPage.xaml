@@ -156,6 +156,10 @@
 								Value="56,42,59,0" />
 						<Setter Target="SummaryGridViewChild.ColumnSpacing"
 								Value="126" />
+						<wasm:Setter Target="ProjectDescriptionGridView.Margin"
+								Value="0,0,126,20" />
+						<Setter Target="SummaryGridViewChild.HorizontalAlignment"
+								Value="Left" />
 						<Setter Target="SummarySideData.HorizontalAlignment"
 								Value="Center" />
 					</VisualState.Setters>
@@ -292,7 +296,7 @@
 					  Margin="25,40">
 					<ScrollViewer>
 						<Grid x:Name="SummaryGridViewChild"
-							  HorizontalAlignment="Left"
+							  HorizontalAlignment="Center"
 							  Background="{StaticResource Color02Brush}"
 							  ColumnSpacing="0">
 							<Grid.ColumnDefinitions>
@@ -307,7 +311,8 @@
 							</Grid.RowDefinitions>
 
 							<!-- Project description -->
-							<Grid Background="{StaticResource Color02Brush}"
+							<Grid x:Name="ProjectDescriptionGridView"
+								  Background="{StaticResource Color02Brush}"
 								  Grid.Column="0"
 								  MaxWidth="850"
 								  HorizontalAlignment="Left"
@@ -325,6 +330,7 @@
 							<!-- Project statistics -->
 							<Grid x:Name="SummarySideData"
 								  Grid.Column="0"
+								  HorizontalAlignment="Right"
 								  Grid.Row="1">
 								<StackPanel Spacing="16">
 									<TextBlock Text="Current sprint stats"

@@ -187,6 +187,21 @@ namespace Uno.AzureDevOps.Client
 			}
 		}
 
+		public async Task<List<WorkItemStateColor>> GetWorkItemTypeStates(string accountName, Guid projectId, string workItemType, string accessToken, CancellationToken ct = default)
+		{
+			using (var builder = _httpRequestService.RequestBuilderFactory.Create())
+			{
+				var cleanWorkItemType = workItemType.Replace(" ", "%20");
+
+				var types = await builder
+					.SetDefaultADORequestValuesPreview(accessToken)
+					.Get<ADOCollectionData<WorkItemStateColor>>(
+						$"{accountName}/{projectId.ToStringInvariant()}/_apis/wit/workItemTypes/{cleanWorkItemType}/states", ct);
+
+				return types.Value;
+			}
+		}
+
 		public async Task UpdateWorkItem(string accountName, string userName, int workItemId, string accessToken, CancellationToken ct = default)
 		{
 			var payload = new[]
