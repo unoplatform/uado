@@ -8,6 +8,10 @@
 
 	<converters:BoolToVisibilityConverter x:Key="TrueToCollapsed"
 										  IsVisibleIfTrue="False" />
+	
+	<converters:FromVisibilityToValueConverter x:Key="InverseVisible"
+											   VisibleValue="Collapsed"
+											   CollapsedValue="Visible" />
 
 	<converters:FromNullableBoolToReverseBoolConverter x:Key="BoolToInvertBool" />
 	

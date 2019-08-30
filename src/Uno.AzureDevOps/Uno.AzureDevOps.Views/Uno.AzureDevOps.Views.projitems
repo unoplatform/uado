@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FullscreenSideMenuBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\HtmlTextblockBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\ImageBrushStreamSourceBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Content\AboutPage.xaml.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEmptyStringToVisibilityConverterMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEnumerableHasMinimumToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEnumerableHasAnyToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromVisibilityToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToReverseBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InitialsConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ProjectViewToBoolConverter.cs" />
