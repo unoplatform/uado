@@ -37,11 +37,15 @@ namespace Uno.AzureDevOps.Views.Content
 			{
 				LargeViewNavigation.MenuVisibility = Visibility.Visible;
 				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
+				LargeViewNavigation.SetValue(Grid.RowProperty, 0);
+				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 2);
 				ContentView.SetValue(Grid.ColumnProperty, 0);
 			}
 			else
 			{
 				LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
+				LargeViewNavigation.SetValue(Grid.RowProperty, 1);
+				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 1);
 			}
 		}
 	}

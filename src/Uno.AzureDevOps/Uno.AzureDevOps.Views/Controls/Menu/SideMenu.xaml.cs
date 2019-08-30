@@ -73,6 +73,19 @@ namespace Uno.AzureDevOps.Views.Controls
 			}
 		}
 
+		public bool IsFullscreenMenu
+		{
+			get => (bool)GetValue(IsFullscreenMenuProperty);
+			set => SetValue(IsFullscreenMenuProperty, value);
+		}
+
+		public static readonly DependencyProperty IsFullscreenMenuProperty =
+			DependencyProperty.Register(
+				nameof(IsFullscreenMenu),
+				typeof(bool),
+				typeof(SideMenu),
+				new PropertyMetadata(true));
+
 		public NavigationLevel? NavLevel
 		{
 			get => (NavigationLevel)GetValue(NavigationLevelProperty);
