@@ -23,6 +23,8 @@ namespace Uno.AzureDevOps.Presentation
 	[Windows.UI.Xaml.Data.Bindable]
 	public class ProjectPageViewModel : ViewModelBase, INotifyPropertyChanged
 	{
+		private const string CategoryInProgress = "InProgress";
+
 		private readonly IStackNavigationService _navigationService;
 		private readonly IVSTSRepository _vstsRepository;
 		private readonly IUserPreferencesService _userPreferencesService;
@@ -34,6 +36,7 @@ namespace Uno.AzureDevOps.Presentation
 		private WebApiTeam _selectedTeam;
 		private AccountData _account;
 		private List<WorkItemData> _workItemsData;
+		private List<WorkItemType> _workItemsType;
 
 		private int _daysRemaining;
 		private int _totalWorkItems;
@@ -222,8 +225,6 @@ namespace Uno.AzureDevOps.Presentation
 
 			// SelectedProjectName = _project.Name;
 			await LoadTeamsAndWorkItems();
-
-			ComputeValues();
 		}
 
 		private async Task LoadTeamsAndWorkItems()
@@ -280,6 +281,7 @@ namespace Uno.AzureDevOps.Presentation
 			var workItems = await _vstsRepository.GetIterationWorkItems(project.Id, team.Id, iteration.Id);
 			_workItemsData = workItems;
 			var workItemTypes = await _vstsRepository.GetWorkItemTypes(project.Id);
+			_workItemsType = workItemTypes;
 
 			if (teamSettings.BugsBehavior == BugsBehavior.AsRequirements)
 			{
@@ -296,6 +298,8 @@ namespace Uno.AzureDevOps.Presentation
 			}
 
 			LoadingSuccess = true;
+
+			ComputeValues();
 
 			return workItems.Select(w => new RichWorkItem(
 				w,
@@ -328,28 +332,63 @@ namespace Uno.AzureDevOps.Presentation
 		/// </summary>
 		private async void ComputeValues()
 		{
-			var iterations = await Iterations.Task;
-			var iterationsWorkItems = await IterationWorkItems.Task;
-			var current = _currentIteration;
+			await ComputePbiValues();
+			await ComputeBugValues();
+			ComputeGeneralValues();
+		}
 
-			if (current.Attributes.TimeFrame != TimeFrame.Current)
+		private async Task ComputeBugValues()
+		{
+			var bugWorkItems = _workItemsData
+				.Where(w => "Bug".Equals(w.WorkItem.Fields["System.WorkItemType"] as string, StringComparison.OrdinalIgnoreCase))
+				.ToList();
+
+			if (bugWorkItems != null && bugWorkItems.Count > 0)
 			{
-				return;
+				var bugStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, bugWorkItems.FirstOrDefault().WorkItemType);
+
+				NumberOfBugInProgress = bugWorkItems
+				.Where(bwi => bwi.State
+					.Any(st => bugStates.Select(sc => sc)
+					.Where(sc => sc.Category == CategoryInProgress)
+					.Any(sc => sc.Name == bwi.State)))
+				.Count();
 			}
+		}
 
-			TotalWorkItems = _workItemsData.Count;
-			NumberOfPbiInProgress = _workItemsData.Where(wi => wi.WorkItemType == "Product Backlog Item" && wi.State == "Committed").Count();
-			NumberOfBugInProgress = _workItemsData.Where(wi => wi.WorkItemType == "Bug" && wi.State == "Open").Count();
-			NumberOfAssignedWorkItem = _workItemsData.Where(wi => wi.AssignedTo != null).Count();
-			NumberOfUnassignedWorkItem = TotalWorkItems - NumberOfAssignedWorkItem;
-
-			var endDate = current.Attributes.FinishDate;
-			var startDate = current.Attributes.StartDate;
-
-			if (endDate != null && startDate != null)
+		private async Task ComputePbiValues()
+		{
+			var iterationsWorkItems = await IterationWorkItems.Task;
+			if (iterationsWorkItems != null && iterationsWorkItems.Count > 0)
 			{
-				var dateDifference = (TimeSpan)(endDate - startDate);
-				DaysRemaining = dateDifference.Days;
+				var pbiWorkItemType = iterationsWorkItems.FirstOrDefault().Type.Name;
+				var pbiStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, pbiWorkItemType);
+
+				NumberOfPbiInProgress = iterationsWorkItems
+				.Where(iw => iw.Item.State
+					.Any(st => pbiStates.Select(sc => sc)
+					.Where(sc => sc.Category == CategoryInProgress)
+					.Any(sc => sc.Name == iw.Item.State)))
+				.Count();
+			}
+		}
+
+		private void ComputeGeneralValues()
+		{
+			if (_workItemsData != null && _workItemsData.Count > 0)
+			{
+				TotalWorkItems = _workItemsData.Count;
+				NumberOfAssignedWorkItem = _workItemsData.Where(wi => wi.AssignedTo != null).Count();
+				NumberOfUnassignedWorkItem = TotalWorkItems - NumberOfAssignedWorkItem;
+
+				var endDate = _currentIteration.Attributes.FinishDate;
+				var startDate = _currentIteration.Attributes.StartDate;
+
+				if (endDate != null && startDate != null)
+				{
+					var dateDifference = (TimeSpan)(endDate - startDate);
+					DaysRemaining = dateDifference.Days;
+				}
 			}
 		}
 	}

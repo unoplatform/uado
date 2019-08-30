@@ -37,6 +37,8 @@ namespace Uno.AzureDevOps.Client
 
 		Task<List<WorkItemType>> GetWorkItemTypes(string accountName, Guid projectId, string accessToken, CancellationToken ct = default);
 
+		Task<List<WorkItemStateColor>> GetWorkItemTypeStates(string accountName, Guid projectId, string workItemType, string accessToken, CancellationToken ct = default);
+
 		Task UpdateWorkItem(string accountName, string userName, int workItemId, string accessToken, CancellationToken ct = default);
 	}
 }

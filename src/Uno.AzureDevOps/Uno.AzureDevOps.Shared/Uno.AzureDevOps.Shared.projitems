@@ -48,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemLink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemReference.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemRelation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemStateColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemStateTransition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Team\WorkItemTypeFieldInstance.cs" />
