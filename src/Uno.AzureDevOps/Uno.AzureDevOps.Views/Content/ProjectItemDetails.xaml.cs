@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Uno.AzureDevOps.Presentation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -30,6 +31,24 @@ namespace Uno.AzureDevOps.Views.Content
 		private void ListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			(DataContext as ProjectItemDetailsPageViewModel).OnWorkItemClicked(e.ClickedItem as RichWorkItem);
+		}
+
+		private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (LargeViewNavigation.MenuVisibility == Visibility.Collapsed)
+			{
+				LargeViewNavigation.MenuVisibility = Visibility.Visible;
+				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
+				LargeViewNavigation.SetValue(Grid.RowProperty, 0);
+				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 2);
+				ContentView.SetValue(Grid.ColumnProperty, 0);
+			}
+			else
+			{
+				LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
+				LargeViewNavigation.SetValue(Grid.RowProperty, 1);
+				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 1);
+			}
 		}
 	}
 }
