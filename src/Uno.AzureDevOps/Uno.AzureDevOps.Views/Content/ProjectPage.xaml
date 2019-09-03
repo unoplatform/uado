@@ -314,6 +314,7 @@
 							<Grid x:Name="ProjectDescriptionGridView"
 								  Background="{StaticResource Color02Brush}"
 								  Grid.Column="0"
+								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  MaxWidth="850"
 								  HorizontalAlignment="Left"
 								  Margin="0,0,0,20">
@@ -330,6 +331,7 @@
 							<!-- Project statistics -->
 							<Grid x:Name="SummarySideData"
 								  Grid.Column="0"
+								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  HorizontalAlignment="Right"
 								  Grid.Row="1">
 								<StackPanel Spacing="16">
@@ -413,6 +415,28 @@
 							</Grid>
 						</Grid>
 					</ScrollViewer>
+					
+					<!-- Loading State -->
+					<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+						  Background="{StaticResource Color02Brush}">
+
+						<StackPanel VerticalAlignment="Center"
+									HorizontalAlignment="Center">
+
+							<!-- Progress Ring -->
+							<ProgressRing IsActive="True"
+										  Foreground="{StaticResource Color03Brush}"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"
+										  Height="20"
+										  Width="20"
+										  Margin="0,12" />
+
+							<!-- Verifying Message -->
+							<TextBlock Text="Loading..."
+									   Style="{StaticResource Typo08}" />
+						</StackPanel>
+					</Grid>
 				</Grid>
 
 				<!-- Sprint -->
