@@ -201,7 +201,7 @@
 		<!-- Side hamburger menu -->
 		<!-- Workaround, set RowSpan 1 as 0 causes a crash -->
 		<uc:SideMenu x:Name="LargeViewNavigation"
-					 NavLevel="Menu"
+					 NavLevel="About"
 					 Background="{StaticResource Color06Brush}"
 					 MenuVisibility="Collapsed"
 					 IsFullscreenMenu="True"
