@@ -25,7 +25,8 @@ namespace Uno.AzureDevOps.Views.Controls
 		Projects,
 		Project,
 		Item,
-		Menu
+		About,
+		Profile
 	}
 
 	[SuppressMessage("", "SA1201", Justification = "Control properties")]
@@ -137,12 +138,14 @@ namespace Uno.AzureDevOps.Views.Controls
 				return;
 			}
 
-			var button = sideMenu.ButtonAllProjects;
-			var indicator = sideMenu.IndicatorButtonAllProjects;
+			var buttonProj = sideMenu.ButtonAllProjects;
+			var buttonProfile = sideMenu.ButtonProfile;
+			var buttonAbout = sideMenu.ButtonAbout;
+			var indicatorProj = sideMenu.IndicatorButtonAllProjects;
 			var currentNavigationLevel = sideMenu.NavLevel.Value;
 
-			button.FontWeight = FontWeights.Normal;
-			indicator.Visibility = Visibility.Collapsed;
+			buttonProj.FontWeight = buttonProfile.FontWeight = buttonAbout.FontWeight = FontWeights.Normal;
+			indicatorProj.Visibility = Visibility.Collapsed;
 
 			if (currentNavigationLevel == NavigationLevel.Organizations)
 			{
@@ -153,14 +156,28 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
-				button.FontWeight = FontWeights.Bold;
-				indicator.Visibility = Visibility.Visible;
+				buttonProj.FontWeight = FontWeights.Bold;
+				indicatorProj.Visibility = Visibility.Visible;
 			}
 			else if (currentNavigationLevel == NavigationLevel.Project ||
-				currentNavigationLevel == NavigationLevel.Item || currentNavigationLevel == NavigationLevel.Menu)
+				currentNavigationLevel == NavigationLevel.Item)
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+			}
+			else if (currentNavigationLevel == NavigationLevel.About || currentNavigationLevel == NavigationLevel.Profile)
+			{
+				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
+				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+
+				if (currentNavigationLevel == NavigationLevel.About)
+				{
+					buttonAbout.FontWeight = FontWeights.Bold;
+				}
+				else
+				{
+					buttonProfile.FontWeight = FontWeights.Bold;
+				}
 			}
 		}
 	}
