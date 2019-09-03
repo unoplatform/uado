@@ -88,7 +88,7 @@ namespace Uno.AzureDevOps.Presentation
 			{
 				if (_selectedIteration == null || _selectedIteration.Id != value?.Id)
 				{
-					IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetIterationWorkItems(_project, SelectedTeam, value));
+					IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(_project, SelectedTeam, value));
 				}
 
 				Set(() => SelectedIteration, ref _selectedIteration, value);
@@ -227,11 +227,23 @@ namespace Uno.AzureDevOps.Presentation
 			await LoadTeamsAndWorkItems();
 		}
 
+		private async Task<List<RichWorkItem>> GetAndComputeIterationWorkitems(TeamProjectReference project, WebApiTeam team, TeamSettingsIteration iteration)
+		{
+			var workItems = await GetIterationWorkItems(project, team, iteration);
+
+			if (iteration.Attributes.TimeFrame == TimeFrame.Current)
+			{
+				await ComputeValues(workItems);
+			}
+
+			return workItems;
+		}
+
 		private async Task LoadTeamsAndWorkItems()
 		{
 			if (_selectedIteration != null)
 			{
-				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetIterationWorkItems(Project, SelectedTeam, _selectedIteration));
+				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(Project, SelectedTeam, _selectedIteration));
 			}
 
 			await LoadTeams();
@@ -253,8 +265,6 @@ namespace Uno.AzureDevOps.Presentation
 		/// <summary>
 		/// Get a single project
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <returns></returns>
 		private async Task<TeamProjectReference> GetProject(Guid projectId)
 		{
 			return await _vstsRepository.GetTeamProjectReference(projectId);
@@ -278,8 +288,10 @@ namespace Uno.AzureDevOps.Presentation
 			}
 
 			var teamSettings = await _vstsRepository.GetTeamSettings(project.Id, team.Id);
+
 			var workItems = await _vstsRepository.GetIterationWorkItems(project.Id, team.Id, iteration.Id);
 			_workItemsData = workItems;
+
 			var workItemTypes = await _vstsRepository.GetWorkItemTypes(project.Id);
 			_workItemsType = workItemTypes;
 
@@ -298,8 +310,6 @@ namespace Uno.AzureDevOps.Presentation
 			}
 
 			LoadingSuccess = true;
-
-			ComputeValues();
 
 			return workItems.Select(w => new RichWorkItem(
 				w,
@@ -330,9 +340,9 @@ namespace Uno.AzureDevOps.Presentation
 		/// <summary>
 		/// Compute values for the currentsprint of the current project
 		/// </summary>
-		private async void ComputeValues()
+		private async Task ComputeValues(List<RichWorkItem> workItems)
 		{
-			await ComputePbiValues();
+			await ComputePbiValues(workItems);
 			await ComputeBugValues();
 			ComputeGeneralValues();
 		}
@@ -356,9 +366,9 @@ namespace Uno.AzureDevOps.Presentation
 			}
 		}
 
-		private async Task ComputePbiValues()
+		private async Task ComputePbiValues(List<RichWorkItem> workItems)
 		{
-			var iterationsWorkItems = await IterationWorkItems.Task;
+			var iterationsWorkItems = workItems;
 			if (iterationsWorkItems != null && iterationsWorkItems.Count > 0)
 			{
 				var pbiWorkItemType = iterationsWorkItems.FirstOrDefault().Type.Name;
