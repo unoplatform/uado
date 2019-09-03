@@ -153,7 +153,7 @@
 					<Rectangle Fill="{StaticResource Color08Brush}"
 							   Height="1" />
 
-					<Button Command="{Binding ToProfilePage}"
+					<Button Command="{Binding ToAboutPage}"
 							Style="{StaticResource NavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">

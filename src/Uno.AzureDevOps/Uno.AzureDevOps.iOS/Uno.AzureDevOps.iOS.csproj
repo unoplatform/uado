@@ -138,6 +138,7 @@
     <BundleResource Include="Resources\Fonts\NunitoSans-Italic.ttf" />
     <BundleResource Include="Resources\Fonts\NunitoSans-SemiBoldItalic.ttf" />
     <BundleResource Include="Resources\Fonts\NunitoSans-BoldItalic.ttf" />
+    <BundleResource Include="Resources\Fonts\NunitoSans-Light.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

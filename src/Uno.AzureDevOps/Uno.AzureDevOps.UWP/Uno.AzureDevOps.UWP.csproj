@@ -177,6 +177,7 @@
     <AdditionalFiles Include="..\..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <Content Include="Assets\Fonts\NunitoSans-Light.ttf" />
     <None Include="Uno.AzureDevOps.UWP.ruleset" />
     <None Include="Uno.AzureDevOps.UWP_TemporaryKey.pfx" />
   </ItemGroup>

@@ -24,7 +24,8 @@ namespace Uno.AzureDevOps.Views.Controls
 		Organizations,
 		Projects,
 		Project,
-		Item
+		Item,
+		Menu
 	}
 
 	[SuppressMessage("", "SA1201", Justification = "Control properties")]
@@ -155,7 +156,8 @@ namespace Uno.AzureDevOps.Views.Controls
 				button.FontWeight = FontWeights.Bold;
 				indicator.Visibility = Visibility.Visible;
 			}
-			else if (currentNavigationLevel == NavigationLevel.Project || currentNavigationLevel == NavigationLevel.Item)
+			else if (currentNavigationLevel == NavigationLevel.Project ||
+				currentNavigationLevel == NavigationLevel.Item || currentNavigationLevel == NavigationLevel.Menu)
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
