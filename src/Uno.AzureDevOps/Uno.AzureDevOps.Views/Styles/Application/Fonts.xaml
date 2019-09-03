@@ -5,6 +5,7 @@
 					mc:Ignorable="">
 
 	<FontFamily x:Key="FontFamily01">ms-appx:///Assets/Fonts/NunitoSans-Regular.ttf#Nunito Sans</FontFamily>
+	<FontFamily x:Key="FontFamily01Light">ms-appx:///Assets/Fonts/NunitoSans-Light.ttf#Nunito Sans Light</FontFamily>
 	<FontFamily x:Key="FontFamily01Bold">ms-appx:///Assets/Fonts/NunitoSans-Bold.ttf#Nunito Sans</FontFamily>
 	<FontFamily x:Key="FontFamily01SemiBold">ms-appx:///Assets/Fonts/NunitoSans-SemiBold.ttf#Nunito Sans SemiBold</FontFamily>
 
