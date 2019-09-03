@@ -223,7 +223,6 @@ namespace Uno.AzureDevOps.Presentation
 
 			Project = project;
 
-			// SelectedProjectName = _project.Name;
 			await LoadTeamsAndWorkItems();
 		}
 
@@ -355,7 +354,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			if (bugWorkItems != null && bugWorkItems.Count > 0)
 			{
-				var bugStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, bugWorkItems.FirstOrDefault().WorkItemType);
+				var bugStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, bugWorkItems.First().WorkItemType);
 
 				NumberOfBugInProgress = bugWorkItems
 				.Where(bwi => bwi.State
@@ -371,7 +370,7 @@ namespace Uno.AzureDevOps.Presentation
 			var iterationsWorkItems = workItems;
 			if (iterationsWorkItems != null && iterationsWorkItems.Count > 0)
 			{
-				var pbiWorkItemType = iterationsWorkItems.FirstOrDefault().Type.Name;
+				var pbiWorkItemType = iterationsWorkItems.First().Type.Name;
 				var pbiStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, pbiWorkItemType);
 
 				NumberOfPbiInProgress = iterationsWorkItems
