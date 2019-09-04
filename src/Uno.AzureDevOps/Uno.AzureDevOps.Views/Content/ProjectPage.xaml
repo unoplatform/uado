@@ -11,6 +11,8 @@
 	  mc:Ignorable="xamarin wasm">
 
 	<Page.Resources>
+		<Thickness x:Key="StatisticRowMargin">0,0,0,32</Thickness>
+		<GridLength x:Key="StatisticColumnLength">36</GridLength>
 
 		<!-- Team ComboBoxItem Style -->
 		<DataTemplate x:Key="TeamComboBoxItemTemplate">
@@ -293,12 +295,10 @@
 				<Grid x:Name="SummaryGridView"
 					  Visibility="{Binding IsChecked, ElementName=SummaryBtn, Converter={StaticResource TrueToVisible}}"
 					  Grid.Row="2"
-					  Margin="25,40">
+					  Margin="16,40">
 					<ScrollViewer>
 						<Grid x:Name="SummaryGridViewChild"
-							  HorizontalAlignment="Center"
-							  Background="{StaticResource Color02Brush}"
-							  ColumnSpacing="0">
+							  HorizontalAlignment="Stretch">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition x:Name="SummarySideColumn"
@@ -330,92 +330,101 @@
 
 							<!-- Project statistics -->
 							<Grid x:Name="SummarySideData"
-								  Grid.Column="0"
 								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-								  HorizontalAlignment="Right"
+								  HorizontalAlignment="Stretch"
 								  Grid.Row="1">
-								<StackPanel Spacing="16">
+								<Grid HorizontalAlignment="Stretch">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="{StaticResource StatisticColumnLength}" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
 									<TextBlock Text="Current sprint stats"
 											   Style="{StaticResource Typo22}"
-											   VerticalAlignment="Top"
-											   HorizontalAlignment="Left" />
+											   Margin="{StaticResource StatisticRowMargin}"
+											   Grid.ColumnSpan="3" />
 
 									<TextBlock Text="General"
 											   Style="{StaticResource Typo02}"
-											   VerticalAlignment="Top"
-											   HorizontalAlignment="Left" />
-									<StackPanel Orientation="Horizontal"
-												Spacing="70">
-										<StackPanel>
-											<TextBlock Text="{Binding DaysRemaining}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Days remaining"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
-										<StackPanel>
-											<TextBlock Text="{Binding TotalWorkItems}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Total work items"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
+											   Grid.Row="1"
+											   Grid.ColumnSpan="3" />
+
+									<StackPanel Grid.Row="2"
+												Margin="{StaticResource StatisticRowMargin}">
+										<TextBlock Text="{Binding DaysRemaining}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="Days remaining"
+												   Style="{StaticResource Typo08}" />
+									</StackPanel>
+
+									<StackPanel Grid.Row="2"
+												Grid.Column="2"
+												Margin="{StaticResource StatisticRowMargin}">
+										<TextBlock Text="{Binding TotalWorkItems}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="Total work items"
+												   Style="{StaticResource Typo08}" />
 									</StackPanel>
 
 									<TextBlock Text="Work items"
 											   Style="{StaticResource Typo02}"
-											   VerticalAlignment="Top"
-											   HorizontalAlignment="Left" />
-									<StackPanel Orientation="Horizontal"
-												Spacing="70">
-										<StackPanel>
-											<TextBlock Text="{Binding NumberOfPbiInProgress}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="PBI in progress"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
-										<StackPanel>
-											<TextBlock Text="{Binding NumberOfBugInProgress}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Bugs in progress"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
+											   Grid.Row="3"
+											   Grid.ColumnSpan="3" />
+									
+									<StackPanel Grid.Row="4"
+												Margin="{StaticResource StatisticRowMargin}">
+										<TextBlock Text="{Binding NumberOfPbiInProgress}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="PBI in progress"
+												   Style="{StaticResource Typo08}" />
+									</StackPanel>
+
+									<StackPanel Grid.Row="4"
+												Grid.Column="2"
+												Margin="{StaticResource StatisticRowMargin}">
+										<TextBlock Text="{Binding NumberOfBugInProgress}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="Bugs in progress"
+												   Style="{StaticResource Typo08}" />
 									</StackPanel>
 
 									<TextBlock Text="Assignments"
 											   Style="{StaticResource Typo02}"
+											   Grid.Row="5"
+											   Grid.ColumnSpan="3"
 											   VerticalAlignment="Top"
 											   HorizontalAlignment="Left" />
-									<StackPanel Orientation="Horizontal"
-												Spacing="35">
-										<StackPanel>
-											<TextBlock Text="{Binding NumberOfAssignedWorkItem}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Work items assigned"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
-										<StackPanel>
-											<TextBlock Text="{Binding NumberOfUnassignedWorkItem}"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo23}" />
-											<TextBlock Text="Work items unassigned"
-													   HorizontalAlignment="Left"
-													   Style="{StaticResource Typo08}" />
-										</StackPanel>
+
+									<StackPanel Grid.Row="6">
+										<TextBlock Text="{Binding NumberOfAssignedWorkItem}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="Work items assigned"
+												   Style="{StaticResource Typo08}" />
 									</StackPanel>
-								</StackPanel>
+
+									<StackPanel Grid.Row="6"
+												Grid.Column="2"
+												HorizontalAlignment="Left">
+										<TextBlock Text="{Binding NumberOfUnassignedWorkItem}"
+												   Style="{StaticResource Typo23}" />
+										<TextBlock Text="Work items unassigned"
+												   Style="{StaticResource Typo08}" />
+									</StackPanel>
+								</Grid>
 							</Grid>
 						</Grid>
 					</ScrollViewer>
-					
+
 					<!-- Loading State -->
 					<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 						  Background="{StaticResource Color02Brush}">
