@@ -57,18 +57,19 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		private static void MenuVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
+			// TODO: Revisit menu animations in the near-future
 			if (d is SideMenu menu && e.NewValue is Visibility visibility)
 			{
-#if !__WASM__
-				if (visibility == Visibility.Visible)
-				{
-					menu.Animate(opacity: 1d, duration: 750);
-				}
-				else
-				{
-					menu.Animate(opacity: 0d, duration: 1);
-				}
-#endif
+// #if !__WASM__
+// 				if (visibility == Visibility.Visible)
+// 				{
+// 					menu.Animate(opacity: 1d, duration: 750);
+// 				}
+// 				else
+// 				{
+// 					menu.Animate(opacity: 0d, duration: 1);
+// 				}
+// #endif
 				menu.Visibility = visibility;
 			}
 		}
