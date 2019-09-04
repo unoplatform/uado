@@ -38,6 +38,7 @@ namespace Uno.AzureDevOps.Presentation
 			Account = _userPreferencesService.GetPreferredAccount();
 
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
+			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
 			ToProjectListPage = new RelayCommand(() => _navigationService.ToProjectListPage(_account));
 			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
 
@@ -51,6 +52,8 @@ namespace Uno.AzureDevOps.Presentation
 		}
 
 		public ICommand ToProfilePage { get; }
+
+		public ICommand ToAboutPage { get; }
 
 		public ICommand ToOrganizationListPage { get; }
 

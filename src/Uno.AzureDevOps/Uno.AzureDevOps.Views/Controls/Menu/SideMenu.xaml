@@ -133,7 +133,8 @@
 							   Height="1" />
 
 					<!-- Profile Button -->
-					<Button Command="{Binding ToProfilePage}"
+					<Button x:Name="ButtonProfile"
+							Command="{Binding ToProfilePage}"
 							Style="{StaticResource NavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
@@ -150,7 +151,8 @@
 					<Rectangle Fill="{StaticResource Color08Brush}"
 							   Height="1" />
 
-					<Button Command="{Binding ToProfilePage}"
+					<Button x:Name="ButtonAbout"
+							Command="{Binding ToAboutPage}"
 							Style="{StaticResource NavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">

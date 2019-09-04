@@ -11,6 +11,7 @@ namespace Uno.AzureDevOps.Client
 		public const string GitHubUadoUrl = "https://github.com/nventive/Uado/";
 		public const string PrivacyPolicyUrl = "https://nventive.com/privacy-policy/";
 		public const string TermsAndConditionsUrl = "https://nventive.com/terms-and-conditions/";
+		public const string UnoPlatformUrl = "https://platform.uno";
 
 		public const string AuthorizationCodeGrantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 		public const string AuthorizationResponseType = "Assertion";

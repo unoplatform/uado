@@ -731,6 +731,82 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+	<Style x:Key="ExternalNavigationButtonStyle"
+		   TargetType="Button">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="TabNavigation"
+				Value="Local" />
+		<Setter Property="IsHoldingEnabled"
+				Value="True" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Height"
+				Value="44" />
+		<Setter Property="UseSystemFocusVisuals"
+				Value="True" />
+		<Setter Property="Padding"
+				Value="0,0,0,0" />
+		<Setter Property="Margin"
+				Value="0" />
+		<Setter Property="FontWeight"
+				Value="Normal" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid x:Name="RootBorder"
+						  Height="{TemplateBinding Height}"
+						  Background="{TemplateBinding Background}"
+						  BorderBrush="{TemplateBinding BorderBrush}"
+						  BorderThickness="{TemplateBinding BorderThickness}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver" />
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.7" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Selected" />
+								<VisualState x:Name="PointerOverSelected" />
+								<VisualState x:Name="PressedSelected" />
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="DisabledStates">
+								<VisualState x:Name="Enabled" />
+								<VisualState x:Name="Disabled">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.5" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="MultiSelectStates" />
+							<VisualStateGroup x:Name="ReorderHintStates" />
+							<VisualStateGroup x:Name="DragStates" />
+						</VisualStateManager.VisualStateGroups>
+
+						<Grid>
+
+							<ContentPresenter x:Name="ContentPresenter"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentTransitions="{TemplateBinding ContentTransitions}"
+											  Content="{TemplateBinding Content}"
+											  Margin="{TemplateBinding Padding}"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Grid>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 	
 	<!-- Default Style -->
 	<Style TargetType="Button"
