@@ -23,7 +23,10 @@ namespace Uno.AzureDevOps.Views.Controls
 	{
 		Organizations,
 		Projects,
-		Project
+		Project,
+		Item,
+		About,
+		Profile
 	}
 
 	[SuppressMessage("", "SA1201", Justification = "Control properties")]
@@ -57,18 +60,19 @@ namespace Uno.AzureDevOps.Views.Controls
 
 		private static void MenuVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
+			// TODO: Revisit menu animations in the near-future
 			if (d is SideMenu menu && e.NewValue is Visibility visibility)
 			{
-#if !__WASM__
-				if (visibility == Visibility.Visible)
-				{
-					menu.Animate(opacity: 1d, duration: 750);
-				}
-				else
-				{
-					menu.Animate(opacity: 0d, duration: 1);
-				}
-#endif
+// #if !__WASM__
+// 				if (visibility == Visibility.Visible)
+// 				{
+// 					menu.Animate(opacity: 1d, duration: 750);
+// 				}
+// 				else
+// 				{
+// 					menu.Animate(opacity: 0d, duration: 1);
+// 				}
+// #endif
 				menu.Visibility = visibility;
 			}
 		}
@@ -135,12 +139,14 @@ namespace Uno.AzureDevOps.Views.Controls
 				return;
 			}
 
-			var button = sideMenu.ButtonAllProjects;
-			var indicator = sideMenu.IndicatorButtonAllProjects;
+			var buttonProj = sideMenu.ButtonAllProjects;
+			var buttonProfile = sideMenu.ButtonProfile;
+			var buttonAbout = sideMenu.ButtonAbout;
+			var indicatorProj = sideMenu.IndicatorButtonAllProjects;
 			var currentNavigationLevel = sideMenu.NavLevel.Value;
 
-			button.FontWeight = FontWeights.Normal;
-			indicator.Visibility = Visibility.Collapsed;
+			buttonProj.FontWeight = buttonProfile.FontWeight = buttonAbout.FontWeight = FontWeights.Normal;
+			indicatorProj.Visibility = Visibility.Collapsed;
 
 			if (currentNavigationLevel == NavigationLevel.Organizations)
 			{
@@ -151,13 +157,28 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
-				button.FontWeight = FontWeights.Bold;
-				indicator.Visibility = Visibility.Visible;
+				buttonProj.FontWeight = FontWeights.Bold;
+				indicatorProj.Visibility = Visibility.Visible;
 			}
-			else if (currentNavigationLevel == NavigationLevel.Project)
+			else if (currentNavigationLevel == NavigationLevel.Project ||
+				currentNavigationLevel == NavigationLevel.Item)
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+			}
+			else if (currentNavigationLevel == NavigationLevel.About || currentNavigationLevel == NavigationLevel.Profile)
+			{
+				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
+				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+
+				if (currentNavigationLevel == NavigationLevel.About)
+				{
+					buttonAbout.FontWeight = FontWeights.Bold;
+				}
+				else
+				{
+					buttonProfile.FontWeight = FontWeights.Bold;
+				}
 			}
 		}
 	}

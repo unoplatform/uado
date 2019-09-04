@@ -38,7 +38,6 @@
 					   Width="1" />
 
 			<StackPanel x:Name="TopMenuLogoView"
-						not_wasm:Opacity="0"
 						Visibility="Collapsed"
 						Padding="45"
 						Margin="0,15,0,0"
@@ -52,7 +51,6 @@
 
 			<!-- Top Menu, display organization, back, and all projects -->
 			<StackPanel x:Name="TopMenuView"
-						not_wasm:Opacity="0"
 						VerticalAlignment="Top"
 						Visibility="Visible">
 
@@ -127,8 +125,7 @@
 
 			<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
 			<StackPanel x:Name="BottomMenuView"
-						VerticalAlignment="Bottom"
-						not_wasm:Opacity="0">
+						VerticalAlignment="Bottom">
 				<StackPanel Background="{StaticResource Color02Brush}">
 
 					<!-- Separation -->
@@ -136,7 +133,8 @@
 							   Height="1" />
 
 					<!-- Profile Button -->
-					<Button Command="{Binding ToProfilePage}"
+					<Button x:Name="ButtonProfile"
+							Command="{Binding ToProfilePage}"
 							Style="{StaticResource NavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
@@ -153,7 +151,8 @@
 					<Rectangle Fill="{StaticResource Color08Brush}"
 							   Height="1" />
 
-					<Button Command="{Binding ToProfilePage}"
+					<Button x:Name="ButtonAbout"
+							Command="{Binding ToAboutPage}"
 							Style="{StaticResource NavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">

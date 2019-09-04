@@ -3,45 +3,83 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:behaviors="using:Uno.AzureDevOps.Views.Behaviors"
 	  xmlns:local="using:Uno.AzureDevOps.Views.Content"
+	  xmlns:beh="using:Uno.AzureDevOps.Views.Behaviors"
+	  xmlns:uc="using:Uno.AzureDevOps.Views.Controls"
+	  xmlns:wasm="http:/uno.ui/wasm"
+	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
-	  mc:Ignorable="">
+	  mc:Ignorable="wasm">
 
-	<Grid Background="{StaticResource Color07Brush}"
+	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition x:Name="MainGridViewColumn_1"
+							  Width="*" />
+			<ColumnDefinition x:Name="MainGridViewColumn_2"
+							  Width="0" />
+		</Grid.ColumnDefinitions>
 
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-
 				<VisualState x:Name="wide">
-
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
-
 					<VisualState.Setters>
-						<Setter Target="LogOutButton.MaxWidth"
+						<Setter Target="ReloadButton.MaxWidth"
 								Value="300" />
 						<Setter Target="ReloadButton.MaxWidth"
 								Value="300" />
-						<Setter Target="RootGrid.Margin"
-								Value="200,0" />
-						<Setter Target="RootGrid.BorderThickness"
-								Value="1,0" />
+						<Setter Target="LargeViewNavigation.MaxWidth"
+								Value="300" />
+						<Setter Target="LargeViewNavigation.IsFullscreenMenu"
+								Value="False" />
+						<Setter Target="LargeViewNavigation.MenuVisibility"
+								Value="Visible" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
+									 Value="0" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+									 Value="2" />
+						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
+									Value="0" />
+						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+									Value="2" />
+						<Setter Target="HamburgerButton.Visibility"
+								Value="Collapsed" />
+						<Setter Target="ContentView.(Grid.Column)"
+								Value="1" />
+						<Setter Target="MainGridViewColumn_1.Width"
+								Value="Auto" />
+						<Setter Target="MainGridViewColumn_2.Width"
+								Value="*" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
 		<!-- CommandBar -->
-		<CommandBar Content="Profile" />
+		<CommandBar x:Name="CommandBarView"
+					Content="Profile"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
+					beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}">
+			<!-- Hamburger Button  -->
+			<CommandBar.PrimaryCommands>
+			<AppBarButton x:Name="HamburgerButton"
+						  Click="HamburgerButton_Click"
+						  Style="{StaticResource BurgerMenuButtonStyle}">
+			</AppBarButton>
+			</CommandBar.PrimaryCommands>
+		</CommandBar>
 
-		<ScrollViewer Grid.Row="1">
-			
+		<Grid Grid.Row="1"
+			  x:Name="ContentView">
 			<Grid x:Name="RootGrid"
 				  Background="{StaticResource Color02Brush}">
 
@@ -96,7 +134,7 @@
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<StackPanel>
+						<StackPanel Margin="55,40,0,0">
 							<Grid Height="60">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
@@ -140,61 +178,28 @@
 											   Margin="0,-2,0,0" />
 								</StackPanel>
 							</Grid>
-
-							<!-- Separator -->
-							<Rectangle Fill="{StaticResource Color07Brush}"
-									   Height="1" />
-
-							<!-- About Us Button -->
-							<Button Content="About Us"
-									Command="{Binding ToAboutPage}"
-									Style="{StaticResource ListItemButtonStyle}" />
-
-							<!-- Terms & Conditions Button -->
-							<Button Content="Terms and Conditions"
-									Command="{Binding NavigateToTermsAndConditions}"
-									Style="{StaticResource ListItemButtonStyle}" />
-
-							<!-- Privacy Policy Button -->
-							<Button Content="Privacy Policy"
-									Command="{Binding NavigateToPrivacyPolicy}"
-									Style="{StaticResource ListItemButtonStyle}" />
 						</StackPanel>
-
-						<!-- Source Code Info -->
-						<StackPanel Grid.Row="1">
-
-							<!-- Message -->
-							<TextBlock Text="Source Code available on"
-									   Style="{StaticResource Typo13}"
-									   HorizontalAlignment="Center"
-									   Margin="0,24,0,0"/>
-
-							<!-- Hyperlink to source code -->
-							<HyperlinkButton Content="GitHub"
-											 HorizontalAlignment="Center"
-											 Command="{Binding NavigateToSourceCode}" />
-
-							<!-- Version Number -->
-							<TextBlock Visibility="{Binding AppVersion, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Collapsed}"
-									   Style="{StaticResource Typo18}"
-									   HorizontalAlignment="Center"
-									   Margin="0,0,0,0">
-								<Run Text="Version" />
-								<Run Text="{Binding AppVersion}" />
-							</TextBlock>
-						</StackPanel>
-
-						<!-- Log out button -->
-						<Button x:Name="LogOutButton"
-								Content="Log Out"
-								Style="{StaticResource PrimaryButtonStyle}"
-								Command="{Binding Logout}"
-								Margin="16,19,16,24"
-								Grid.Row="2" />
 					</Grid>
 				</Grid>
 			</Grid>
-		</ScrollViewer>
+		</Grid>
+		
+		<!-- Side hamburger menu -->
+		<!-- Workaround, set RowSpan 1 as 0 causes a crash -->
+		<uc:SideMenu x:Name="LargeViewNavigation"
+					 NavLevel="Profile"
+					 Background="{StaticResource Color06Brush}"
+					 MenuVisibility="Collapsed"
+					 IsFullscreenMenu="True"
+					 Grid.Row="1"
+					 Grid.RowSpan="1"
+					 HorizontalAlignment="Stretch" />
+
+		<!-- Close Button -->
+		<Border toolkit:VisibleBoundsPadding.PaddingMask="Top">
+			<Button Style="{StaticResource MenuCloseButtonStyle}"
+					Click="HamburgerButton_Click"
+					Visibility="{Binding Visibility, ElementName=CommandBarView, Converter={StaticResource InverseVisible}}" />
+		</Border>
 	</Grid>
 </Page>
