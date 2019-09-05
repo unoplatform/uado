@@ -133,6 +133,7 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<Grid x:Name="RootGrid"
+				  Background="{StaticResource Color02Brush}"
 				  BorderBrush="{StaticResource Color06Brush}">
 
 				<!-- Loading -->
