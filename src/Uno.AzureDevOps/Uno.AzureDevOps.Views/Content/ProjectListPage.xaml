@@ -127,14 +127,12 @@
 			</CommandBar.PrimaryCommands>
 		</CommandBar>
 
-
 		<Grid Grid.Row="1"
 			  x:Name="ContentView">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<Grid x:Name="RootGrid"
-				  Background="{StaticResource Color02Brush}"
 				  BorderBrush="{StaticResource Color06Brush}">
 
 				<!-- Loading -->
@@ -196,25 +194,6 @@
 			</Grid>
 		</Grid>
 
-		<Grid Visibility="{Binding Projects.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
-			<StackPanel VerticalAlignment="Center"
-						HorizontalAlignment="Center">
-
-				<!-- Progress Ring -->
-				<ProgressRing IsActive="True"
-							  Foreground="{StaticResource Color03Brush}"
-							  Height="20"
-							  Width="20"
-							  HorizontalAlignment="Center"
-							  VerticalAlignment="Center"
-							  Margin="0,12" />
-
-				<!-- Loading Message -->
-				<TextBlock Text="Loading..."
-						   Style="{StaticResource Typo11}" />
-			</StackPanel>
-		</Grid>
-		
 		<!-- Side hamburger menu -->
 		<!-- Setting a default margin top as adaptive trigger on row/rowspan does not work -->
 		<uc:SideMenu x:Name="LargeViewNavigation"
