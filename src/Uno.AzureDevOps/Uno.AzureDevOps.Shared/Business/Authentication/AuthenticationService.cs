@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Storage;
+using Uno.Threading;
 
 namespace Uno.AzureDevOps.Business.Authentication
 {
@@ -14,6 +15,9 @@ namespace Uno.AzureDevOps.Business.Authentication
 
 		private readonly IOAuthClient _oAuthClient;
 		private readonly ISecureStorage _secureStorage;
+
+		private bool _isInvalidToken;
+		private AsyncLock _refreshTokenLock = new AsyncLock();
 
 		public AuthenticationService(IOAuthClient oAuthClient, ISecureStorage secureStorage)
 		{
@@ -84,7 +88,7 @@ namespace Uno.AzureDevOps.Business.Authentication
 				throw new InvalidOperationException(message: "Please login with an user account before executing authorized actions");
 			}
 
-			var authenticationData = _secureStorage.GetValue<OAuthData>(StorageKey);
+			var authenticationData = await GetToken(ct);
 
 			try
 			{
@@ -92,29 +96,40 @@ namespace Uno.AzureDevOps.Business.Authentication
 			}
 			catch (UnauthorizedAccessException)
 			{
-				return await RefreshAuthorization(func, authenticationData, ct);
+				try
+				{
+					_isInvalidToken = true;
+					authenticationData = await GetToken(ct);
+					return await func(ct, authenticationData);
+				}
+				catch (UnauthorizedAccessException ex)
+				{
+					InternalLogout(ex);
+				}
+
+				return default;
 			}
 		}
 
-		private async Task<T> RefreshAuthorization<T>(Func<CancellationToken, OAuthData, Task<T>> func, OAuthData authenticationData, CancellationToken ct)
+		private async Task<OAuthData> GetToken(CancellationToken ct)
 		{
-			try
+			// This operation is not cancellable
+			ct = CancellationToken.None;
+			using (await _refreshTokenLock.LockAsync(ct))
 			{
-				var refreshedAuthData = await _oAuthClient.RefreshToken(authenticationData.RefreshToken, ct);
+				var authenticationData = _secureStorage.GetValue<OAuthData>(StorageKey);
 
-				lock (_lock)
+				if (_isInvalidToken)
 				{
+					var refreshedAuthData = await _oAuthClient.RefreshToken(authenticationData.RefreshToken, ct);
+
+					authenticationData = refreshedAuthData.Auth;
+
 					_secureStorage.SetValue(StorageKey, refreshedAuthData.Auth);
 				}
 
-				return await func(ct, refreshedAuthData.Auth);
+				return authenticationData;
 			}
-			catch (UnauthorizedAccessException ex)
-			{
-				InternalLogout(ex);
-			}
-
-			return default;
 		}
 	}
 }
