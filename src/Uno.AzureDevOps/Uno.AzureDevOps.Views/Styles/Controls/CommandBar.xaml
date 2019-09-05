@@ -164,8 +164,11 @@
 				   TargetType="CommandBar">
 
 		<!--Android-specific property-->
-		<android:Setter Property="(toolkit:UIElementExtensions.Elevation)"
+		<Setter Property="(toolkit:UIElementExtensions.Elevation)"
 						Value="4" />
+
+		<Setter Property="Height"
+				Value="{StaticResource CommandBarHeight}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
