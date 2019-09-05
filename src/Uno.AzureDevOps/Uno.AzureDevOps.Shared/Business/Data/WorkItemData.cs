@@ -37,11 +37,11 @@ namespace Uno.AzureDevOps.Business.Entities
 
 		public string WorkItemType => GetFieldValue<string>("System.WorkItemType");
 
-		public bool HasDescription => WorkItemType == "Product Backlog Item" || WorkItemType == "Task" || WorkItemType == "Impediment";
+		public bool HasDescription => WorkItemType == "Product Backlog Item" || WorkItemType == "Task" || WorkItemType == "Impediment" || WorkItemType == "User Story";
 
 		public bool HasDetails => WorkItemType == "Bug";
 
-		public bool HasAcceptanceCriteria => WorkItemType == "Product Backlog Item";
+		public bool HasAcceptanceCriteria => WorkItemType == "Product Backlog Item" || WorkItemType == "User Story";
 
 		public bool HasReproSteps => WorkItemType == "Bug";
 
