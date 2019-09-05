@@ -19,11 +19,11 @@ namespace Uno.AzureDevOps.Business.Entities
 
 		public string AcceptanceCriteria => GetFieldValue<string>("Microsoft.VSTS.Common.AcceptanceCriteria");
 
-		public string Details => GetFieldValue<string>("System.Details");
+		public string Details => GetDetailsFieldValue<string>("Microsoft.VSTS.TCM.SystemInfo");
 
 		public string Description => GetFieldValue<string>("System.Description");
 
-		public string ReproSteps => GetFieldValue<string>("System.ReproSteps");
+		public string ReproSteps => GetFieldValue<string>("Microsoft.VSTS.TCM.ReproSteps");
 
 		public string Title => GetFieldValue<string>("System.Title");
 
@@ -53,6 +53,31 @@ namespace Uno.AzureDevOps.Business.Entities
 			return WorkItem.Fields.TryGetValue(key, out var result)
 						   ? result as T
 						   : default;
+		}
+
+		/// <summary>
+		/// Specific GetFieldValue for the detail part of a bug
+		/// Generic case would be key given (SystemInfo), but with some vsts templates its on key
+		/// organization.Details which can be found in url.
+		/// </summary>
+		/// <typeparam name="T">return type</typeparam>
+		/// <param name="key">Key to search</param>
+		/// <returns>value</returns>
+		private T GetDetailsFieldValue<T>(string key)
+			where T : class
+		{
+			if (WorkItem.Fields.TryGetValue(key, out var result))
+			{
+				return result as T;
+			}
+			else
+			{
+				var organization = WorkItem.Url.Split('/')[3];
+				var organizationBugDetailKey = organization + ".Details";
+
+				return WorkItem.Fields.TryGetValue(organizationBugDetailKey, out var result2)
+					? result2 as T : default;
+			}
 		}
 	}
 }
