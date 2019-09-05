@@ -26,7 +26,8 @@
 
 	<Grid>
 		<Grid Background="{StaticResource Color08Brush}"
-			  toolkit:VisibleBoundsPadding.PaddingMask="Top">
+			  toolkit:VisibleBoundsPadding.PaddingMask="Top"
+			  wasm:MinWidth="300">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
@@ -57,6 +58,7 @@
 				<!-- To Organizations button -->
 				<Button Command="{Binding ToOrganizationListPage}"
 						Style="{StaticResource NavigationButtonStyle}"
+						MinHeight="{StaticResource CommandBarHeight}"
 						HorizontalContentAlignment="Left">
 					<StackPanel Orientation="Horizontal"
 								HorizontalAlignment="Center"

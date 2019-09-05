@@ -17,7 +17,7 @@ namespace Uno.AzureDevOps.Views.Converters
 				? split?.LastOrDefault()?.Substring(0, 1)
 				: string.Empty;
 
-			return first + last ?? string.Empty;
+			return first?.ToUpperInvariant() + last?.ToUpperInvariant() ?? string.Empty;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

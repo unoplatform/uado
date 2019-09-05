@@ -179,43 +179,19 @@
 
 				<!-- Content -->
 				<Grid Visibility="{Binding Projects.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Visible}">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<!-- Label -->
-					<!-- TODO 152591 [WASM] Remove workaround when wasm supports headers -->
-					<wasm:TextBlock Text="ALL PROJECTS"
-									Style="{StaticResource Typo09}"
-									HorizontalAlignment="Left"
-									Margin="16,16,0,12"
-									Grid.Row="0" />
-
 					<!-- Recent Project list -->
 					<ListView ItemsSource="{Binding Projects.Result}"
 							  ItemTemplate="{StaticResource ProjectItemTemplate}"
 							  ItemClick="ListView_ItemClick"
 							  IsItemClickEnabled="True"
-							  Padding="0,0,0,80"
-							  Grid.Row="1">
-						<ListView.Header>
-
-							<!-- Label -->
-							<TextBlock Text="ALL PROJECTS"
-									   Style="{StaticResource Typo09}"
-									   HorizontalAlignment="Left"
-									   Margin="16,16,0,12" />
-						</ListView.Header>
-					</ListView>
+							  Padding="0,0,0,80" />
 
 					<!-- Empty List Message -->
 					<TextBlock Text="No projects"
 							   Visibility="{Binding Projects.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed}"
 							   Style="{StaticResource Typo15}"
 							   VerticalAlignment="Top"
-							   Margin="16,0"
-							   Grid.Row="1" />
+							   Margin="16,0" />
 				</Grid>
 			</Grid>
 		</Grid>
