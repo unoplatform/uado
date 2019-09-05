@@ -108,21 +108,13 @@
 					</Grid>
 				</Button>
 
-				<!-- TODO create a custom component for that -->
-				<StackPanel Orientation="Horizontal">
-					<Rectangle x:Name="IndicatorButtonAllProjects"
-							   Visibility="Collapsed"
-							   Fill="{StaticResource Color03Brush}"
-							   Height="29"
-							   Width="4" />
-					<!-- Project Button -->
-					<Button x:Name="ButtonAllProjects"
-							Command="{Binding ToProjectListPage}"
-							Style="{StaticResource NavigationButtonStyle}">
-						<TextBlock Text="All Projects"
-								   Style="{StaticResource Typo08}" />
-					</Button>
-				</StackPanel>
+				<!-- Project Button -->
+				<ToggleButton x:Name="ButtonAllProjects"
+								Command="{Binding ToProjectListPage}"
+								Style="{StaticResource NavigationToggleButtonStyle}">
+					<TextBlock Text="All Projects"
+								Style="{StaticResource Typo08}" />
+				</ToggleButton>
 			</StackPanel>
 
 			<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
@@ -135,9 +127,9 @@
 							   Height="1" />
 
 					<!-- Profile Button -->
-					<Button x:Name="ButtonProfile"
-							Command="{Binding ToProfilePage}"
-							Style="{StaticResource NavigationButtonStyle}">
+					<ToggleButton x:Name="ButtonProfile"
+								  Command="{Binding ToProfilePage}"
+								  Style="{StaticResource NavigationToggleButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
@@ -147,15 +139,15 @@
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 						</StackPanel>
-					</Button>
+					</ToggleButton>
 
 					<!-- Separation -->
 					<Rectangle Fill="{StaticResource Color08Brush}"
 							   Height="1" />
 
-					<Button x:Name="ButtonAbout"
-							Command="{Binding ToAboutPage}"
-							Style="{StaticResource NavigationButtonStyle}">
+					<ToggleButton x:Name="ButtonAbout"
+								  Command="{Binding ToAboutPage}"
+								  Style="{StaticResource NavigationToggleButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
@@ -165,7 +157,7 @@
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 						</StackPanel>
-					</Button>
+					</ToggleButton>
 
 					<!-- Separation -->
 					<Rectangle Fill="{StaticResource Color08Brush}"
