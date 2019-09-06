@@ -230,7 +230,7 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			var workItems = await GetIterationWorkItems(project, team, iteration);
 
-			if (iteration.Attributes.TimeFrame == TimeFrame.Current)
+			if (iteration?.Attributes?.TimeFrame == TimeFrame.Current)
 			{
 				await ComputeValues(workItems);
 			}
