@@ -9,31 +9,12 @@ namespace Uno.AzureDevOps.Views.Content
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	[SuppressMessage("", "CA1801", Justification = "Event handler")]
 	public sealed partial class ProfilePage : Page
 	{
 		public ProfilePage()
 		{
 			InitializeComponent();
 			DataContext = new ProfilePageViewModel();
-		}
-
-		private void HamburgerButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (LargeViewNavigation.MenuVisibility == Visibility.Collapsed)
-			{
-				LargeViewNavigation.MenuVisibility = Visibility.Visible;
-				LargeViewNavigation.SetValue(Grid.ColumnProperty, 0);
-				LargeViewNavigation.SetValue(Grid.RowProperty, 0);
-				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 2);
-				ContentView.SetValue(Grid.ColumnProperty, 0);
-			}
-			else
-			{
-				LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
-				LargeViewNavigation.SetValue(Grid.RowProperty, 1);
-				LargeViewNavigation.SetValue(Grid.RowSpanProperty, 1);
-			}
 		}
 	}
 }
