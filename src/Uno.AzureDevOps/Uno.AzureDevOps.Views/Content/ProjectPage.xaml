@@ -661,7 +661,8 @@
 		</Grid>
 
 		<Grid x:Name="LargeScreenOverLay"
-			  Grid.Row="1">
+			  Grid.Row="1"
+			  Grid.ColumnSpan="2">
 
 			<!-- ComboBox Popup BG 1 -->
 			<Grid Visibility="{Binding IsDropDownOpen, ElementName=TeamsComboBox, Converter={StaticResource TrueToVisible}}"
