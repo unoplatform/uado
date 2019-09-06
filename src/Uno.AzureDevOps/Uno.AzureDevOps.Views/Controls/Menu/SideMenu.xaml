@@ -109,8 +109,7 @@
 
 				<!-- Project Button -->
 				<ToggleButton x:Name="ButtonAllProjects"
-								Command="{Binding ToProjectListPage}"
-								Style="{StaticResource NavigationToggleButtonStyle}">
+								Command="{Binding ToProjectListPage}">
 					<TextBlock Text="All Projects"
 								Style="{StaticResource Typo08}" />
 				</ToggleButton>
@@ -127,8 +126,7 @@
 
 					<!-- Profile Button -->
 					<ToggleButton x:Name="ButtonProfile"
-								  Command="{Binding ToProfilePage}"
-								  Style="{StaticResource NavigationToggleButtonStyle}">
+								  Command="{Binding ToProfilePage}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
@@ -145,8 +143,7 @@
 							   Height="1" />
 
 					<ToggleButton x:Name="ButtonAbout"
-								  Command="{Binding ToAboutPage}"
-								  Style="{StaticResource NavigationToggleButtonStyle}">
+								  Command="{Binding ToAboutPage}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"

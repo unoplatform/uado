@@ -153,10 +153,6 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
-
-				buttonProj.IsChecked = true;
-				buttonProfile.IsChecked = false;
-				buttonAbout.IsChecked = false;
 			}
 			else if (currentNavigationLevel == NavigationLevel.Project || currentNavigationLevel == NavigationLevel.Item)
 			{
@@ -167,20 +163,16 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
-
-				if (currentNavigationLevel == NavigationLevel.About)
-				{
-					buttonProj.IsChecked = false;
-					buttonProfile.IsChecked = false;
-					buttonAbout.IsChecked = true;
-				}
-				else
-				{
-					buttonProj.IsChecked = false;
-					buttonProfile.IsChecked = true;
-					buttonAbout.IsChecked = false;
-				}
 			}
+
+			buttonProj.IsChecked = currentNavigationLevel == NavigationLevel.Projects;
+			buttonProj.IsHitTestVisible = !(buttonProj.IsChecked ?? false);
+
+			buttonAbout.IsChecked = currentNavigationLevel == NavigationLevel.About;
+			buttonAbout.IsHitTestVisible = !(buttonAbout.IsChecked ?? false);
+
+			buttonProfile.IsChecked = currentNavigationLevel == NavigationLevel.Profile;
+			buttonProfile.IsHitTestVisible = !(buttonProfile.IsChecked ?? false);
 		}
 	}
 }
