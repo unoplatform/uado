@@ -59,12 +59,7 @@
 							</VisualStateGroup>
 							<VisualStateGroup x:Name="DisabledStates">
 								<VisualState x:Name="Enabled" />
-								<VisualState x:Name="Disabled">
-									<VisualState.Setters>
-										<Setter Target="RootBorder.Opacity"
-												Value="0.5" />
-									</VisualState.Setters>
-								</VisualState>
+								<VisualState x:Name="Disabled" />
 							</VisualStateGroup>
 							<VisualStateGroup x:Name="MultiSelectStates" />
 							<VisualStateGroup x:Name="ReorderHintStates" />
@@ -91,5 +86,8 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+	<Style TargetType="ToggleButton"
+		   BasedOn="{StaticResource NavigationToggleButtonStyle}" />
 
 </ResourceDictionary>
