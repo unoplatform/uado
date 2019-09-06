@@ -49,8 +49,6 @@
 									Value="0" />
 						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
 									Value="2" />
-						<Setter Target="HamburgerButton.Visibility"
-								Value="Collapsed" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
 						<Setter Target="MainGridViewColumn_1.Width"
@@ -69,13 +67,6 @@
 					Grid.ColumnSpan="2"
 					beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
 					beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}">
-			<!-- Hamburger Button  -->
-			<CommandBar.PrimaryCommands>
-			<AppBarButton x:Name="HamburgerButton"
-						  Click="HamburgerButton_Click"
-						  Style="{StaticResource BurgerMenuButtonStyle}">
-			</AppBarButton>
-			</CommandBar.PrimaryCommands>
 		</CommandBar>
 
 		<Grid Grid.Row="1"
@@ -194,12 +185,5 @@
 					 Grid.Row="1"
 					 Grid.RowSpan="1"
 					 HorizontalAlignment="Stretch" />
-
-		<!-- Close Button -->
-		<Border toolkit:VisibleBoundsPadding.PaddingMask="Top">
-			<Button Style="{StaticResource MenuCloseButtonStyle}"
-					Click="HamburgerButton_Click"
-					Visibility="{Binding Visibility, ElementName=CommandBarView, Converter={StaticResource InverseVisible}}" />
-		</Border>
 	</Grid>
 </Page>

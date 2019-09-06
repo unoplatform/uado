@@ -10,6 +10,7 @@ using Uno.AzureDevOps.Business.VSTS;
 using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
+using Uno.AzureDevOps.Views.Content;
 
 namespace Uno.AzureDevOps.Presentation
 {
@@ -28,7 +29,7 @@ namespace Uno.AzureDevOps.Presentation
 			_vstsRepository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
 			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
-			ToProjectListPage = new RelayCommand<AccountData>(account => _navigationService.ToProjectListPage(account));
+			ToProjectListPage = new RelayCommand<AccountData>(account => _navigationService.NavigateToAndClearStack(nameof(ProjectListPage), account));
 
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 

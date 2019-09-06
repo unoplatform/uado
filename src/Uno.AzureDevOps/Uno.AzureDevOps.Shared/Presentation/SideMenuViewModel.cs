@@ -13,6 +13,7 @@ using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.AppVersion;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
+using Uno.AzureDevOps.Views.Content;
 
 namespace Uno.AzureDevOps.Presentation
 {
@@ -39,8 +40,8 @@ namespace Uno.AzureDevOps.Presentation
 
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 			ToAboutPage = new RelayCommand(() => _navigationService.ToAboutPage());
-			ToProjectListPage = new RelayCommand(() => _navigationService.ToProjectListPage(_account));
-			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
+			ToOrganizationListPage = new RelayCommand(() => _navigationService.NavigateToAndClearStack(nameof(OrganizationListPage)));
+			ToProjectListPage = new RelayCommand(() => _navigationService.NavigateToAndClearStack(nameof(ProjectListPage), Account));
 
 			AppVersion = VersionHelper.GetAppVersionWithBuildNumber;
 		}
