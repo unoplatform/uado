@@ -142,11 +142,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			var buttonProj = sideMenu.ButtonAllProjects;
 			var buttonProfile = sideMenu.ButtonProfile;
 			var buttonAbout = sideMenu.ButtonAbout;
-			var indicatorProj = sideMenu.IndicatorButtonAllProjects;
 			var currentNavigationLevel = sideMenu.NavLevel.Value;
-
-			buttonProj.FontWeight = buttonProfile.FontWeight = buttonAbout.FontWeight = FontWeights.Normal;
-			indicatorProj.Visibility = Visibility.Collapsed;
 
 			if (currentNavigationLevel == NavigationLevel.Organizations)
 			{
@@ -157,11 +153,12 @@ namespace Uno.AzureDevOps.Views.Controls
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
-				buttonProj.FontWeight = FontWeights.Bold;
-				indicatorProj.Visibility = Visibility.Visible;
+
+				buttonProj.IsChecked = true;
+				buttonProfile.IsChecked = false;
+				buttonAbout.IsChecked = false;
 			}
-			else if (currentNavigationLevel == NavigationLevel.Project ||
-				currentNavigationLevel == NavigationLevel.Item)
+			else if (currentNavigationLevel == NavigationLevel.Project || currentNavigationLevel == NavigationLevel.Item)
 			{
 				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
 				sideMenu.TopMenuView.Visibility = Visibility.Visible;
@@ -173,11 +170,15 @@ namespace Uno.AzureDevOps.Views.Controls
 
 				if (currentNavigationLevel == NavigationLevel.About)
 				{
-					buttonAbout.FontWeight = FontWeights.Bold;
+					buttonProj.IsChecked = false;
+					buttonProfile.IsChecked = false;
+					buttonAbout.IsChecked = true;
 				}
 				else
 				{
-					buttonProfile.FontWeight = FontWeights.Bold;
+					buttonProj.IsChecked = false;
+					buttonProfile.IsChecked = true;
+					buttonAbout.IsChecked = false;
 				}
 			}
 		}
