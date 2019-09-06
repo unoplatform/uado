@@ -72,8 +72,7 @@
 								</Grid>
 
 								<!-- Content -->
-								<TextBlock x:Name="TxtContent"
-										   behaviors:HtmlTextBlockBehavior.HtmlText="{TemplateBinding TextContent}"
+								<TextBlock behaviors:HtmlTextBlockBehavior.HtmlText="{TemplateBinding TextContent}"
 										   Style="{StaticResource HtmlTextBlock}"
 										   MaxHeight="90"
 										   MaxLines="4"
@@ -82,7 +81,7 @@
 
 								<!-- No Content -->
 								<TextBlock Text="{TemplateBinding EmptyContentString}"
-										   Visibility="{Binding Text, ElementName=TxtContent, Converter={StaticResource EmptyStringToVisible}}"
+										   Visibility="{Binding TextContent, Converter={StaticResource EmptyStringToVisible}, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Collapsed}"
 										   Style="{StaticResource Typo15}"
 										   Margin="16,8,16,16"
 										   Grid.Row="1" />
