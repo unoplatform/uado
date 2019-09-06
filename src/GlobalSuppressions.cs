@@ -6,6 +6,9 @@
 [assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1101:Prefix local calls with this", Justification = "Stylistic choice")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1615:Element return value must be documented", Justification = "Most of the time it is straightforward")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1611:Element parameters must be documented", Justification = "Most of the time it is straightforward")]
+[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1512:Single-line comments must not be followed by blank line", Justification = "Interferes with development.")]
+[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1005: Single line comment must begin with a space.", Justification = "Interferes with development.")]
+
 [assembly: SuppressMessage("", "SA1027", Justification = "Stylistic choice")]
 [assembly: SuppressMessage("", "CA2007", Justification = "Not needed systematically.")]
 [assembly: SuppressMessage("", "CA1056", Justification = "Stylistic choice")]
