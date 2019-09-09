@@ -156,9 +156,7 @@
 								Value="16,0,0,0" />
 						<Setter Target="SummaryGridView.Margin"
 								Value="56,42,59,0" />
-						<Setter Target="SummaryGridViewChild.ColumnSpacing"
-								Value="126" />
-						<wasm:Setter Target="ProjectDescriptionGridView.Margin"
+						<Setter Target="ProjectDescriptionGridView.Margin"
 									 Value="0,0,126,20" />
 						<Setter Target="SummaryGridViewChild.HorizontalAlignment"
 								Value="Left" />
@@ -316,7 +314,7 @@
 								  Grid.Column="0"
 								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  MaxWidth="850"
-								  HorizontalAlignment="Left"
+								  HorizontalAlignment="Stretch"
 								  Margin="0,0,0,20">
 								<StackPanel Spacing="16">
 									<TextBlock Text="About this project"
