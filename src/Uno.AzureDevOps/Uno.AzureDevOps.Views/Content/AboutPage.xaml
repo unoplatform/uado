@@ -69,10 +69,10 @@
 								Value="1" />
 						<Setter Target="LearnMoreLinksView.(Grid.Row)"
 								Value="0" />
-						<Setter Target="AboutGridViewChild.ColumnSpacing"
-								Value="126" />
-						<wasm:Setter Target="LearnMoreLinksView.Margin"
-									 Value="126,16,16,16" />
+						<Setter Target="AboutGridViewChild.Margin"
+								Value="56,40,0,0" />
+						<Setter Target="LearnMoreLinksView.Margin"
+									 Value="126,16,26,16" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -92,7 +92,7 @@
 
 			<Grid x:Name="AboutGridViewChild"
 				  HorizontalAlignment="Left"
-				  Margin="56,40,0,0"
+				  Margin="16,40,0,0"
 				  Background="{StaticResource Color02Brush}"
 				  ColumnSpacing="0">
 
@@ -117,7 +117,7 @@
 							   Style="{StaticResource Typo22}" />
 
 					<!-- Paragraph 1 -->
-					<TextBlock Margin="0,0,0,24"
+					<TextBlock Margin="0,0,0,12"
 							   Style="{StaticResource Typo08}">
 						<Run Text="We built UADO to show you just what's possible with Uno Platform –a single codebase, native mobile and WebAssembly app, using only C# and XAML – currently" />
 						<Run Text="the only platform to do so."
@@ -125,7 +125,7 @@
 					</TextBlock>
 
 					<!-- Paragraph 2 -->
-					<TextBlock Margin="0,0,0,24"
+					<TextBlock Margin="0,0,0,12"
 							   Style="{StaticResource Typo08}">
 						<Run Text="But, UADO is more than just a showcase app -" />
 						<Run Text="it also is a real app"
@@ -145,7 +145,7 @@
 							Margin="16"
 							MaxWidth="850">
 					<TextBlock Text="To learn more"
-							   Style="{StaticResource Typo22}" />
+					           Style="{StaticResource Typo22}" />
 
 					<Button Command="{Binding NavigateToUnoPlatform}"
 							Style="{StaticResource ExternalNavigationButtonStyle}">
