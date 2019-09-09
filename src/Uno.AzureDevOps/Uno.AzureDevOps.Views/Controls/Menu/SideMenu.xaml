@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:wasm="http:/uno.ui/wasm"
+			 xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:not_wasm="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:toolkit="using:Uno.UI.Toolkit"
 			 mc:Ignorable="d wasm"
@@ -26,7 +27,8 @@
 	<Grid>
 		<Grid Background="{StaticResource Color08Brush}"
 			  toolkit:VisibleBoundsPadding.PaddingMask="Top"
-			  wasm:MinWidth="300">
+			  wasm:MinWidth="300"
+			  win:MinWidth="300">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
@@ -108,11 +110,13 @@
 				</Button>
 
 				<!-- Project Button -->
-				<ToggleButton x:Name="ButtonAllProjects"
-								Command="{Binding ToProjectListPage}">
+				<RadioButton x:Name="ButtonAllProjects"
+							 Command="{Binding ToProjectListPage}"
+							 Style="{StaticResource NavigationRadioButtonStyle}"
+							 GroupName="MenuGroup">
 					<TextBlock Text="All Projects"
-								Style="{StaticResource Typo08}" />
-				</ToggleButton>
+							   Style="{StaticResource Typo08}" />
+				</RadioButton>
 			</StackPanel>
 
 			<!-- Bottom menu, with "wrap" stackpanel for padding purpose -->
@@ -125,8 +129,10 @@
 							   Height="1" />
 
 					<!-- Profile Button -->
-					<ToggleButton x:Name="ButtonProfile"
-								  Command="{Binding ToProfilePage}">
+					<RadioButton x:Name="ButtonProfile"
+								 Command="{Binding ToProfilePage}"
+								 Style="{StaticResource NavigationRadioButtonStyle}"
+								 GroupName="MenuGroup">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/profile.scale-100.png"
@@ -136,14 +142,16 @@
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 						</StackPanel>
-					</ToggleButton>
+					</RadioButton>
 
 					<!-- Separation -->
 					<Rectangle Fill="{StaticResource Color08Brush}"
 							   Height="1" />
 
-					<ToggleButton x:Name="ButtonAbout"
-								  Command="{Binding ToAboutPage}">
+					<RadioButton x:Name="ButtonAbout"
+								 Command="{Binding ToAboutPage}"
+								 Style="{StaticResource NavigationRadioButtonStyle}"
+								 GroupName="MenuGroup">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/about.scale-100.png"
@@ -153,7 +161,7 @@
 									   Style="{StaticResource Typo08}"
 									   TextWrapping="NoWrap" />
 						</StackPanel>
-					</ToggleButton>
+					</RadioButton>
 
 					<!-- Separation -->
 					<Rectangle Fill="{StaticResource Color08Brush}"

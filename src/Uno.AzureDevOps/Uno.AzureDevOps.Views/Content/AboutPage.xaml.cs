@@ -2,6 +2,7 @@
 using Uno.AzureDevOps.Presentation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 namespace Uno.AzureDevOps.Views.Content
@@ -15,6 +16,12 @@ namespace Uno.AzureDevOps.Views.Content
 		{
 			this.InitializeComponent();
 			this.DataContext = new AboutPageViewModel();
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
 		}
 	}
 }

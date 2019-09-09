@@ -92,6 +92,93 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="NavigationRadioButtonStyle"
+		   TargetType="RadioButton">
+
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="TabNavigation"
+				Value="Local" />
+		<Setter Property="IsHoldingEnabled"
+				Value="True" />
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Height"
+				Value="44" />
+		<Setter Property="UseSystemFocusVisuals"
+				Value="True" />
+		<Setter Property="Padding"
+				Value="35,0, 14,0" />
+		<Setter Property="Margin"
+				Value="0" />
+		<Setter Property="FontWeight"
+				Value="Normal" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RadioButton">
+					<Grid x:Name="RootBorder"
+						  Height="{TemplateBinding Height}"
+						  Background="{TemplateBinding Background}"
+						  BorderBrush="{TemplateBinding BorderBrush}"
+						  BorderThickness="{TemplateBinding BorderThickness}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver" />
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.7" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Disabled" />
+							</VisualStateGroup>
+
+							<VisualStateGroup x:Name="CheckStates">
+								<VisualState x:Name="Checked">
+									<VisualState.Setters>
+										<Setter Target="Border.Visibility"
+												Value="Visible" />
+										<Setter Target="ContentPresenter.FontWeight"
+												Value="Bold" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Unchecked" />
+								<VisualState x:Name="Indeterminate" />
+							</VisualStateGroup>
+
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualState x:Name="Focused" />
+								<VisualState x:Name="Unfocused" />
+								<VisualState x:Name="PointerFocused" />
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+					
+						<ContentPresenter x:Name="ContentPresenter"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  ContentTransitions="{TemplateBinding ContentTransitions}"
+										  Content="{TemplateBinding Content}"
+										  Margin="{TemplateBinding Padding}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+						<Rectangle x:Name="Border"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Stretch"
+								   Width="4"
+								   Fill="{StaticResource Color04Brush}"
+								   Visibility="Collapsed"
+								   IsHitTestVisible="False" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<!-- Default Style -->
 	<Style TargetType="RadioButton"
 		   BasedOn="{StaticResource DefaultRadioButtonStyle}" />

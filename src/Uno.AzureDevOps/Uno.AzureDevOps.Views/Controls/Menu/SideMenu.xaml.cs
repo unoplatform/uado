@@ -43,7 +43,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			"SourceUri",
 			typeof(NavigationLevel?),
 			typeof(SideMenu),
-			new PropertyMetadata(default(NavigationLevel?), (d, e) => OnNavigationLevelChanged((SideMenu)d)));
+			new PropertyMetadata(default(NavigationLevel?), (d, e) => UpdateMenuState((SideMenu)d)));
 
 		public Visibility? MenuVisibility
 		{
@@ -74,6 +74,11 @@ namespace Uno.AzureDevOps.Views.Controls
 // 				}
 // #endif
 				menu.Visibility = visibility;
+
+				if (visibility == Visibility.Visible)
+				{
+					UpdateMenuState(menu);
+				}
 			}
 		}
 
@@ -132,7 +137,7 @@ namespace Uno.AzureDevOps.Views.Controls
 			stb.Begin();
 		}
 
-		private static void OnNavigationLevelChanged(SideMenu sideMenu)
+		private static void UpdateMenuState(SideMenu sideMenu)
 		{
 			if (!sideMenu.NavLevel.HasValue)
 			{

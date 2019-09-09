@@ -19,6 +19,12 @@ namespace Uno.AzureDevOps.Views.Content
 			DataContext = new ProjectItemDetailsPageViewModel();
 		}
 
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
+		}
+
 		// TODO replace pragma with suppressmessage
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
