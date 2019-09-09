@@ -17,7 +17,8 @@ namespace Uno.AzureDevOps.Droid
 		Name = "uno.azuredevops.droid.MainActivity",
 		Theme = "@style/splashscreen",
 		MainLauncher = true,
-		ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,
+		ConfigurationChanges = ConfigChanges.ScreenSize,
+		ScreenOrientation = ScreenOrientation.Portrait,
 		WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden
 	)]
 	public class MainActivity : Windows.UI.Xaml.ApplicationActivity
@@ -43,7 +44,7 @@ namespace Uno.AzureDevOps.Droid
 
 			if (idiom == DeviceIdiom.Tablet)
 			{
-				RequestedOrientation = ScreenOrientation.Landscape;
+				RequestedOrientation = ScreenOrientation.FullSensor;
 			}
 			else if (idiom == DeviceIdiom.Phone)
 			{
