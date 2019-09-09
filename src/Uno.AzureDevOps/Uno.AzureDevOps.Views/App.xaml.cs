@@ -22,6 +22,10 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+#if __IOS__
+using UIKit;
+using Xamarin.Essentials;
+#endif
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Uno.AzureDevOps
@@ -225,5 +229,25 @@ namespace Uno.AzureDevOps
 			// TODO: Save application state and stop any background activity
 			deferral.Complete();
 		}
+
+#if __IOS__
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+		{
+			var idiom = DeviceInfo.Idiom;
+
+			if (idiom == DeviceIdiom.Tablet)
+			{
+				return UIInterfaceOrientationMask.Landscape;
+			}
+			else if (idiom == DeviceIdiom.Phone)
+			{
+				return UIInterfaceOrientationMask.Portrait;
+			}
+			else
+			{
+				return UIInterfaceOrientationMask.Portrait;
+			}
+		}
+#endif
 	}
 }

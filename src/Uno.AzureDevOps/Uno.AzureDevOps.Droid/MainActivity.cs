@@ -6,6 +6,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Uno.AzureDevOps.Client;
+using Xamarin.Essentials;
 
 namespace Uno.AzureDevOps.Droid
 {
@@ -29,10 +30,30 @@ namespace Uno.AzureDevOps.Droid
 			//Init Xamarin essentials is needed for Android only
 			Xamarin.Essentials.Platform.Init(this, bundle);
 
+			SetOrientationOnIdiom();
 #if !DEBUG
 			AppCenter.Start(ClientConstants.AppCenterSecret,
 							   typeof(Analytics), typeof(Crashes));
 #endif
+		}
+
+		private void SetOrientationOnIdiom()
+		{
+			var idiom = DeviceInfo.Idiom;
+
+			if (idiom == DeviceIdiom.Tablet)
+			{
+				RequestedOrientation = ScreenOrientation.Landscape;
+			}
+			else if (idiom == DeviceIdiom.Phone)
+			{
+				RequestedOrientation = ScreenOrientation.Portrait;
+			}
+			else
+			{
+				RequestedOrientation = ScreenOrientation.Portrait;
+			}
+
 		}
 	}
 }
