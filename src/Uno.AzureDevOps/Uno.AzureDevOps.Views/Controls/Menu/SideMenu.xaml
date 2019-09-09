@@ -62,13 +62,13 @@
 					<StackPanel Orientation="Horizontal"
 								HorizontalAlignment="Center"
 								Margin="0,0,0,3">
-						<Image wasm:Source="ms-appx:///Assets/backGreen.scale-100.png"
-							   not_wasm:Source="ms-appx:///Assets/backGreen.png"
+						<Image wasm:Source="ms-appx:///Assets/homeGreen.scale-100.png"
+							   not_wasm:Source="ms-appx:///Assets/homeGreen.png"
 							   Stretch="Uniform"
 							   Width="12"
 							   Height="12" />
 
-						<TextBlock Text="Back to Organizations"
+						<TextBlock Text="All Organizations"
 								   VerticalAlignment="Center"
 								   Margin="6,0,0,0"
 								   Style="{StaticResource Typo21}" />
