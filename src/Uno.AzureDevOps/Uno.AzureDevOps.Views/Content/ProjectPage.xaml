@@ -159,7 +159,7 @@
 						<Setter Target="SummaryGridViewChild.ColumnSpacing"
 								Value="126" />
 						<wasm:Setter Target="ProjectDescriptionGridView.Margin"
-								Value="0,0,126,20" />
+									 Value="0,0,126,20" />
 						<Setter Target="SummaryGridViewChild.HorizontalAlignment"
 								Value="Left" />
 						<Setter Target="SummarySideData.HorizontalAlignment"
@@ -324,6 +324,12 @@
 
 									<TextBlock TextWrapping="Wrap"
 											   Text="{Binding Project.Description}"
+											   Visibility="{Binding Project.Description, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Visible}"
+											   Style="{StaticResource Typo08}" />
+
+									<TextBlock TextWrapping="Wrap"
+											   Text="No description available"
+											   Visibility="{Binding Project.Description, Converter={StaticResource EmptyStringToVisible}, FallbackValue=Collapsed}"
 											   Style="{StaticResource Typo08}" />
 								</StackPanel>
 							</Grid>
@@ -380,7 +386,7 @@
 											   Style="{StaticResource Typo02}"
 											   Grid.Row="3"
 											   Grid.ColumnSpan="3" />
-									
+
 									<StackPanel Grid.Row="4"
 												Margin="{StaticResource StatisticRowMargin}">
 										<TextBlock Text="{Binding NumberOfPbiInProgress}"
