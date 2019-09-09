@@ -20,6 +20,12 @@ namespace Uno.AzureDevOps.Views.Content
 			DataContext = new OrganizationListPageViewModel();
 		}
 
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			LargeViewNavigation.MenuVisibility = Visibility.Collapsed;
+		}
+
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			(DataContext as OrganizationListPageViewModel).OnNavigatedTo();
