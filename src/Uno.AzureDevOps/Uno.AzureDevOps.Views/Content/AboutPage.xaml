@@ -74,9 +74,9 @@
 						<Setter Target="LearnMoreLinksView.Margin"
 									 Value="126,16,26,16" />
 						<Setter Target="SourceCodeButtonView.Margin"
-								Value="0,40,0,0" />
+								Value="0,15,0,0" />
 						<Setter Target="StackPanelConditionsView.Margin"
-						        Value="0,40,0,0" />
+						        Value="0,15,0,0" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -138,7 +138,7 @@
 					</TextBlock>
 
 					<!-- Paragraph 3 -->
-					<TextBlock Text="Lastly, UADO is meant to help you learn and experiment with Uno Platform. As we continue building it you will be able to see how we handle authentication, events etc. See more at"
+					<TextBlock Text="Lastly, UADO is meant to help you learn and experiment with Uno Platform. As we continue building it you will be able to see how we handle authentication, events etc."
 							   Style="{StaticResource Typo08}" />
 
 				</StackPanel>
@@ -149,7 +149,8 @@
 							Margin="16"
 							MaxWidth="850">
 					<TextBlock Text="To learn more"
-					           Style="{StaticResource Typo22}" />
+					           Style="{StaticResource Typo22}"
+					           Margin="0,0,0,5"/>
 
 					<Button Command="{Binding NavigateToUnoPlatform}"
 							Style="{StaticResource ExternalNavigationButtonStyle}">
@@ -172,7 +173,7 @@
 						</StackPanel>
 					</Button>
 
-					<StackPanel x:Name="StackPanelConditionsView">
+					<StackPanel x:Name="StackPanelConditionsView" Spacing="-10">
 				
 					<!-- Terms & Conditions Button -->
 						<Button Command="{Binding NavigateToTermsAndConditions}"
