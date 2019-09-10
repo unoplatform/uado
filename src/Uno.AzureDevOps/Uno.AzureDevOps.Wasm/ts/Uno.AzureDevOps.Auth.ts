@@ -2,23 +2,10 @@
 	export class Auth {
 		public static launch(htmlId: number, url: string) {
 
-			// Register event handler for postMessage()
+			const uadoTokenStorageKey = "__UadoToken";
+
 			const eventListener = (msgEvt: MessageEvent) => {
 				const data = <string>msgEvt.data;
-
-				if (typeof data !== "string") {
-					return;
-				}
-
-				if (data.indexOf("|") < 0) {
-					return;
-				}
-
-				const element = document.getElementById(`${htmlId}`);
-				if (!element) {
-					window.removeEventListener("message", eventListener);
-					return;
-				}
 
 				if (msgEvt.origin !== window.location.origin) {
 					const error =
@@ -28,6 +15,44 @@
 					return;
 				}
 
+				if (processData(msgEvt.data)) {
+
+					(msgEvt.source as Window).close();
+
+					// unsubscribe
+					window.removeEventListener("message", eventListener);
+				}
+			};
+
+			const onStorageEvent = (storageEvt: StorageEvent) => {
+				if (storageEvt.key !== uadoTokenStorageKey) {
+					return; // not a Uado Token
+				}
+
+				if (processData(storageEvt.newValue)) {
+					// Remove now useless stored value
+					storageEvt.storageArea.removeItem(storageEvt.key);
+
+					window.removeEventListener("storage", onStorageEvent);
+				}
+			};
+
+			const processData = (data: string): boolean => {
+
+				if (typeof data !== "string") {
+					return false;
+				}
+
+				if (data.indexOf("|") < 0) {
+					return false;
+				}
+
+				const element = document.getElementById(`${htmlId}`);
+				if (!element) {
+					window.removeEventListener("message", eventListener);
+					return false;
+				}
+
 				var securityTokensEvent = new CustomEvent("urlwithsecuritytokens",
 					{
 						detail: data
@@ -35,12 +60,14 @@
 
 				element.dispatchEvent(securityTokensEvent);
 
-				(msgEvt.source as Window).close();
-
-				// unsubscribe
-				window.removeEventListener("message", eventListener);
+				return true;
 			};
+
+			// Listen to inter-tab "postMessage" event
 			window.addEventListener("message", eventListener);
+
+			// Listen to local storage
+			window.addEventListener("storage", onStorageEvent, true);
 
 			return "ok";
 		}
