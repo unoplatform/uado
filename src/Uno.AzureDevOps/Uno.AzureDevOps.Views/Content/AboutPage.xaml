@@ -73,6 +73,10 @@
 								Value="56,40,0,0" />
 						<Setter Target="LearnMoreLinksView.Margin"
 									 Value="126,16,26,16" />
+						<Setter Target="SourceCodeButtonView.Margin"
+								Value="0,40,0,0" />
+						<Setter Target="StackPanelConditionsView.Margin"
+						        Value="0,40,0,0" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -154,9 +158,9 @@
 								   TextWrapping="NoWrap" />
 					</Button>
 
-					<Button Command="{Binding NavigateToSourceCode}"
-							Margin="0,40,0,0"
-							Style="{StaticResource ExternalNavigationButtonStyle}">
+					<Button x:Name="SourceCodeButtonView"
+					        Command="{Binding NavigateToSourceCode}"
+					        Style="{StaticResource ExternalNavigationButtonStyle}">
 						<StackPanel Spacing="14"
 									Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/gitGreen.scale-100.png"
@@ -168,7 +172,7 @@
 						</StackPanel>
 					</Button>
 
-					<StackPanel Margin="0,40,0,0">
+					<StackPanel x:Name="StackPanelConditionsView">
 				
 					<!-- Terms & Conditions Button -->
 						<Button Command="{Binding NavigateToTermsAndConditions}"
