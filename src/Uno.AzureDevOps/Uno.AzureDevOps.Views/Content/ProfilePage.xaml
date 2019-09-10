@@ -55,6 +55,8 @@
 								Value="Auto" />
 						<Setter Target="MainGridViewColumn_2.Width"
 								Value="*" />
+						<Setter Target="MainStackPanelView.Margin"
+						        Value="55,40,0,0"/>
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -125,7 +127,8 @@
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<StackPanel Margin="55,40,0,0">
+						<StackPanel x:Name="MainStackPanelView"
+							Margin="10,10,0,0">
 							<Grid Height="60">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
