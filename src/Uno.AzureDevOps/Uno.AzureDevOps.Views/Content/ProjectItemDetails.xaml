@@ -4,8 +4,9 @@
 	  xmlns:local="using:Uno.AzureDevOps.Views.Content"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:uc="using:Uno.AzureDevOps.Views.Controls"
-	  xmlns:wasm="http://nventive.com/wasm"
-	  xmlns:android="http://nventive.com/android"
+	  xmlns:wasm="http:/uno.ui/wasm"
+	  xmlns:android="http:/uno.ui/android"
+	  xmlns:not_android="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:controls="using:Uno.AzureDevOps.Views.Controls"
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:beh="using:Uno.AzureDevOps.Views.Behaviors"
@@ -439,17 +440,32 @@
 											 HorizontalContentAlignment="Stretch"
 											 ContentTemplate="{StaticResource PageHeaderInformationTemplate}" />
 
-						<!-- RelatedWorkItems List -->
-						<ListView ItemsSource="{Binding ChildrenWorkItems.Result}"
-								  ItemTemplate="{StaticResource WorkItemTemplate}"
-								  Header="{Binding}"
-								  HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
-								  Footer="{Binding}"
-								  FooterTemplate="{StaticResource ListFooterTemplate}"
-								  SelectionMode="None"
-								  IsItemClickEnabled="True"
-								  ItemClick="ListView_ItemClick"
-								  Grid.Row="1" />
+						<!-- RelatedWorkItems GridView for android, as listview is not working (conflicting with GridView in organizationPage) see https://github.com/unoplatform/uno/issues/1521  -->
+						<android:GridView x:Name="GridViewRelatedWorkItemsList"
+							      ItemsSource="{Binding ChildrenWorkItems.Result}"
+						          ItemTemplate="{StaticResource WorkItemTemplate}"
+						          Header="{Binding}"
+						          HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
+						          Footer="{Binding}"
+						          FooterTemplate="{StaticResource ListFooterTemplate}"
+						          SelectionMode="None"
+						          IsItemClickEnabled="True"
+						          ItemClick="ListView_ItemClick"
+							      ItemContainerStyle="{StaticResource VerticalGridViewItemStyle}"
+						          Grid.Row="1"/>
+
+						<!-- Using a ListView for all other platforms -->
+						<not_android:ListView x:Name="ListViewRelatedWorkItemsList"
+								  ItemsSource="{Binding ChildrenWorkItems.Result}"
+						          ItemTemplate="{StaticResource WorkItemTemplate}"
+						          Header="{Binding}"
+						          HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
+						          Footer="{Binding}"
+						          FooterTemplate="{StaticResource ListFooterTemplate}"
+						          SelectionMode="None"
+						          IsItemClickEnabled="True"
+						          ItemClick="ListView_ItemClick"
+						          Grid.Row="1" />
 
 						<!-- Show the ListView footer below the ListView (wasm only) -->
 						<wasm:ContentControl Content="{Binding}"
