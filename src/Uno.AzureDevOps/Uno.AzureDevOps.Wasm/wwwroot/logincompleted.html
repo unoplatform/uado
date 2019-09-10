@@ -12,11 +12,12 @@
             const message = `nav|${window.location.href}`; // special message containing requested url
 
             if (opener && opener.location && opener.location.origin) {
-            const origin = opener.location.origin; // opener should have same origin
+                const origin = opener.location.origin; // opener should have same origin
 
-            opener.postMessage(message, origin);
+                opener.postMessage(message, origin);
             } else {
                 window.localStorage.setItem("__UadoToken", message);
+                window.close();
             }
         })();
     </script>
