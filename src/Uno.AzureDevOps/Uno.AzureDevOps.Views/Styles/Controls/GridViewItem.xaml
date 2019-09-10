@@ -4,17 +4,17 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="../Application/Colors.xaml" />
 	</ResourceDictionary.MergedDictionaries>
-	
+
 	<Style x:Key="LargeGridItemStyle"
 		   TargetType="GridViewItem">
-		
+
 		<Setter Property="Background"
 				Value="{StaticResource TransparentColorBrush}" />
 		<Setter Property="Width"
 				Value="250" />
 		<Setter Property="Height"
 				Value="300" />
-		
+
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="GridViewItem">
@@ -46,6 +46,75 @@
 											  ContentTemplate="{TemplateBinding ContentTemplate}" />
 						</Border>
 					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="VerticalGridViewItemStyle"
+		   TargetType="GridViewItem">
+
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="TabNavigation"
+				Value="Local" />
+		<Setter Property="IsHoldingEnabled"
+				Value="True" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="UseSystemFocusVisuals"
+				Value="True" />
+		<Setter Property="Padding"
+				Value="0" />
+		<Setter Property="Margin"
+				Value="0" />
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="GridViewItem">
+					<Border x:Name="RootBorder"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver" />
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.7" />
+									</VisualState.Setters>
+								</VisualState>
+								<VisualState x:Name="Selected" />
+								<VisualState x:Name="PointerOverSelected" />
+								<VisualState x:Name="PressedSelected" />
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="DisabledStates">
+								<VisualState x:Name="Enabled" />
+								<VisualState x:Name="Disabled">
+									<VisualState.Setters>
+										<Setter Target="RootBorder.Opacity"
+												Value="0.5" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="MultiSelectStates" />
+							<VisualStateGroup x:Name="ReorderHintStates" />
+							<VisualStateGroup x:Name="DragStates" />
+						</VisualStateManager.VisualStateGroups>
+
+						<ContentPresenter x:Name="ContentPresenter"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  ContentTransitions="{TemplateBinding ContentTransitions}"
+										  Content="{TemplateBinding Content}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Margin="{TemplateBinding Padding}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
