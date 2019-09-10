@@ -89,7 +89,7 @@
 				<!-- Separator -->
 				<Rectangle Height="1"
 						   Fill="{StaticResource Color07Brush}"
-						   Margin="16,1,0,0" />
+						   Margin="0,1,0,0" />
 			</StackPanel>
 		</DataTemplate>
 	</Page.Resources>
@@ -116,10 +116,18 @@
 					<VisualState.Setters>
 						<Setter Target="NavigationTabRoot.Width"
 								Value="500" />
-						<Setter Target="NavigationTabRoot.HorizontalAlignment"
+						<Setter Target="NavigationTabsContainer.HorizontalAlignment"
 								Value="Left" />
-						<Setter Target="NavigationTabRoot.Margin"
-								Value="56,0,0,0" />
+						<Setter Target="RootLayout.Margin"
+								Value="56,0" />
+						<Setter Target="TeamsComboBox.HorizontalAlignment"
+								Value="Left" />
+						<Setter Target="TeamsComboBox.Width"
+								Value="500" />
+						<Setter Target="IterationsComboBox.HorizontalAlignment"
+								Value="Left" />
+						<Setter Target="IterationsComboBox.Width"
+								Value="500" />
 						<Setter Target="LargeViewNavigation.MaxWidth"
 								Value="300" />
 						<Setter Target="LargeViewNavigation.IsFullscreenMenu"
@@ -155,13 +163,15 @@
 						<Setter Target="SummarySideData.Margin"
 								Value="16,0,0,0" />
 						<Setter Target="SummaryGridView.Margin"
-								Value="56,42,59,0" />
+								Value="0,42,0,0" />
 						<Setter Target="ProjectDescriptionGridView.Margin"
-									 Value="0,0,126,20" />
+									 Value="0,0,40,20" />
 						<Setter Target="SummaryGridViewChild.HorizontalAlignment"
 								Value="Left" />
 						<Setter Target="SummarySideData.HorizontalAlignment"
 								Value="Center" />
+						<Setter Target="WorkItemsList.Padding"
+								Value="0,20,0,80" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -256,7 +266,8 @@
 						  xamarin:DeferLoadStrategy="Lazy" />
 
 				<!-- Navigation tabs -->
-				<Grid BorderBrush="{StaticResource Color07Brush}"
+				<Grid x:Name="NavigationTabsContainer"
+					  BorderBrush="{StaticResource Color07Brush}"
 					  BorderThickness="0,0,0,1"
 					  Grid.Row="1">
 					<Grid x:Name="NavigationTabRoot">
@@ -314,7 +325,8 @@
 								  Grid.Column="0"
 								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  MaxWidth="850"
-								  HorizontalAlignment="Stretch"
+								  MinWidth="320"
+								  HorizontalAlignment="Left"
 								  Margin="0,0,0,20">
 								<StackPanel Spacing="16">
 									<TextBlock Text="About this project"
@@ -500,7 +512,8 @@
 					</Grid>
 
 					<!-- Work Items List -->
-					<ListView ItemsSource="{Binding IterationWorkItems.Result}"
+					<ListView x:Name="WorkItemsList"
+							  ItemsSource="{Binding IterationWorkItems.Result}"
 							  ItemTemplate="{StaticResource WorkItemTemplate}"
 							  IsItemClickEnabled="True"
 							  ItemClick="ListView_ItemClick"
@@ -613,7 +626,7 @@
 										<!-- Separator -->
 										<Rectangle Height="1"
 												   Fill="{StaticResource Color07Brush}"
-												   Margin="16,1,0,0" />
+												   Margin="0,1,0,0" />
 									</StackPanel>
 								</Grid>
 							</DataTemplate>
