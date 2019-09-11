@@ -63,16 +63,16 @@ namespace Uno.AzureDevOps.Views.Controls
 			// TODO: Revisit menu animations in the near-future
 			if (d is SideMenu menu && e.NewValue is Visibility visibility)
 			{
-// #if !__WASM__
-// 				if (visibility == Visibility.Visible)
-// 				{
-// 					menu.Animate(opacity: 1d, duration: 750);
-// 				}
-// 				else
-// 				{
-// 					menu.Animate(opacity: 0d, duration: 1);
-// 				}
-// #endif
+				// #if !__WASM__
+				// 				if (visibility == Visibility.Visible)
+				// 				{
+				// 					menu.Animate(opacity: 1d, duration: 750);
+				// 				}
+				// 				else
+				// 				{
+				// 					menu.Animate(opacity: 0d, duration: 1);
+				// 				}
+				// #endif
 				menu.Visibility = visibility;
 
 				if (visibility == Visibility.Visible)
@@ -166,8 +166,8 @@ namespace Uno.AzureDevOps.Views.Controls
 			}
 			else if (currentNavigationLevel == NavigationLevel.About || currentNavigationLevel == NavigationLevel.Profile)
 			{
-				sideMenu.TopMenuLogoView.Visibility = Visibility.Collapsed;
-				sideMenu.TopMenuView.Visibility = Visibility.Visible;
+				sideMenu.TopMenuLogoView.Visibility = sideMenu.ButtonOrganizationView.Visibility = Visibility.Visible;
+				sideMenu.ShowCurrentOrganizationView.Visibility = sideMenu.ButtonAllProjects.Visibility = Visibility.Collapsed;
 			}
 
 			buttonProj.IsChecked = currentNavigationLevel == NavigationLevel.Projects;
