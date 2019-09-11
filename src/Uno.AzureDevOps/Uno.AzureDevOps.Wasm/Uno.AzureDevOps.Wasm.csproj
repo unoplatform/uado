@@ -18,6 +18,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="WasmCSS\Fonts.css" />
 		<EmbeddedResource Include="WasmScripts\AppManifest.js" />
+		<EmbeddedResource Include="WasmScripts\Uno.AzureDevOps.js" />
 	</ItemGroup>
 	<ItemGroup>
 		<LinkerDescriptor Include="LinkerConfig.xml" />
