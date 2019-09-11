@@ -30,13 +30,12 @@ namespace Uno.AzureDevOps.Presentation
 		private readonly IUserPreferencesService _userPreferencesService;
 
 		private string _currentView;
-		private bool _loadingSuccess;
-		private TeamProjectReference _project;
 		private TeamSettingsIteration _selectedIteration;
 		private WebApiTeam _selectedTeam;
 		private AccountData _account;
 		private List<WorkItemData> _workItemsData;
 		private List<WorkItemType> _workItemsType;
+		private TeamProjectReference _currentProject;
 
 		private int _daysRemaining;
 		private int _totalWorkItems;
@@ -50,6 +49,7 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<List<TeamSettingsIteration>> _iterations;
 		private ITaskNotifier<List<TeamMember>> _teamMembers;
 		private ITaskNotifier<List<WebApiTeam>> _teams;
+		private ITaskNotifier<TeamProjectReference> _project;
 
 		public ProjectPageViewModel()
 		{
@@ -60,7 +60,7 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
 			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
 
-			ReloadPage = new AsyncCommand(async () => await LoadTeamsAndWorkItems());
+			ReloadPage = new AsyncCommand(async () => await LoadData(CurrentProject));
 
 			CurrentView = "Summary";
 		}
@@ -72,9 +72,8 @@ namespace Uno.AzureDevOps.Presentation
 			{
 				if (_selectedTeam == null || _selectedTeam.Id != value.Id)
 				{
-					SelectedIteration = null;
-					Iterations = new TaskNotifier<List<TeamSettingsIteration>>(GetIterations(_project, value));
-					TeamMembers = new TaskNotifier<List<TeamMember>>(GetTeamMembers(_project, value));
+					Iterations = new TaskNotifier<List<TeamSettingsIteration>>(GetIterations(CurrentProject, value));
+					TeamMembers = new TaskNotifier<List<TeamMember>>(GetTeamMembers(CurrentProject, value));
 				}
 
 				Set(() => SelectedTeam, ref _selectedTeam, value);
@@ -88,7 +87,7 @@ namespace Uno.AzureDevOps.Presentation
 			{
 				if (_selectedIteration == null || _selectedIteration.Id != value?.Id)
 				{
-					IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(_project, SelectedTeam, value));
+					IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(CurrentProject, SelectedTeam, value));
 				}
 
 				Set(() => SelectedIteration, ref _selectedIteration, value);
@@ -119,6 +118,12 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => Teams, ref _teams, value);
 		}
 
+		public ITaskNotifier<TeamProjectReference> Project
+		{
+			get => _project;
+			set => Set(() => Project, ref _project, value);
+		}
+
 		public ICommand ToProjectItemDetailsPage { get; }
 
 		public ICommand ToProfilePage { get; }
@@ -128,12 +133,6 @@ namespace Uno.AzureDevOps.Presentation
 		public ICommand ToProjectListPage { get; }
 
 		public ICommand ReloadPage { get; }
-
-		public bool LoadingSuccess
-		{
-			get => _loadingSuccess;
-			set => Set(() => LoadingSuccess, ref _loadingSuccess, value);
-		}
 
 		public string CurrentView
 		{
@@ -145,12 +144,6 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			get => _account;
 			set => Set(() => Account, ref _account, value);
-		}
-
-		public TeamProjectReference Project
-		{
-			get => _project;
-			set => Set(() => Project, ref _project, value);
 		}
 
 		public int DaysRemaining
@@ -189,6 +182,12 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => NumberOfUnassignedWorkItem, ref _numberOfUnassignedWorkItem, value);
 		}
 
+		public TeamProjectReference CurrentProject
+		{
+			get => _currentProject;
+			set => Set(() => CurrentProject, ref _currentProject, value);
+		}
+
 		public void OnWorkItemClicked(RichWorkItem workItem)
 		{
 			ToProjectItemDetailsPage.Execute(workItem);
@@ -205,6 +204,11 @@ namespace Uno.AzureDevOps.Presentation
 			var account = _userPreferencesService.GetPreferredAccount();
 			_account = account;
 
+			await LoadData(project);
+		}
+
+		private async Task LoadData(TeamProjectReference project)
+		{
 			// if project is null, that means we navigate here from login page
 			if (project == null)
 			{
@@ -212,7 +216,8 @@ namespace Uno.AzureDevOps.Presentation
 				{
 					// Get account name to be able to do calls in vstsRepository
 					_vstsRepository.SetVSTSAccount(_account.AccountName);
-					project = await GetProject(projectId);
+					Project = new TaskNotifier<TeamProjectReference>(GetProject(projectId));
+					project = await Project.Task;
 				}
 			}
 			else
@@ -221,8 +226,7 @@ namespace Uno.AzureDevOps.Presentation
 				_userPreferencesService.SavePreferredProject(project.Id);
 			}
 
-			Project = project;
-
+			CurrentProject = project;
 			await LoadTeamsAndWorkItems();
 		}
 
@@ -242,7 +246,7 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			if (_selectedIteration != null)
 			{
-				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(Project, SelectedTeam, _selectedIteration));
+				IterationWorkItems = new TaskNotifier<List<RichWorkItem>>(GetAndComputeIterationWorkitems(CurrentProject, SelectedTeam, _selectedIteration));
 			}
 
 			await LoadTeams();
@@ -250,7 +254,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		private async Task LoadTeams()
 		{
-			Teams = new TaskNotifier<List<WebApiTeam>>(GetTeams(Project));
+			Teams = new TaskNotifier<List<WebApiTeam>>(GetTeams(CurrentProject));
 
 			var teams = await Teams.Task;
 			SelectedTeam = teams[0];
@@ -282,7 +286,6 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			if (team == null || iteration == null)
 			{
-				LoadingSuccess = true;
 				return new List<RichWorkItem>();
 			}
 
@@ -307,8 +310,6 @@ namespace Uno.AzureDevOps.Presentation
 					&& !"Bug".Equals(w.WorkItem.Fields["System.WorkItemType"] as string, StringComparison.OrdinalIgnoreCase))
 					.ToList();
 			}
-
-			LoadingSuccess = true;
 
 			return workItems.Select(w => new RichWorkItem(
 				w,
@@ -354,7 +355,7 @@ namespace Uno.AzureDevOps.Presentation
 
 			if (bugWorkItems != null && bugWorkItems.Count > 0)
 			{
-				var bugStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, bugWorkItems.First().WorkItemType);
+				var bugStates = await _vstsRepository.GetWorkItemTypeStates(CurrentProject.Id, bugWorkItems.First().WorkItemType);
 
 				NumberOfBugInProgress = bugWorkItems
 				.Where(bwi => bwi.State
@@ -371,7 +372,7 @@ namespace Uno.AzureDevOps.Presentation
 			if (iterationsWorkItems != null && iterationsWorkItems.Count > 0)
 			{
 				var pbiWorkItemType = iterationsWorkItems.First().Type.Name;
-				var pbiStates = await _vstsRepository.GetWorkItemTypeStates(Project.Id, pbiWorkItemType);
+				var pbiStates = await _vstsRepository.GetWorkItemTypeStates(CurrentProject.Id, pbiWorkItemType);
 
 				NumberOfPbiInProgress = iterationsWorkItems
 				.Where(iw => iw.Item.State
