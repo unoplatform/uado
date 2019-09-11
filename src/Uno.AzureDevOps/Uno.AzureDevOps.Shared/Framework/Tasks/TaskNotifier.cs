@@ -72,6 +72,7 @@ namespace Uno.AzureDevOps.Framework.Tasks
 						if (Connectivity.NetworkAccess != NetworkAccess.Internet)
 						{
 							IsInternetFaulted = true;
+							PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
 						}
 #endif
 						Console.Error.WriteLine(task.Exception);
@@ -89,7 +90,6 @@ namespace Uno.AzureDevOps.Framework.Tasks
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFaulted)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSuccess)));
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Exception)));
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsInternetFaulted)));
 #endif
 				},
 				scheduler: _dispatcherTaskScheduler ?? GetDefaultScheduler());

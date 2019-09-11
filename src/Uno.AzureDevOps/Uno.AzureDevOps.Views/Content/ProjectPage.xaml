@@ -154,6 +154,8 @@
 								Value="300" />
 						<Setter Target="ReloadButton_2.MaxWidth"
 								Value="300" />
+						<Setter Target="ReloadButton_3.MaxWidth"
+								Value="300" />
 						<Setter Target="SummarySideColumn.Width"
 								Value="Auto" />
 						<Setter Target="SummarySideData.(Grid.Column)"
@@ -181,7 +183,7 @@
 		<!-- We use the FullscreenSideMenuBehavior to manage the visibility of
 			 the CommandBar based on when the side menu opens (narrow-view only) -->
 		<CommandBar x:Name="CommandBarView"
-					Content="{Binding Project.Name}"
+					Content="{Binding CurrentProject.Name}"
 					Grid.Column="0"
 					Grid.ColumnSpan="2"
 					Visibility="Collapsed"
@@ -205,7 +207,7 @@
 			</Grid.ColumnDefinitions>
 
 			<!-- Loading State -->
-			<Grid Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
+			<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 
 				<StackPanel VerticalAlignment="Center"
 							HorizontalAlignment="Center">
@@ -237,6 +239,27 @@
 						   Margin="50,0,50,48" />
 
 				<!-- Reload button -->
+				<Button x:Name="ReloadButton_3"
+						Content="Reload"
+						Command="{Binding ReloadPage}"
+						Style="{StaticResource ReloadButtonStyle}"
+						VerticalAlignment="Bottom"
+						Margin="16,22" />
+			</Grid>
+
+
+			<!-- Error State Project (when landing directly on project page )-->
+			<Grid Visibility="{Binding Project.IsFaulted, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
+
+				<!-- Message -->
+				<TextBlock Text="{Binding Project.IsInternetFaulted, Converter={StaticResource BoolToCustomString}}"
+						   Style="{StaticResource Typo10}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   TextAlignment="Center"
+						   Margin="50,0,50,48" />
+
+				<!-- Reload button -->
 				<Button x:Name="ReloadButton_1"
 						Content="Reload"
 						Command="{Binding ReloadPage}"
@@ -247,7 +270,7 @@
 
 			<!-- Content -->
 			<Grid x:Name="RootLayout"
-				  Visibility="{Binding LoadingSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToCollapsed}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 				  Background="{StaticResource Color02Brush}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -323,7 +346,6 @@
 							<Grid x:Name="ProjectDescriptionGridView"
 								  Background="{StaticResource Color02Brush}"
 								  Grid.Column="0"
-								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  MaxWidth="850"
 								  MinWidth="150"
 								  HorizontalAlignment="Left"
@@ -333,20 +355,20 @@
 											   Style="{StaticResource Typo22}" />
 
 									<TextBlock TextWrapping="Wrap"
-											   Text="{Binding Project.Description}"
-											   Visibility="{Binding Project.Description, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Visible}"
+											   Text="{Binding CurrentProject.Description}"
+											   Visibility="{Binding CurrentProject.Description, Converter={StaticResource EmptyStringToCollapsed}, FallbackValue=Visible}"
 											   Style="{StaticResource Typo08}" />
 
 									<TextBlock TextWrapping="Wrap"
 											   Text="No description available"
-											   Visibility="{Binding Project.Description, Converter={StaticResource EmptyStringToVisible}, FallbackValue=Collapsed}"
+											   Visibility="{Binding CurrentProject.Description, Converter={StaticResource EmptyStringToVisible}, FallbackValue=Collapsed}"
 											   Style="{StaticResource Typo08}" />
 								</StackPanel>
 							</Grid>
 
 							<!-- Project statistics -->
 							<Grid x:Name="SummarySideData"
-								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
+								
 								  HorizontalAlignment="Stretch"
 								  Grid.Row="1">
 								<Grid HorizontalAlignment="Stretch">
@@ -440,28 +462,6 @@
 							</Grid>
 						</Grid>
 					</ScrollViewer>
-
-					<!-- Loading State -->
-					<Grid Visibility="{Binding IterationWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
-						  Background="{StaticResource Color02Brush}">
-
-						<StackPanel VerticalAlignment="Center"
-									HorizontalAlignment="Center">
-
-							<!-- Progress Ring -->
-							<ProgressRing IsActive="True"
-										  Foreground="{StaticResource Color03Brush}"
-										  HorizontalAlignment="Center"
-										  VerticalAlignment="Center"
-										  Height="20"
-										  Width="20"
-										  Margin="0,12" />
-
-							<!-- Verifying Message -->
-							<TextBlock Text="Loading..."
-									   Style="{StaticResource Typo08}" />
-						</StackPanel>
-					</Grid>
 				</Grid>
 
 				<!-- Sprint -->
