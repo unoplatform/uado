@@ -23,7 +23,7 @@
 					Value="24" />
 		</Style>
 	</UserControl.Resources>
-	
+
 	<Grid Background="{StaticResource Color02Brush}"
 		  toolkit:VisibleBoundsPadding.PaddingMask="Left,Right">
 		<Grid.RowDefinitions>
@@ -49,14 +49,6 @@
 								Value="False" />
 						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
-									 Value="0" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									 Value="2" />
-						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
-									Value="0" />
-						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									Value="2" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
 						<Setter Target="MainGridViewColumn_1.Width"
@@ -69,14 +61,24 @@
 								Value="1" />
 						<Setter Target="LearnMoreLinksView.(Grid.Row)"
 								Value="0" />
-						<Setter Target="AboutGridViewChild.Margin"
-								Value="56,40,0,0" />
 						<Setter Target="LearnMoreLinksView.Margin"
 									 Value="126,16,26,16" />
 						<Setter Target="SourceCodeButtonView.Margin"
 								Value="0,15,0,0" />
 						<Setter Target="StackPanelConditionsView.Margin"
 						        Value="0,15,0,0" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
+						             Value="0" />
+						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+						             Value="2" />
+						<wasm:Setter Target="AboutGridViewChild.Margin"
+						             Value="56,40,0,0" />
+						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
+						            Value="0" />
+						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+						            Value="2" />
+						<win:Setter Target="AboutGridViewChild.Margin"
+						            Value="56,40,0,0" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -174,8 +176,8 @@
 					</Button>
 
 					<StackPanel x:Name="StackPanelConditionsView" Spacing="-10">
-				
-					<!-- Terms & Conditions Button -->
+
+						<!-- Terms & Conditions Button -->
 						<Button Command="{Binding NavigateToTermsAndConditions}"
 								Style="{StaticResource ExternalNavigationButtonStyle}">
 							<TextBlock Text="Terms and conditions"
@@ -183,7 +185,7 @@
 									   TextWrapping="NoWrap" />
 						</Button>
 
-							<!-- Privacy Policy Button -->
+						<!-- Privacy Policy Button -->
 						<Button Command="{Binding NavigateToPrivacyPolicy}"
 								Style="{StaticResource ExternalNavigationButtonStyle}">
 							<TextBlock Text="Privacy policy"
@@ -194,7 +196,7 @@
 				</StackPanel>
 			</Grid>
 		</ScrollViewer>
-		
+
 		<!-- Side hamburger menu -->
 		<!-- Workaround, set RowSpan 1 as 0 causes a crash -->
 		<uc:SideMenu x:Name="LargeViewNavigation"
