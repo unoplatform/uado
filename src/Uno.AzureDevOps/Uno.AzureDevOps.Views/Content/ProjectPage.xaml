@@ -39,7 +39,7 @@
 				  Padding="16,8">
 				<StackPanel VerticalAlignment="Center">
 					<!-- Name -->
-					<TextBlock Text="{Binding Name}"
+					<TextBlock Text="{Binding Name}" Margin="0,0,0,3"
 							   Style="{StaticResource Typo03}" />
 
 					<!-- TimeSpan -->
@@ -325,7 +325,7 @@
 								  Grid.Column="0"
 								  Visibility="{Binding IterationWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}"
 								  MaxWidth="850"
-								  MinWidth="320"
+								  MinWidth="150"
 								  HorizontalAlignment="Left"
 								  Margin="0,0,0,20">
 								<StackPanel Spacing="16">
