@@ -2,3 +2,38 @@
 	font-family: "Symbols";
 	src: url("Fonts/winjs-symbols.woff2") format('woff');
 }
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("Fonts/NunitoSans-Regular.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans Light";
+  src: url("Fonts/NunitoSans-Light.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans Bold";
+  src: url("Fonts/NunitoSans-Bold.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans SemiBold";
+  src: url("Fonts/NunitoSans-SemiBold.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans Italic";
+  src: url("Fonts/NunitoSans-Italic.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans BoldItalic";
+  src: url("Fonts/NunitoSans-BoldItalic.woff2") format('woff');
+}
+
+@font-face {
+  font-family: "Nunito Sans SemiBold";
+  src: url("Fonts/NunitoSans-SemiBoldItalic.woff2") format('woff');
+}

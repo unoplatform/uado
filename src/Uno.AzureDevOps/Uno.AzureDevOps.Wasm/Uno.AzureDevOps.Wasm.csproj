@@ -13,6 +13,12 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="..\Uno.AzureDevOps.UWP\Assets\*.png" Link="Assets\%(FileName)%(Extension)" />
+		<Content Include="Fonts\NunitoSans-Bold.woff2" />
+		<Content Include="Fonts\NunitoSans-BoldItalic.woff2" />
+		<Content Include="Fonts\NunitoSans-Italic.woff2" />
+		<Content Include="Fonts\NunitoSans-Light.woff2" />
+		<Content Include="Fonts\NunitoSans-Regular.woff2" />
+		<Content Include="Fonts\NunitoSans-SemiBold.woff2" />
 		<Content Include="Fonts\winjs-symbols.woff2" />
 	</ItemGroup>
 	<ItemGroup>
@@ -37,6 +43,13 @@
 	
 	You can safely remove this ItemGroup completely.
 	-->
+	<None Remove="Fonts\NunitoSans-Bold.woff2" />
+	<None Remove="Fonts\NunitoSans-BoldItalic.woff2" />
+	<None Remove="Fonts\NunitoSans-Italic.woff2" />
+	<None Remove="Fonts\NunitoSans-Light.woff2" />
+	<None Remove="Fonts\NunitoSans-Regular.woff2" />
+	<None Remove="Fonts\NunitoSans-SemiBold.woff2" />
+	<None Remove="Fonts\NunitoSans-SemiBoldItalic.woff2" />
 	<None Remove="ts\Uno.AzureDevOps.Auth.ts" />
 	<UpToDateCheckInput Remove="ts\Uno.AzureDevOps.Auth.ts" />
 	<Content Include="LinkerConfig.xml" />
@@ -52,6 +65,9 @@
 	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
 	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.265" />
 	<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.265" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fonts\NunitoSans-SemiBoldItalic.woff2" />
   </ItemGroup>
   <ItemGroup>
 	<TypeScriptCompile Include="ts\Uno.AzureDevOps.Auth.ts" />
