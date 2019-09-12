@@ -807,6 +807,63 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+	<Style x:Key="ActionButtonStyle"
+		   BasedOn="{StaticResource PrimaryButtonStyle}"
+		   TargetType="Button">
+		<Setter Property="Height"
+				Value="24" />
+		<Setter Property="FontSize"
+				Value="14" />
+		<Setter Property="FontWeight"
+				Value="Normal" />
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily01}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid x:Name="RootGrid"
+						  Padding="{TemplateBinding Padding}"
+						  Background="{TemplateBinding Background}"
+						  BorderBrush="{TemplateBinding BorderBrush}"
+						  BorderThickness="{TemplateBinding BorderThickness}"
+						  CornerRadius="4">
+
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver" />
+								<VisualState x:Name="Pressed">
+									<VisualState.Setters>
+										<Setter Target="RootGrid.Background"
+												Value="{StaticResource Color04Brush}" />
+									</VisualState.Setters>
+								</VisualState>
+
+								<VisualState x:Name="Disabled">
+									<VisualState.Setters>
+										<Setter Target="ContentPresenter.Foreground"
+												Value="{StaticResource Color05Brush}" />
+										<Setter Target="RootGrid.Background"
+												Value="{StaticResource Color07Brush}" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<ContentPresenter x:Name="ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  ContentTransitions="{TemplateBinding ContentTransitions}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  AutomationProperties.AccessibilityView="Raw"
+										  Margin="16,0" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 	
 	<!-- Default Style -->
 	<Style TargetType="Button"
