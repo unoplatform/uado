@@ -292,6 +292,7 @@
 							 Grid.Column="0"
 							 Grid.ColumnSpan="2"
 							 Mode="Minimal"
+							 Title="{Binding PageTitle}"
 							 BackCaption="{Binding CurrentProject.Name}"
 							 BackCommand="{Binding ToProjectPage}"
 							 HamburgerClick="HamburgerButton_Click"

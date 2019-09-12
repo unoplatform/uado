@@ -61,9 +61,14 @@
 				MinHeight="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource HeaderModeToHeight}}"
 				Background="{StaticResource Color03Brush}"
 				Visibility="Collapsed">
-			<StackPanel Orientation="Horizontal"
-						VerticalAlignment="Center"
+			<Grid VerticalAlignment="Center"
 						Margin="56,0,112,0">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
 				<!-- Back Button -->
 				<Button Command="{Binding BackCommand, ElementName=HeaderControl}"
@@ -86,6 +91,7 @@
 					  CornerRadius="10"
 					  Height="55"
 					  Width="55"
+					  Grid.Column="1"
 					  Visibility="{Binding ProjectInitialsVisibility, ElementName=HeaderControl}">
 					<TextBlock Text="{Binding Title, ElementName=HeaderControl, Converter={StaticResource MemberInitials}}"
 							   Style="{StaticResource ProjectInitialsTextBlock}"
@@ -98,8 +104,12 @@
 						   Style="{StaticResource ProjectInitialsTextBlock}"
 						   Margin="12,0,0,0"
 						   FontSize="36"
+						   HorizontalAlignment="Left"
+						   TextTrimming="CharacterEllipsis"
+						   TextWrapping="NoWrap"
+						   Grid.Column="2"
 						   Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource LargeToVisible}}"/>
-			</StackPanel>
+			</Grid>
 		</Border>
 	</Grid>
 </controls:UadoUserControl>
