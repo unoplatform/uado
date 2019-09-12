@@ -53,7 +53,7 @@
 							Margin="0,12,0,0">
 
 					<!-- Status Indicator -->
-					<Ellipse Fill="{StaticResource Color05Brush}"
+					<Ellipse Fill="{Binding WorkItem.Result.Item.State, Converter={StaticResource WorkItemStateToIconColor }}"
 							 Height="6"
 							 Width="6"
 							 Margin="16,0,0,0" />
