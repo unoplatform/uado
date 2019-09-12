@@ -8,6 +8,7 @@
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:beh="using:Uno.AzureDevOps.Views.Behaviors"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
+	  xmlns:controls="using:Uno.AzureDevOps.Views.Controls"
 	  mc:Ignorable="wasm">
 
 	<Page.Resources>
@@ -70,14 +71,20 @@
 			<ColumnDefinition x:Name="MainGridViewColumn_2"
 							  Width="0" />
 		</Grid.ColumnDefinitions>
+		
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-
 				<VisualState x:Name="wide">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
+						<Setter Target="HeaderView.(Grid.Column)"
+								Value="1" />
+						<Setter Target="HeaderView.(Grid.ColumnSpan)"
+								Value="1" />
+						<Setter Target="CloseButton.Visibility"
+								Value="Collapsed" />
 						<Setter Target="RootGrid.BorderThickness"
 								Value="1,0" />
 						<Setter Target="ReloadButton.MaxWidth"
@@ -88,16 +95,10 @@
 								Value="False" />
 						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
-									 Value="0" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									 Value="2" />
-						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
-									Value="0" />
-						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									Value="2" />
-						<Setter Target="HamburgerButton.Visibility"
-								Value="Collapsed" />
+						<Setter Target="LargeViewNavigation.(Grid.Row)"
+								Value="0" />
+						<Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+								Value="2" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
 						<Setter Target="MainGridViewColumn_1.Width"
@@ -109,23 +110,14 @@
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<!-- CommandBar -->
-		<!-- We use the FullscreenSideMenuBehavior to manage the visibility of
-			 the CommandBar based on when the side menu opens (narrow-view only) -->
-		<CommandBar x:Name="CommandBarView"
-					Content="All projects"
-					Grid.Column="0"
-					Grid.ColumnSpan="2"
-					beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
-					beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}">
-			<CommandBar.PrimaryCommands>
-				<!-- Hamburger Button  -->
-				<AppBarButton x:Name="HamburgerButton"
-							  Click="HamburgerButton_Click"
-							  Style="{StaticResource BurgerMenuButtonStyle}">
-				</AppBarButton>
-			</CommandBar.PrimaryCommands>
-		</CommandBar>
+		<!-- PAGE HEADER -->
+		<controls:PageHeader x:Name="HeaderView"
+							 Grid.Column="0"
+							 Grid.ColumnSpan="2"
+							 Title="All projects"
+							 HamburgerClick="HamburgerButton_Click"
+							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
+							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
 
 		<Grid Grid.Row="1"
 			  x:Name="ContentView">
@@ -207,8 +199,11 @@
 					 HorizontalAlignment="Stretch" />
 
 		<!-- Close Button -->
-		<Button Style="{StaticResource MenuCloseButtonStyle}"
-				Click="HamburgerButton_Click"
-				Visibility="{Binding Visibility, ElementName=CommandBarView, Converter={StaticResource InverseVisible}}" />
+		<Border x:Name="CloseButton"
+				toolkit:VisibleBoundsPadding.PaddingMask="Top">
+			<Button Style="{StaticResource MenuCloseButtonStyle}"
+					Click="HamburgerButton_Click"
+					Visibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
+		</Border>
 	</Grid>
 </Page>

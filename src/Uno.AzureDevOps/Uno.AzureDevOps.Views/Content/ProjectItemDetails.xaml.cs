@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Presentation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,8 +30,10 @@ namespace Uno.AzureDevOps.Views.Content
 		// TODO replace pragma with suppressmessage
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
+			var (workItem, project) = e.Parameter as Tuple<RichWorkItem, TeamProjectReference>;
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			(DataContext as ProjectItemDetailsPageViewModel).OnNavigatedTo(e.Parameter as RichWorkItem);
+			(DataContext as ProjectItemDetailsPageViewModel).OnNavigatedTo(workItem, project);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			base.OnNavigatedTo(e);
 		}

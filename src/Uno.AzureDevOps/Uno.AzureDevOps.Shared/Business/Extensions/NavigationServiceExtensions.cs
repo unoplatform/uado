@@ -1,4 +1,5 @@
-﻿using Uno.AzureDevOps.Client;
+﻿using System;
+using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Presentation;
 using Uno.AzureDevOps.Views.Content;
@@ -21,7 +22,8 @@ namespace Uno.AzureDevOps.Business.Extensions
 			}
 		}
 
-		public static void ToProjectItemDetailsPage(this IStackNavigationService navigationService, RichWorkItem workItem) => navigationService.NavigateTo(nameof(ProjectItemDetails), workItem);
+		public static void ToProjectItemDetailsPage(this IStackNavigationService navigationService, RichWorkItem workItem, TeamProjectReference project)
+			=> navigationService.NavigateTo(nameof(ProjectItemDetails), new Tuple<RichWorkItem, TeamProjectReference>(workItem, project));
 
 		public static void ToProfilePage(this IStackNavigationService navigationService) => navigationService.NavigateTo(nameof(ProfilePage));
 

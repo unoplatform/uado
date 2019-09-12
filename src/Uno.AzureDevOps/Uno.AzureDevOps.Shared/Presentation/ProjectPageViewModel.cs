@@ -57,7 +57,7 @@ namespace Uno.AzureDevOps.Presentation
 			_vstsRepository = SimpleIoc.Default.GetInstance<IVSTSRepository>();
 			_userPreferencesService = SimpleIoc.Default.GetInstance<IUserPreferencesService>();
 
-			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
+			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem, CurrentProject));
 			ToOrganizationListPage = new RelayCommand(() => _navigationService.ToOrganizationListPage());
 
 			ReloadPage = new AsyncCommand(async () => await LoadData(CurrentProject));

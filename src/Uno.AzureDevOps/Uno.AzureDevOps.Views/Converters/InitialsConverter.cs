@@ -11,6 +11,11 @@ namespace Uno.AzureDevOps.Views.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
+			if (string.IsNullOrEmpty(value as string))
+			{
+				return string.Empty;
+			}
+
 			var split = (value as string)?.Split(' ');
 			var first = split?.FirstOrDefault()?.Substring(0, 1);
 			var last = (split?.Length ?? 0) > 1

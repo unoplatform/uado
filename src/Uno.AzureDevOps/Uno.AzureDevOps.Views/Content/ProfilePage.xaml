@@ -9,6 +9,7 @@
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
+	  xmlns:controls="using:Uno.AzureDevOps.Views.Controls"
 	  mc:Ignorable="wasm">
 
 	<Grid Background="{StaticResource Color02Brush}"
@@ -31,6 +32,10 @@
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
+						<Setter Target="HeaderView.(Grid.Column)"
+								Value="1" />
+						<Setter Target="HeaderView.(Grid.ColumnSpan)"
+								Value="1" />
 						<Setter Target="ReloadButton.MaxWidth"
 								Value="300" />
 						<Setter Target="ReloadButton.MaxWidth"
@@ -41,14 +46,10 @@
 								Value="False" />
 						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
-									 Value="0" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									 Value="2" />
-						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
-									Value="0" />
-						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									Value="2" />
+						<Setter Target="LargeViewNavigation.(Grid.Row)"
+								Value="0" />
+						<Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+								Value="2" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
 						<Setter Target="MainGridViewColumn_1.Width"
@@ -62,14 +63,13 @@
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<!-- CommandBar -->
-		<CommandBar x:Name="CommandBarView"
-					Content="Profile"
-					Grid.Column="0"
-					Grid.ColumnSpan="2"
-					beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
-					beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}">
-		</CommandBar>
+		<!-- PAGE HEADER -->
+		<controls:PageHeader x:Name="HeaderView"
+							 Grid.Column="0"
+							 Grid.ColumnSpan="2"
+							 Title="Profile"
+							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
+							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
 
 		<Grid Grid.Row="1"
 			  x:Name="ContentView">
