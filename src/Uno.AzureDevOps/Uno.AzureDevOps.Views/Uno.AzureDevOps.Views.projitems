@@ -38,6 +38,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Menu\SideMenu.xaml.cs">
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PageHeader.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\UadoUserControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\UnoWebView\UnoWebView.iOS.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEmptyStringToVisibilityConverterMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEnumerableHasMinimumToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromEnumerableHasAnyToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromHeaderModeToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromVisibilityToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToReverseBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InitialsConverter.cs" />
@@ -69,6 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Content\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

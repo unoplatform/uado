@@ -6,5 +6,7 @@
 		<ResourceDictionary Source="Colors.xaml" />
 		<ResourceDictionary Source="Converters.xaml" />
 		<ResourceDictionary Source="Fonts.xaml" />
+		<ResourceDictionary Source="Icons.xaml" />
 	</ResourceDictionary.MergedDictionaries>
+
 </ResourceDictionary>

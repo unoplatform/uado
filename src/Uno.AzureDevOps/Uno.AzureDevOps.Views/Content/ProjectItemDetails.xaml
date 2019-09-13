@@ -73,6 +73,7 @@
 				<Grid Margin="0,12,0,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
 
@@ -103,7 +104,7 @@
 							   Style="{StaticResource Typo08}"
 							   TextWrapping="Wrap"
 							   VerticalAlignment="Center"
-							   Margin="11,0,16,0"
+							   Margin="12,0,16,0"
 							   Grid.Column="1" />
 
 					<!-- Unassigned -->
@@ -112,8 +113,17 @@
 							   Style="{StaticResource Typo08}"
 							   TextWrapping="Wrap"
 							   VerticalAlignment="Center"
-							   Margin="11,0,16,0"
+							   Margin="12,0,0,0"
 							   Grid.Column="1" />
+
+					<!-- Assign To Me -->
+					<Button Content="Assign To Me"
+							HorizontalAlignment="Left"
+							Visibility="{Binding CanAssignToMe, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
+							Style="{StaticResource ActionButtonStyle}"
+							Command="{Binding AssignToMe}"
+							Margin="12,0,0,0"
+							Grid.Column="2" />
 				</Grid>
 
 				<!-- Separator -->
@@ -246,6 +256,12 @@
 						<AdaptiveTrigger MinWindowWidth="1024" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
+						<Setter Target="HeaderView.(Grid.Column)"
+								Value="1" />
+						<Setter Target="HeaderView.(Grid.ColumnSpan)"
+								Value="1" />
+						<Setter Target="CloseButton.Visibility"
+								Value="Collapsed" />
 						<Setter Target="ReloadButton_1.MaxWidth"
 								Value="300" />
 						<Setter Target="ReloadButton_2.MaxWidth"
@@ -256,16 +272,10 @@
 								Value="False" />
 						<Setter Target="LargeViewNavigation.MenuVisibility"
 								Value="Visible" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.Row)"
-									 Value="0" />
-						<wasm:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									 Value="2" />
-						<win:Setter Target="LargeViewNavigation.(Grid.Row)"
-									Value="0" />
-						<win:Setter Target="LargeViewNavigation.(Grid.RowSpan)"
-									Value="2" />
-						<Setter Target="HamburgerButton.Visibility"
-								Value="Collapsed" />
+						<Setter Target="LargeViewNavigation.(Grid.Row)"
+								Value="0" />
+						<Setter Target="LargeViewNavigation.(Grid.RowSpan)"
+								Value="2" />
 						<Setter Target="ContentView.(Grid.Column)"
 								Value="1" />
 						<Setter Target="MainGridViewColumn_1.Width"
@@ -277,37 +287,18 @@
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-		<!-- CommandBar -->
-		<CommandBar x:Name="CommandBarView"
-			Grid.Column="0"
-			Grid.ColumnSpan="2"
-			Content="{Binding PageTitle}"
-			beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
-			beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}">
-			<CommandBar.PrimaryCommands>
-				<!-- Options Button -->
-				<AppBarButton Style="{StaticResource MoreOptionsButtonStyle}">
-					<AppBarButton.Flyout>
-						<MenuFlyout>
+		<!-- PAGE HEADER -->
+		<controls:PageHeader x:Name="HeaderView"
+							 Grid.Column="0"
+							 Grid.ColumnSpan="2"
+							 Mode="Minimal"
+							 Title="{Binding PageTitle}"
+							 BackCaption="{Binding CurrentProject.Name}"
+							 BackCommand="{Binding ToProjectPage}"
+							 HamburgerClick="HamburgerButton_Click"
+							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
+							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
 
-							<!-- Assin to me Button -->
-							<MenuFlyoutItem Text="Assign to me"
-											Visibility="{Binding CanAssignToMe, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
-											Command="{Binding AssignToMe}" />
-
-							<!-- View More Button -->
-							<MenuFlyoutItem Text="View More (Web version)"
-											Command="{Binding ViewMore}" />
-						</MenuFlyout>
-					</AppBarButton.Flyout>
-				</AppBarButton>
-				<!-- Hamburger Button  -->
-				<AppBarButton x:Name="HamburgerButton"
-							  Click="HamburgerButton_Click"
-							  Style="{StaticResource BurgerMenuButtonStyle}">
-				</AppBarButton>
-			</CommandBar.PrimaryCommands>
-		</CommandBar>
 
 		<!-- TODO: 151904 [WASM] Remove workaround for flyout not showing on AppBarButton -->
 		<wasm:Border Background="{StaticResource Color03Brush}"
@@ -361,7 +352,7 @@
 
 				<!-- Loading State -->
 				<Grid Visibility="{Binding ChildrenWorkItems.IsExecuting, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}">
-					
+
 					<StackPanel VerticalAlignment="Center"
 								HorizontalAlignment="Center">
 
@@ -442,30 +433,30 @@
 
 						<!-- RelatedWorkItems GridView for android, as listview is not working (conflicting with GridView in organizationPage) see https://github.com/unoplatform/uno/issues/1521  -->
 						<android:GridView x:Name="GridViewRelatedWorkItemsList"
-							      ItemsSource="{Binding ChildrenWorkItems.Result}"
-						          ItemTemplate="{StaticResource WorkItemTemplate}"
-						          Header="{Binding}"
-						          HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
-						          Footer="{Binding}"
-						          FooterTemplate="{StaticResource ListFooterTemplate}"
-						          SelectionMode="None"
-						          IsItemClickEnabled="True"
-						          ItemClick="ListView_ItemClick"
-							      ItemContainerStyle="{StaticResource VerticalGridViewItemStyle}"
-						          Grid.Row="1"/>
+										  ItemsSource="{Binding ChildrenWorkItems.Result}"
+										  ItemTemplate="{StaticResource WorkItemTemplate}"
+										  Header="{Binding}"
+										  HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
+										  Footer="{Binding}"
+										  FooterTemplate="{StaticResource ListFooterTemplate}"
+										  SelectionMode="None"
+										  IsItemClickEnabled="True"
+										  ItemClick="ListView_ItemClick"
+										  ItemContainerStyle="{StaticResource VerticalGridViewItemStyle}"
+										  Grid.Row="1" />
 
 						<!-- Using a ListView for all other platforms -->
 						<not_android:ListView x:Name="ListViewRelatedWorkItemsList"
-								  ItemsSource="{Binding ChildrenWorkItems.Result}"
-						          ItemTemplate="{StaticResource WorkItemTemplate}"
-						          Header="{Binding}"
-						          HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
-						          Footer="{Binding}"
-						          FooterTemplate="{StaticResource ListFooterTemplate}"
-						          SelectionMode="None"
-						          IsItemClickEnabled="True"
-						          ItemClick="ListView_ItemClick"
-						          Grid.Row="1" />
+											  ItemsSource="{Binding ChildrenWorkItems.Result}"
+											  ItemTemplate="{StaticResource WorkItemTemplate}"
+											  Header="{Binding}"
+											  HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
+											  Footer="{Binding}"
+											  FooterTemplate="{StaticResource ListFooterTemplate}"
+											  SelectionMode="None"
+											  IsItemClickEnabled="True"
+											  ItemClick="ListView_ItemClick"
+											  Grid.Row="1" />
 
 						<!-- Show the ListView footer below the ListView (wasm only) -->
 						<wasm:ContentControl Content="{Binding}"
@@ -519,10 +510,11 @@
 					 HorizontalAlignment="Stretch" />
 
 		<!-- Close Button -->
-		<Border toolkit:VisibleBoundsPadding.PaddingMask="Top">
+		<Border x:Name="CloseButton"
+				toolkit:VisibleBoundsPadding.PaddingMask="Top">
 			<Button Style="{StaticResource MenuCloseButtonStyle}"
 					Click="HamburgerButton_Click"
-					Visibility="{Binding Visibility, ElementName=CommandBarView, Converter={StaticResource InverseVisible}}" />
+					Visibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
 		</Border>
 	</Grid>
 </Page>

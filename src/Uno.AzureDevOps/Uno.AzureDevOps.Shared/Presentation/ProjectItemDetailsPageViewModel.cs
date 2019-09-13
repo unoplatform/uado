@@ -34,6 +34,7 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<RichWorkItem> _parentWorkItem;
 		private ITaskNotifier<RichWorkItem> _workItem;
 		private ITaskNotifier<UserProfile> _userProfile;
+		private TeamProjectReference _currentProject;
 		private string _pageTitle;
 		private bool _showDoubleBackTip;
 		private bool _hasRelatedWork;
@@ -49,7 +50,9 @@ namespace Uno.AzureDevOps.Presentation
 			AssignToMe = new AsyncCommand(async () => await AssignToMeAndRefresh());
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
-			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(workItem => _navigationService.ToProjectItemDetailsPage(workItem));
+			ToProjectPage = new RelayCommand(() => _navigationService.ToProjectPage(CurrentProject));
+			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(
+				workItem => _navigationService.ToProjectItemDetailsPage( workItem, CurrentProject));
 			ToParentProjectItemDetailsPage = new RelayCommand(() => OnWorkItemClicked(ParentWorkItem.Result));
 			ViewMore = new AsyncCommand(async () => await LaunchBrowserWithWorkItemUri());
 			HideDoubleBackTip = new RelayCommand(async () => await HideDoubleBackTipCommand());
@@ -97,6 +100,12 @@ namespace Uno.AzureDevOps.Presentation
 			set => Set(() => HasParent, ref _hasParent, value);
 		}
 
+		public TeamProjectReference CurrentProject
+		{
+			get => _currentProject;
+			set => Set(() => CurrentProject, ref _currentProject, value);
+		}
+
 		public ITaskNotifier<List<RichWorkItem>> ChildrenWorkItems
 		{
 			get => _childrenWorkItems;
@@ -127,6 +136,8 @@ namespace Uno.AzureDevOps.Presentation
 
 		public ICommand ToParentProjectItemDetailsPage { get; }
 
+		public ICommand ToProjectPage { get; }
+
 		public ICommand ToProjectItemDetailsPage { get; }
 
 		public void OnWorkItemClicked(RichWorkItem workItem)
@@ -135,8 +146,10 @@ namespace Uno.AzureDevOps.Presentation
 			ToProjectItemDetailsPage.Execute(workItem);
 		}
 
-		public async Task OnNavigatedTo(RichWorkItem workItem)
+		public async Task OnNavigatedTo(RichWorkItem workItem, TeamProjectReference project)
 		{
+			CurrentProject = project;
+
 			WorkItem = new TaskNotifier<RichWorkItem>(Task.FromResult(workItem));
 
 			var workItemType = workItem.Item.WorkItemType == "Product Backlog Item" ? "PBI" : workItem.Item.WorkItemType;
