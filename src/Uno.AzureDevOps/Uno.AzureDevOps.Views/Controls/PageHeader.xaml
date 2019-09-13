@@ -72,9 +72,11 @@
 
 				<!-- Back Button -->
 				<Button Command="{Binding BackCommand, ElementName=HeaderControl}"
+						MinHeight="40"
 						Style="{StaticResource BasicEmptyButtonStyle}"
 						Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource MinimalToVisible}}">
-					<StackPanel Orientation="Horizontal">
+					<StackPanel Orientation="Horizontal"
+								VerticalAlignment="Center">
 						<ContentControl ContentTemplate="{StaticResource BackToIcon}" />
 
 						<TextBlock Style="{StaticResource Typo19}"
