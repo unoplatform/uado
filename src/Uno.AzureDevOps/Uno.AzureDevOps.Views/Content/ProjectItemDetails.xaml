@@ -53,7 +53,7 @@
 							Margin="0,12,0,0">
 
 					<!-- Status Indicator -->
-					<Ellipse Fill="{StaticResource Color05Brush}"
+					<Ellipse Fill="{Binding WorkItem.Result.Item.State, Converter={StaticResource WorkItemStateToIconColor }}"
 							 Height="6"
 							 Width="6"
 							 Margin="16,0,0,0" />
@@ -294,8 +294,8 @@
 							 Grid.ColumnSpan="2"
 							 Mode="Minimal"
 							 Title="{Binding PageTitle}"
-							 BackCaption="{Binding CurrentProject.Name}"
-							 BackCommand="{Binding ToProjectPage}"
+							 BackCaption="{Binding LandscapeTitle}"
+							 BackCommand="{Binding ToPreviousPage}"
 							 HamburgerClick="HamburgerButton_Click"
 							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
 							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />

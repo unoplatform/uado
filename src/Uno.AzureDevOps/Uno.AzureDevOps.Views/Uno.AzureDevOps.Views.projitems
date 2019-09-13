@@ -59,6 +59,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ProjectViewToBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityOnEnumerableHasAny.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityOnEnumerableNull.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\WorkItemStateToIconColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\WorkItemTypeToIconColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\WorkItemTypeToIconPathConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Module.cs" />
