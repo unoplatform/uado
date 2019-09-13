@@ -14,6 +14,7 @@ using Uno.AzureDevOps.Client;
 using Uno.AzureDevOps.Framework.Commands;
 using Uno.AzureDevOps.Framework.Navigation;
 using Uno.AzureDevOps.Framework.Tasks;
+using Uno.AzureDevOps.Views.Content;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
@@ -36,6 +37,7 @@ namespace Uno.AzureDevOps.Presentation
 		private ITaskNotifier<UserProfile> _userProfile;
 		private TeamProjectReference _currentProject;
 		private string _pageTitle;
+		private string _landscapeTitle;
 		private bool _showDoubleBackTip;
 		private bool _hasRelatedWork;
 		private bool _hasMoreRelatedItems;
@@ -50,7 +52,7 @@ namespace Uno.AzureDevOps.Presentation
 			AssignToMe = new AsyncCommand(async () => await AssignToMeAndRefresh());
 			ToProfilePage = new RelayCommand(() => _navigationService.ToProfilePage());
 			ReloadPage = new RelayCommand(() => ReloadPageCommand());
-			ToProjectPage = new RelayCommand(() => _navigationService.ToProjectPage(CurrentProject));
+			ToPreviousPage = new RelayCommand(() => _navigationService.GoBack());
 			ToProjectItemDetailsPage = new RelayCommand<RichWorkItem>(
 				workItem => _navigationService.ToProjectItemDetailsPage( workItem, CurrentProject));
 			ToParentProjectItemDetailsPage = new RelayCommand(() => OnWorkItemClicked(ParentWorkItem.Result));
@@ -68,6 +70,12 @@ namespace Uno.AzureDevOps.Presentation
 		{
 			get => _pageTitle;
 			set => Set(() => PageTitle, ref _pageTitle, value);
+		}
+
+		public string LandscapeTitle
+		{
+			get => _landscapeTitle;
+			set => Set(() => LandscapeTitle, ref _landscapeTitle, value);
 		}
 
 		public bool CanAssignToMe
@@ -136,7 +144,7 @@ namespace Uno.AzureDevOps.Presentation
 
 		public ICommand ToParentProjectItemDetailsPage { get; }
 
-		public ICommand ToProjectPage { get; }
+		public ICommand ToPreviousPage { get; }
 
 		public ICommand ToProjectItemDetailsPage { get; }
 
@@ -155,6 +163,15 @@ namespace Uno.AzureDevOps.Presentation
 			var workItemType = workItem.Item.WorkItemType == "Product Backlog Item" ? "PBI" : workItem.Item.WorkItemType;
 
 			PageTitle = workItemType + " " + workItem.Item.WorkItem.Id;
+
+			if (_navigationService.BackStack.Count == 1)
+			{
+				LandscapeTitle = CurrentProject.Name;
+			}
+			else if (_navigationService.BackStack.Count > 1)
+			{
+				LandscapeTitle = "previous";
+			}
 
 			await LoadUserProfile(workItem);
 
