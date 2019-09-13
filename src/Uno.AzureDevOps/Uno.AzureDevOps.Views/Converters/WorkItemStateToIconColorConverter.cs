@@ -11,6 +11,11 @@ namespace Uno.AzureDevOps.Views.Converters
 		{
 			switch (value)
 			{
+				case "New":
+				case "Approved":
+				case "Requested":
+				case "Design":
+					return "#b2b2b2";
 				case "Blocked":
 				case "Cannot Reproduce":
 				case "Invalid":
@@ -21,6 +26,10 @@ namespace Uno.AzureDevOps.Views.Converters
 					return "#5688e0";
 				case "Committed":
 				case "In Progress":
+				case "Active":
+				case "Resolved":
+				case "In Planning":
+				case "Accepted":
 					return "#007acc";
 				case "Duplicate":
 				case "As Designed":
@@ -30,7 +39,12 @@ namespace Uno.AzureDevOps.Views.Converters
 				case "Fix failed":
 					return "#e87025";
 				case "Done":
+				case "Closed":
+				case "Completed":
+				case "Inactive":
 					return "#339933";
+				case "Removed":
+					return "#ffffff";
 				default:
 					return "#d5d5d5";
 			}
