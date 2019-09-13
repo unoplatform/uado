@@ -32,8 +32,6 @@ function RedirectToStores() {
         } else {
             window.location.href = unoPlatform;
         }
-    } else {
-        window.location.href = unoPlatform;
     }
 }
 
