@@ -46,6 +46,8 @@
 
 	<converters:WorkItemTypeToIconColorConverter x:Key="WorkItemTypeToIconColor" />
 
+	<converters:WorkItemStateToIconColorConverter x:Key="WorkItemStateToIconColor" />
+
 	<converters:WorkItemTypeToIconPathConverter x:Key="WorkItemTypeToIconPath" />
 
 	<converters:FromBoolToCustomStringConverter x:Key="BoolToCustomString"
