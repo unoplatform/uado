@@ -24,20 +24,15 @@
 		</Style>
 	</UserControl.Resources>
 
-	<Grid>
-		<Grid Background="{StaticResource Color08Brush}"
-			  toolkit:VisibleBoundsPadding.PaddingMask="Top"
-			  wasm:MinWidth="300"
-			  win:MinWidth="300">
+	<Grid Background="{StaticResource Color08Brush}"
+		  BorderBrush="{StaticResource Color06Brush}"
+		  BorderThickness="0,0,1,0">
+		<Grid toolkit:VisibleBoundsPadding.PaddingMask="Top"
+			  MinWidth="300">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
-
-			<!-- Right border for side menu -->
-			<Rectangle Fill="{StaticResource Color06Brush}"
-					   Grid.Column="1"
-					   Width="1" />
 
 			<StackPanel x:Name="TopMenuLogoView"
 						Visibility="Collapsed"
@@ -68,8 +63,8 @@
 						<Image wasm:Source="ms-appx:///Assets/homeGreen.scale-100.png"
 							   not_wasm:Source="ms-appx:///Assets/homeGreen.png"
 							   Stretch="Uniform"
-							   Width="12"
-							   Height="12" />
+							   Width="16"
+							   Height="16" />
 
 						<TextBlock Text="All Organizations"
 								   VerticalAlignment="Center"

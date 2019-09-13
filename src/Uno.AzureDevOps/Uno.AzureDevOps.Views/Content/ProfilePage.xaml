@@ -68,6 +68,7 @@
 							 Grid.Column="0"
 							 Grid.ColumnSpan="2"
 							 Title="Profile"
+							 HamburgerMenuVisibility="Collapsed"
 							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
 							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
 

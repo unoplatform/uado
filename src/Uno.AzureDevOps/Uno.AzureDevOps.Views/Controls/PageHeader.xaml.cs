@@ -35,6 +35,13 @@ namespace Uno.AzureDevOps.Views.Controls
 				typeof(PageHeader),
 				new PropertyMetadata(Visibility.Collapsed));
 
+		public static readonly DependencyProperty HamburgerMenuVisibilityProperty =
+			DependencyProperty.Register(
+				nameof(HamburgerMenuVisibility),
+				typeof(Visibility),
+				typeof(PageHeader),
+				new PropertyMetadata(Visibility.Visible));
+
 		public static readonly DependencyProperty TitleProperty =
 			DependencyProperty.Register(
 				nameof(Title),
@@ -79,6 +86,12 @@ namespace Uno.AzureDevOps.Views.Controls
 		{
 			get => (Visibility)GetValue(TeamsVisibilityProperty);
 			set => SetValue(TeamsVisibilityProperty, value);
+		}
+
+		public Visibility HamburgerMenuVisibility
+		{
+			get => (Visibility)GetValue(HamburgerMenuVisibilityProperty);
+			set => SetValue(HamburgerMenuVisibilityProperty, value);
 		}
 
 		public string Title
