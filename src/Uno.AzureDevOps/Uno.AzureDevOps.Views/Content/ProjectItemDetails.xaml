@@ -119,6 +119,7 @@
 					<!-- Assign To Me -->
 					<Button Content="Assign To Me"
 							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
 							Visibility="{Binding CanAssignToMe, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 							Style="{StaticResource ActionButtonStyle}"
 							Command="{Binding AssignToMe}"
@@ -293,54 +294,11 @@
 							 Grid.ColumnSpan="2"
 							 Mode="Minimal"
 							 Title="{Binding PageTitle}"
-							 BackCaption="{Binding CurrentProject.Name}"
-							 BackCommand="{Binding ToProjectPage}"
+							 BackCaption="{Binding LandscapeTitle}"
+							 BackCommand="{Binding ToPreviousPage}"
 							 HamburgerClick="HamburgerButton_Click"
 							 beh:FullscreenSideMenuBehavior.IsFullscreenMenu="{Binding IsFullscreenMenu, ElementName=LargeViewNavigation}"
 							 beh:FullscreenSideMenuBehavior.MenuVisibility="{Binding MenuVisibility, ElementName=LargeViewNavigation}" />
-
-
-		<!-- TODO: 151904 [WASM] Remove workaround for flyout not showing on AppBarButton -->
-		<wasm:Border Background="{StaticResource Color03Brush}"
-					 HorizontalAlignment="Right">
-			<Button Style="{StaticResource BasicEmptyButtonStyle}"
-					Width="48"
-					Height="48"
-					Margin="0,0,10,0">
-
-				<Grid>
-					<Image Source="ms-appx:///Assets/more.scale-100.png"
-						   Stretch="None"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   wasm:Width="21" />
-				</Grid>
-
-				<Button.Flyout>
-					<Flyout Placement="Right">
-						<StackPanel Background="{StaticResource Color02Brush}"
-									BorderBrush="{StaticResource Color07Brush}"
-									BorderThickness="1">
-
-							<!-- Assin to me Button -->
-							<Button Content="Assign to me"
-									Style="{StaticResource SecondaryButtonStyle}"
-									Command="{Binding AssignToMe}" />
-
-							<!-- Separator -->
-							<Rectangle Fill="{StaticResource Color07Brush}"
-									   Height="1" />
-
-							<!-- View More Button -->
-							<Button Content="View More (Web version)"
-									Style="{StaticResource SecondaryButtonStyle}"
-									Command="{Binding ViewMore}"
-									Margin="24,0" />
-						</StackPanel>
-					</Flyout>
-				</Button.Flyout>
-			</Button>
-		</wasm:Border>
 
 		<Grid Grid.Row="1"
 			  x:Name="ContentView">

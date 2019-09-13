@@ -5,6 +5,7 @@
 						  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 						  xmlns:cnv="using:Uno.AzureDevOps.Views.Converters"
 						  xmlns:controls="using:Uno.AzureDevOps.Views.Controls"
+						  xmlns:toolkit="using:Uno.UI.Toolkit"
 						  mc:Ignorable="d"
 						  d:DesignHeight="115"
 						  d:DesignWidth="800"
@@ -52,6 +53,7 @@
 				<!-- Hamburger Button  -->
 				<AppBarButton x:Name="HamburgerButton"
 							  Click="HamburgerButton_Click"
+							  Visibility="{Binding HamburgerMenuVisibility, ElementName=HeaderControl}"
 							  Style="{StaticResource BurgerMenuButtonStyle}">
 				</AppBarButton>
 			</CommandBar.PrimaryCommands>
@@ -60,12 +62,12 @@
 		<Border x:Name="LargeHeaderContainer"
 				MinHeight="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource HeaderModeToHeight}}"
 				Background="{StaticResource Color03Brush}"
-				Visibility="Collapsed">
+				Visibility="Collapsed"
+				toolkit:VisibleBoundsPadding.PaddingMask="Top">
 			<Grid VerticalAlignment="Center"
-						Margin="56,0,112,0">
+				  Margin="0,0,112,0">
 
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
@@ -73,6 +75,7 @@
 				<!-- Back Button -->
 				<Button Command="{Binding BackCommand, ElementName=HeaderControl}"
 						MinHeight="40"
+						Margin="16,0,0,5"
 						Style="{StaticResource BasicEmptyButtonStyle}"
 						Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource MinimalToVisible}}">
 					<StackPanel Orientation="Horizontal"
@@ -88,29 +91,32 @@
 					</StackPanel>
 				</Button>
 
-				<!-- Initials -->
-				<Grid Background="{StaticResource Color02Brush}"
-					  CornerRadius="10"
-					  Height="55"
-					  Width="55"
-					  Grid.Column="1"
-					  Visibility="{Binding ProjectInitialsVisibility, ElementName=HeaderControl}">
-					<TextBlock Text="{Binding Title, ElementName=HeaderControl, Converter={StaticResource MemberInitials}}"
-							   Style="{StaticResource ProjectInitialsTextBlock}"
-							   Foreground="{StaticResource Color01Brush}"
-							   FontSize="24" />
-				</Grid>
+				<StackPanel Orientation="Horizontal"
+							VerticalAlignment="Center"
+							Margin="56,0,0,0"
+							Grid.Column="1">
+					<!-- Initials -->
+					<Grid Background="{StaticResource Color02Brush}"
+						  CornerRadius="10"
+						  Height="55"
+						  Width="55"
+						  Visibility="{Binding ProjectInitialsVisibility, ElementName=HeaderControl}">
+						<TextBlock Text="{Binding Title, ElementName=HeaderControl, Converter={StaticResource MemberInitials}}"
+								   Style="{StaticResource ProjectInitialsTextBlock}"
+								   Foreground="{StaticResource Color01Brush}"
+								   FontSize="24" />
+					</Grid>
 
-				<!-- Title -->
-				<TextBlock Text="{Binding Title, ElementName=HeaderControl}"
-						   Style="{StaticResource ProjectInitialsTextBlock}"
-						   Margin="12,0,0,0"
-						   FontSize="36"
-						   HorizontalAlignment="Left"
-						   TextTrimming="CharacterEllipsis"
-						   TextWrapping="NoWrap"
-						   Grid.Column="2"
-						   Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource LargeToVisible}}"/>
+					<!-- Title -->
+					<TextBlock Text="{Binding Title, ElementName=HeaderControl}"
+							   Style="{StaticResource ProjectInitialsTextBlock}"
+							   Margin="12,0,0,0"
+							   FontSize="36"
+							   HorizontalAlignment="Left"
+							   TextTrimming="CharacterEllipsis"
+							   TextWrapping="NoWrap"
+							   Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource LargeToVisible}}" />
+				</StackPanel>
 			</Grid>
 		</Border>
 	</Grid>
