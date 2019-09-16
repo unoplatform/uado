@@ -42,6 +42,10 @@ namespace Uno.AzureDevOps
 		/// </summary>
 		public App()
 		{
+#if XAMARIN
+            Uno.UI.FeatureConfiguration.Font.IgnoreTextScaleFactor = true;
+#endif
+
 #if DEBUG
 			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
 #endif
