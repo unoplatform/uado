@@ -16,7 +16,6 @@
                     const origin = opener.location.origin; // opener should have same origin
 
                     opener.postMessage(message, origin);
-                    return;
                 }
             }
             catch(err) {

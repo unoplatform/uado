@@ -4,9 +4,13 @@
 
 			const uadoTokenStorageKey = "__UadoToken";
 
-			const eventListener = (msgEvt: MessageEvent) => {
-				const data = <string>msgEvt.data;
+			const cleanUp = () => {
+				window.removeEventListener("message", eventListener);
+				window.removeEventListener("storage", onStorageEvent);
+				window.localStorage.removeItem(uadoTokenStorageKey);
+			};
 
+			const eventListener = (msgEvt: MessageEvent) => {
 				if (msgEvt.origin !== window.location.origin) {
 					const error =
 						`Message with origin ${msgEvt.origin}ignored. Only origin ${window.location.origin
@@ -17,10 +21,13 @@
 
 				if (processData(msgEvt.data)) {
 
-					(msgEvt.source as Window).close();
+					try {
+						// Try to close the other tab
+						(msgEvt.source as Window).close();
+					} catch (err) {
+					}
 
-					// unsubscribe
-					window.removeEventListener("message", eventListener);
+					cleanUp();
 				}
 			};
 
@@ -30,10 +37,7 @@
 				}
 
 				if (processData(storageEvt.newValue)) {
-					// Remove now useless stored value
-					storageEvt.storageArea.removeItem(storageEvt.key);
-
-					window.removeEventListener("storage", onStorageEvent);
+					cleanUp();
 				}
 			};
 
@@ -49,7 +53,6 @@
 
 				const element = document.getElementById(`${htmlId}`);
 				if (!element) {
-					window.removeEventListener("message", eventListener);
 					return false;
 				}
 
