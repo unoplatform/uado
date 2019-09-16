@@ -9,6 +9,7 @@
 	  xmlns:not_android="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:controls="using:Uno.AzureDevOps.Views.Controls"
 	  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:not_wasm="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:beh="using:Uno.AzureDevOps.Views.Behaviors"
 	  xmlns:toolkit="using:Uno.UI.Toolkit"
 	  mc:Ignorable="wasm android">
@@ -375,6 +376,7 @@
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
+
 					<!-- Content -->
 					<Grid Visibility="{Binding ChildrenWorkItems.IsSuccess, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed, TargetNullValue=Collapsed}">
 						<Grid.RowDefinitions>
@@ -383,11 +385,35 @@
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<!-- Show the header info above the ListView (wasm only) -->
-						<wasm:ContentControl Content="{Binding}"
-											 HorizontalAlignment="Stretch"
-											 HorizontalContentAlignment="Stretch"
-											 ContentTemplate="{StaticResource PageHeaderInformationTemplate}" />
+						<wasm:ScrollViewer>
+							<StackPanel>
+
+								<!-- Show the header info above the ListView (wasm only) -->
+								<ContentControl Content="{Binding}"
+												HorizontalAlignment="Stretch"
+												HorizontalContentAlignment="Stretch"
+												ContentTemplate="{StaticResource PageHeaderInformationTemplate}" />
+
+
+								<ListView x:Name="ListViewRelatedWorkItemsListWasm"
+										  ItemsSource="{Binding ChildrenWorkItems.Result}"
+										  ItemTemplate="{StaticResource WorkItemTemplate}"
+										  Header="{Binding}"
+										  HeaderTemplate="{StaticResource PageHeaderInformationTemplate}"
+										  Footer="{Binding}"
+										  FooterTemplate="{StaticResource ListFooterTemplate}"
+										  SelectionMode="None"
+										  IsItemClickEnabled="True"
+										  ItemClick="ListView_ItemClick" />
+
+								<!-- Show the ListView footer below the ListView (wasm only) -->
+								<ContentControl Content="{Binding}"
+												HorizontalAlignment="Stretch"
+												HorizontalContentAlignment="Stretch"
+												ContentTemplate="{StaticResource ListFooterTemplate}" />
+							</StackPanel>
+
+						</wasm:ScrollViewer>
 
 						<!-- RelatedWorkItems GridView for android, as listview is not working (conflicting with GridView in organizationPage) see https://github.com/unoplatform/uno/issues/1521  -->
 						<android:GridView x:Name="GridViewRelatedWorkItemsList"
@@ -415,14 +441,8 @@
 											  IsItemClickEnabled="True"
 											  ItemClick="ListView_ItemClick"
 											  Grid.Row="1" />
-
-						<!-- Show the ListView footer below the ListView (wasm only) -->
-						<wasm:ContentControl Content="{Binding}"
-											 HorizontalAlignment="Stretch"
-											 HorizontalContentAlignment="Stretch"
-											 ContentTemplate="{StaticResource ListFooterTemplate}"
-											 Grid.Row="2" />
 					</Grid>
+
 				</Grid>
 
 				<!-- Double click back button tutorial -->
