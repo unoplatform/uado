@@ -184,7 +184,8 @@
 								  Width="24"
 								  Background="{StaticResource Color07Brush}">
 								<TextBlock Text="{Binding UserProfile.Result.Name, Converter={StaticResource MemberInitials}}"
-										   Style="{StaticResource MemberInitialsTextBlock}" />
+										   Style="{StaticResource MemberInitialsTextBlock}"
+										   FontSize="12"/>
 							</Grid>
 
 							<!-- User profile image -->
