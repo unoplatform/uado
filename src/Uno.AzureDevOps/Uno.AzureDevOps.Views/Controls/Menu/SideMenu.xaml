@@ -87,12 +87,13 @@
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 
-						<Grid Background="{StaticResource Color03Brush}"
+						<Grid Background="{Binding Text, ElementName=Initials, Converter={StaticResource InitialsColor}}"
 							  Height="32"
 							  Width="32"
 							  CornerRadius="4"
 							  VerticalAlignment="Center">
-							<TextBlock Text="{Binding Account.AccountName, Converter={StaticResource MemberInitials}}"
+							<TextBlock x:Name="Initials"
+									   Text="{Binding Account.AccountName, Converter={StaticResource MemberInitials}}"
 									   Style="{StaticResource ProjectInitialsTextBlock}" />
 						</Grid>
 

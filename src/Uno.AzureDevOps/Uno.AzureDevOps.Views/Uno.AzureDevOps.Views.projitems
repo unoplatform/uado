@@ -55,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromHeaderModeToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromVisibilityToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FromNullableBoolToReverseBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InitialsColoverConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InitialsConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ProjectViewToBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityOnEnumerableHasAny.cs" />

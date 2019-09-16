@@ -55,4 +55,7 @@
 												ErrorNoInternetConnection="No connection detected, please check your device settings to ensure a network connection is setup."/>
 	
 	<converters:InitialsConverter x:Key="MemberInitials" />
+
+	<converters:InitialsColoverConverter x:Key="InitialsColor" />
+	
 </ResourceDictionary>

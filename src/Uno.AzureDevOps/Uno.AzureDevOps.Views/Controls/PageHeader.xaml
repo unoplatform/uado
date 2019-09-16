@@ -101,9 +101,10 @@
 						  Height="55"
 						  Width="55"
 						  Visibility="{Binding ProjectInitialsVisibility, ElementName=HeaderControl}">
-						<TextBlock Text="{Binding Title, ElementName=HeaderControl, Converter={StaticResource MemberInitials}}"
+						<TextBlock x:Name="Initials"
+								   Text="{Binding Title, ElementName=HeaderControl, Converter={StaticResource MemberInitials}}"
 								   Style="{StaticResource ProjectInitialsTextBlock}"
-								   Foreground="{StaticResource Color01Brush}"
+								   Foreground="{Binding Text, ElementName=Initials, Converter={StaticResource InitialsColor}}"
 								   FontSize="24" />
 					</Grid>
 
