@@ -202,6 +202,7 @@ namespace Uno.AzureDevOps.Views.Behaviors
 				text = text.Replace("\n", string.Empty);
 				text = text.Replace("<br>", "\n");
 				text = text.Replace("&nbsp;", " ");
+				text = text.Replace("&quot;", @"""");
 
 				while (text.Length > 0)
 				{
