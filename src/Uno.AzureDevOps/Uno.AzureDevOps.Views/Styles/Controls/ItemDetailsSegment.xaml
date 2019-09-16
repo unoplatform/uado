@@ -11,24 +11,6 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="controls:ItemDetailsSegment">
 					<StackPanel>
-
-						<VisualStateManager.VisualStateGroups>
-							<VisualStateGroup>
-
-								<VisualState x:Name="wide">
-
-									<VisualState.StateTriggers>
-										<AdaptiveTrigger MinWindowWidth="1024" />
-									</VisualState.StateTriggers>
-
-									<VisualState.Setters>
-										<Setter Target="MoreIndicator.HorizontalAlignment"
-												Value="Left" />
-									</VisualState.Setters>
-								</VisualState>
-							</VisualStateGroup>
-						</VisualStateManager.VisualStateGroups>
-						
 						<Button Style="{StaticResource BasicEmptyButtonStyle}"
 								Command="{TemplateBinding Command}">
 
