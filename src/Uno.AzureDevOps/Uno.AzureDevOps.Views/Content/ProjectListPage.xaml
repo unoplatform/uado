@@ -22,14 +22,16 @@
 					</Grid.ColumnDefinitions>
 
 					<!-- Name -->
-					<Grid Background="{StaticResource Color06Brush}"
+					<Grid Background="{Binding Text, ElementName=Initials, Converter={StaticResource InitialsColor}}"
 						  Height="29"
 						  Width="29"
 						  CornerRadius="4"
 						  VerticalAlignment="Center"
 						  Margin="16,0,0,0">
-						<TextBlock Text="{Binding Name, Converter={StaticResource MemberInitials}}"
-								   Style="{StaticResource ProjectInitialsTextBlock}" />
+						<TextBlock x:Name="Initials"
+								   Text="{Binding Name, Converter={StaticResource MemberInitials}}"
+								   Style="{StaticResource ProjectInitialsTextBlock}"
+								   FontSize="11" />
 					</Grid>
 
 					<!-- Name -->

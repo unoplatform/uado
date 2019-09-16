@@ -19,13 +19,14 @@
 					Margin="4">
 				<StackPanel HorizontalAlignment="Center"
 							VerticalAlignment="Top">
-					<Grid Background="{StaticResource Color03Brush}"
+					<Grid Background="{Binding Text, ElementName=Initials, Converter={StaticResource InitialsColor}}"
 						  CornerRadius="10"
 						  Height="120"
 						  Width="120"
 						  Margin="64,64,64,32"
 						  HorizontalAlignment="Center">
-						<TextBlock Text="{Binding AccountName, Converter={StaticResource MemberInitials}}"
+						<TextBlock x:Name="Initials"
+								   Text="{Binding AccountName, Converter={StaticResource MemberInitials}}"
 								   Style="{StaticResource ProjectInitialsTextBlock}"
 								   FontSize="48" />
 					</Grid>
