@@ -229,7 +229,6 @@
 
 				<!-- Load More Btn -->
 				<Button Content="View More (Web version)"
-						Visibility="{Binding HasMoreRelatedItems, Converter={StaticResource TrueToVisible}, FallbackValue=Collapsed}"
 						Style="{StaticResource PrimaryButtonStyle}"
 						Command="{Binding ViewMore}"
 						Margin="16,24,16,0" />
