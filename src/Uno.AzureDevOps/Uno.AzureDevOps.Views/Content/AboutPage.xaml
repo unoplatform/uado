@@ -66,7 +66,7 @@
 						<Setter Target="LearnMoreLinksView.(Grid.Row)"
 								Value="0" />
 						<Setter Target="LearnMoreLinksView.Margin"
-								Value="126,16,26,16" />
+								Value="40,16,80,16" />
 						<Setter Target="SourceCodeButtonView.Margin"
 								Value="0,15,0,0" />
 						<Setter Target="StackPanelConditionsView.Margin"
@@ -112,11 +112,11 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<StackPanel   Grid.Column="0"
-							  MaxWidth="850"
-							  HorizontalAlignment="Left"
-							  Spacing="16"
-							  Margin="16">
+				<StackPanel Grid.Column="0"
+							MaxWidth="850"
+							HorizontalAlignment="Left"
+							Spacing="16"
+							Margin="16">
 
 					<TextBlock Text="About UADO"
 							   Style="{StaticResource Typo22}" />
@@ -163,22 +163,24 @@
 					<Button x:Name="SourceCodeButtonView"
 					        Command="{Binding NavigateToSourceCode}"
 					        Style="{StaticResource ExternalNavigationButtonStyle}">
-						<StackPanel Spacing="14"
-									Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal">
 							<Image wasm:Source="ms-appx:///Assets/gitGreen.scale-100.png"
 								   not_wasm:Source="ms-appx:///Assets/gitGreen.png"
 								   Style="{StaticResource NavItemImageStyle}" />
 							<TextBlock Text="Source code"
 									   Style="{StaticResource ExternalLinksLightTextBlock}"
+									   VerticalAlignment="Center"
+									   Margin="12,0,0,0"
 									   TextWrapping="NoWrap" />
 						</StackPanel>
 					</Button>
 
-					<StackPanel x:Name="StackPanelConditionsView" Spacing="-10">
+					<StackPanel x:Name="StackPanelConditionsView">
 
 						<!-- Terms & Conditions Button -->
 						<Button Command="{Binding NavigateToTermsAndConditions}"
-								Style="{StaticResource ExternalNavigationButtonStyle}">
+								Style="{StaticResource ExternalNavigationButtonStyle}"
+								Height="36">
 							<TextBlock Text="Terms and conditions"
 									   Style="{StaticResource ExternalLinksTextBlock}"
 									   TextWrapping="NoWrap" />
@@ -186,7 +188,8 @@
 
 						<!-- Privacy Policy Button -->
 						<Button Command="{Binding NavigateToPrivacyPolicy}"
-								Style="{StaticResource ExternalNavigationButtonStyle}">
+								Style="{StaticResource ExternalNavigationButtonStyle}"
+								Height="36">
 							<TextBlock Text="Privacy policy"
 									   Style="{StaticResource ExternalLinksTextBlock}"
 									   TextWrapping="NoWrap" />
