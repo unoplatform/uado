@@ -7,7 +7,9 @@
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
 		<NoWarn>NU1701</NoWarn>
 		<LangVersion>7.1</LangVersion>
+		<WasmShellGenerateCompressedFiles Condition="'$(Configuration)'=='Debug'">false</WasmShellGenerateCompressedFiles>
 		<MonoRuntimeDebuggerEnabled Condition="'$(Configuration)'=='Debug'">true</MonoRuntimeDebuggerEnabled>
+		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsPlatform('Linux'))">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
 		<ApplicationIcon>favicon.ico</ApplicationIcon>
 		<WasmShellIndexHtmlPath>$(MSBuildThisFileDirectory)index.html</WasmShellIndexHtmlPath>
