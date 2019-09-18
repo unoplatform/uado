@@ -192,10 +192,8 @@
 				Value="True" />
 		<Setter Property="FontSize"
 				Value="17" />
-		<Setter Property="FontWeight"
-				Value="Bold" />
 		<Setter Property="FontFamily"
-				Value="{StaticResource FontFamily01Bold}" />
+				Value="{StaticResource FontFamily01}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -205,7 +203,7 @@
 						  Background="{TemplateBinding Background}"
 						  BorderBrush="{TemplateBinding BorderBrush}"
 						  BorderThickness="{TemplateBinding BorderThickness}"
-						  CornerRadius="10">
+						  CornerRadius="4">
 
 						<VisualStateManager.VisualStateGroups>
 							<VisualStateGroup x:Name="CommonStates">
