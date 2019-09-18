@@ -3,6 +3,7 @@
 		public static launch(htmlId: number, url: string) {
 
 			const uadoTokenStorageKey = "__UadoToken";
+			let isProcessingToken = false;
 
 			const cleanUp = () => {
 				window.removeEventListener("message", eventListener);
@@ -55,6 +56,12 @@
 				if (!element) {
 					return false;
 				}
+
+				if (isProcessingToken) {
+					return false;
+				}
+
+				isProcessingToken = true;
 
 				var securityTokensEvent = new CustomEvent("urlwithsecuritytokens",
 					{
