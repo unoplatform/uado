@@ -246,7 +246,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\homeGreen.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\homeGreen.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\homeGreen.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\LockScreenLogo.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logoUADO.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logoUADO.scale-150.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logoUADO.scale-200.png" />
