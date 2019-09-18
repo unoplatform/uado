@@ -75,26 +75,38 @@
 				<!-- Back Button -->
 				<Button Command="{Binding BackCommand, ElementName=HeaderControl}"
 						MinHeight="40"
+						MaxWidth="225"
 						Margin="16,0,0,5"
 						Style="{StaticResource BasicEmptyButtonStyle}"
 						Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource MinimalToVisible}}">
-					<StackPanel Orientation="Horizontal"
-								VerticalAlignment="Center">
+					<Grid VerticalAlignment="Center">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
 						<ContentControl ContentTemplate="{StaticResource BackToIcon}" />
 
 						<TextBlock Style="{StaticResource Typo19}"
 								   FontSize="12"
-								   Margin="12,0,0,0">
+								   Grid.Column="1"
+								   Margin="12,0,0,0"
+								   TextWrapping="NoWrap"
+								   TextTrimming="CharacterEllipsis">
 							<Run Text="Back to " />
 							<Run Text="{Binding BackCaption, ElementName=HeaderControl}" />
 						</TextBlock>
-					</StackPanel>
+					</Grid>
 				</Button>
 
-				<StackPanel Orientation="Horizontal"
-							VerticalAlignment="Center"
-							Margin="56,0,0,0"
-							Grid.Column="1">
+				<Grid VerticalAlignment="Center"
+					  Margin="56,0,0,0"
+					  Grid.Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
 					<!-- Initials -->
 					<Grid Background="{StaticResource Color02Brush}"
 						  CornerRadius="10"
@@ -113,11 +125,12 @@
 							   Style="{StaticResource ProjectInitialsTextBlock}"
 							   Margin="12,0,0,0"
 							   FontSize="36"
+							   Grid.Column="1"
 							   HorizontalAlignment="Left"
 							   TextTrimming="CharacterEllipsis"
 							   TextWrapping="NoWrap"
 							   Visibility="{Binding Mode, ElementName=HeaderControl, Converter={StaticResource LargeToVisible}}" />
-				</StackPanel>
+				</Grid>
 
 				<!-- Title (Minimal) -->
 				<TextBlock Text="{Binding Title, ElementName=HeaderControl}"

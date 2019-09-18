@@ -78,9 +78,8 @@
 						   Height="1" />
 
 				<!-- Current organization -->
-				<Button x:Name="ShowCurrentOrganizationView"
-						Style="{StaticResource NavigationButtonStyle}"
-						Margin="0,40,0,0">
+				<Border x:Name="ShowCurrentOrganizationView"
+						Margin="34,40,0,12">
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />
@@ -105,7 +104,7 @@
 								   TextWrapping="NoWrap"
 								   TextTrimming="CharacterEllipsis" />
 					</Grid>
-				</Button>
+				</Border>
 
 				<!-- Project Button -->
 				<RadioButton x:Name="ButtonAllProjects"
