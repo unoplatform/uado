@@ -5,11 +5,13 @@ trigger:
   branches:
     include:
       - master
+      - release/*
 
 pr:
   branches:
     include:
       - master
+      - release/*
 
 jobs:
 - job: macOS
