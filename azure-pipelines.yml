@@ -60,6 +60,12 @@ jobs:
       inputs:
         secureFile: nventive.jks
 
+    - task: Boots@1
+      displayName: 'Install Xamarin.Android 9.4'
+      condition: eq(variables['BuildPlatform'], 'Android')
+      inputs:
+        uri: 'https://aka.ms/xamarin-android-commercial-d16-2-windows'
+
     - task: NuGetCommand@2
       inputs:
         command: restore
