@@ -1,4 +1,5 @@
 assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDeployment
-next-version: 1.0.0
+#next-version: 1.0.0
+next-version: 2.0.0
 
