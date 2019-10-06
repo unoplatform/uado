@@ -17,7 +17,7 @@ https://platform.uno
     <img src ="https://user-images.githubusercontent.com/43669323/66268817-7e3dac00-e841-11e9-8b7f-f663acc00f9e.png" title="Project sprint tab" alt="uado" width="200" height="360" />
     <img src ="https://user-images.githubusercontent.com/43669323/66268826-7f6ed900-e841-11e9-8e81-7bb2350266cc.png" alt="User story" width="200" height="360" />
     <img src ="https://user-images.githubusercontent.com/43669323/66268824-7f6ed900-e841-11e9-9a49-0fe12d05cb45.png" alt="Task" width="200" height="360" />
-    <img src ="https://user-images.githubusercontent.com/43669323/66268825-7f6ed900-e841-11e9-9dcb-2bf6e199a8e1.png" alt="Team members tab" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66269035-decde880-e843-11e9-9416-b302517e1cf7.png" alt="Team members tab" width="200" height="360" />
     <img src ="https://user-images.githubusercontent.com/43669323/66268821-7ed64280-e841-11e9-8e7a-6b50518462b1.png" alt="Menu" width="200" height="360" />
     <img src ="https://user-images.githubusercontent.com/43669323/66268822-7ed64280-e841-11e9-9f8d-5299a581072d.png" alt="Profile" width="200" height="360" />
     <img src ="https://user-images.githubusercontent.com/43669323/66268816-7e3dac00-e841-11e9-918a-421d30b72811.png" title="About" alt="uado" width="200" height="360" />
