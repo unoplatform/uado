@@ -9,19 +9,18 @@ https://platform.uno
 
 ### What does it look like ? 
 
-
 <p>
-<img src ="https://user-images.githubusercontent.com/15191066/61002042-c3c80700-a32e-11e9-9a38-69e5ebfbdf04.png" title="Organizations" alt="uado" width="200" height="360" />
-  <img src ="https://user-images.githubusercontent.com/15191066/61002039-c32f7080-a32e-11e9-9a8c-35250a6a1674.png" title="Projects" alt="uado" width="200" height="360" />
-  <img src ="https://user-images.githubusercontent.com/15191066/61002038-c32f7080-a32e-11e9-9912-a6d8bebd37ae.png" title="Project detail" alt="uado" width="200" height="360" />
-  <img src ="https://user-images.githubusercontent.com/15191066/61002041-c3c80700-a32e-11e9-8e69-778f01d515a2.png" title="Work item" alt="uado" width="200" height="360" />
-  <img src ="https://user-images.githubusercontent.com/15191066/61002040-c32f7080-a32e-11e9-8e0a-387886207fe2.png" alt="Task" width="200" height="360" />
-  <img src ="https://user-images.githubusercontent.com/15191066/61002043-c3c80700-a32e-11e9-8504-51adaec50ba4.png" alt="Profil" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268823-7ed64280-e841-11e9-9a0d-8193efd1d193.png" alt="Splash screen" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268820-7ed64280-e841-11e9-88ba-d231a90f8e16.png" alt="My organizations" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268819-7e3dac00-e841-11e9-9308-bf7928049eef.png" title="All projects" alt="uado" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268818-7e3dac00-e841-11e9-8c30-c60076a4d60a.png" title="Project summary tab" alt="uado" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268817-7e3dac00-e841-11e9-8b7f-f663acc00f9e.png" title="Project sprint tab" alt="uado" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268826-7f6ed900-e841-11e9-8e81-7bb2350266cc.png" alt="User story" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268824-7f6ed900-e841-11e9-9a49-0fe12d05cb45.png" alt="Task" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268825-7f6ed900-e841-11e9-9dcb-2bf6e199a8e1.png" alt="Team members tab" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268821-7ed64280-e841-11e9-8e7a-6b50518462b1.png" alt="Menu" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268822-7ed64280-e841-11e9-9f8d-5299a581072d.png" alt="Profile" width="200" height="360" />
+    <img src ="https://user-images.githubusercontent.com/43669323/66268816-7e3dac00-e841-11e9-918a-421d30b72811.png" title="About" alt="uado" width="200" height="360" />
 </p>
 
  
-
-
-
-
-
