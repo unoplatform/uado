@@ -22,6 +22,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using UICommand = Windows.UI.Popups.UICommand;
 #if __IOS__
 using UIKit;
 using Xamarin.Essentials;
