@@ -218,9 +218,9 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\about.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\about.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\about.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\AboutLogo.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\aboutLogo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\aboutLogo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\aboutLogo.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\backBlack.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\backBlack.scale-150.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\backBlack.scale-200.png" />
@@ -260,16 +260,16 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\profile.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\profile.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\profile.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\UserProfilePlaceholder.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\UserProfilePlaceholder.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\UserProfilePlaceholder.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\UserProfilePlaceholder.scale-300.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\UserProfilePlaceholder.scale-400.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\square150x150Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\square44x44Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\storeLogo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\userProfilePlaceholder.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\userProfilePlaceholder.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\userProfilePlaceholder.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\userProfilePlaceholder.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\userProfilePlaceholder.scale-400.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="C:\Code\Uno.AzureDevOps\src\Uno.AzureDevOps\Uno.AzureDevOps.Views\Content\AboutPage.xaml.cs">
