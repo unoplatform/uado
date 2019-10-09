@@ -22,6 +22,7 @@
     <ResourcesDirectory>..\Uno.AzureDevOps.Shared\Strings</ResourcesDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AndroidUseAapt2>false</AndroidUseAapt2>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
@@ -40,6 +41,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
+    <AndroidUseAapt2>false</AndroidUseAapt2>
     <DebugSymbols>true</DebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <Optimize>true</Optimize>
@@ -138,7 +140,20 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <AndroidResource Include="Resources\values\ic_launcher_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <LinkDescription Include="LinkerExclusions.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
     <Content Include="Resources\values\Colors.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -147,10 +162,6 @@
     <AndroidResource Include="Resources\drawable\Splash.xml">
       <Generator>ResXFileCodeGenerator</Generator>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-v26\ic_launcher.xml" />
-    <AndroidResource Include="Resources\drawable\ic_launcher_round.xml" />
   </ItemGroup>
   <ItemGroup>
     <!-- DRAWABLES START -->
@@ -162,11 +173,20 @@
 	-->
     <!-- Always included - Resources that are lower resolution or no scales -->
     <!-- do not include ldpi or mdpi, they are too low resolution -->
-    <AndroidResource Include="Resources\drawable\*.*" />
+    <AndroidResource Include="Resources\drawable\Splash.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\*.*" />
     <AndroidResource Include="Resources\drawable-nodpi\*.*" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <!-- always included - mipmap files, should only be launch icons -->
-    <AndroidResource Include="Resources\mipmap*\*.*" />
     <!-- Only included in release to save time in debug deployment, high resolution assets -->
     <AndroidResource Include="Resources\*tvdpi*\*.*" Condition="'$(UseHighDPIResources)'=='True'" />
     <AndroidResource Include="Resources\drawable-*xhdpi*\*.*" Condition="'$(UseHighDPIResources)'=='True'" />
