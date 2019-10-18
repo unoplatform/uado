@@ -77,7 +77,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Auth\OAuthErrorData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Data\Auth\OAuthResponseData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\IOAuthClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Client\AzureADOauthClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\AzureADOAuthClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\AsyncCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\AsyncCommand.Generic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Framework\Commands\IAsyncCommand.cs" />

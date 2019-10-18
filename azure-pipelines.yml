@@ -4,6 +4,11 @@ trigger:
     include:
       - master
 
+resources:
+  containers:
+  - container: nv-bionic-wasm
+    image: nventive/wasm-build:1.3
+
 pr:
   branches:
     include:
@@ -78,3 +83,54 @@ jobs:
         ArtifactName: $(BuildPlatform)
         PathtoPublish: $(UnoPackageOutputPath)
         publishLocation: Container
+
+  - job: linux
+    container: nv-bionic-wasm
+
+    pool:
+      vmImage: 'ubuntu-16.04'
+
+    variables:
+      NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
+
+    steps:
+    - checkout: self
+      clean: true
+    
+    - bash: |
+        cd /emsdk
+        sudo ./emsdk activate sdk-1.38.31-64bit
+        sudo chmod -R 777 /emsdk
+      displayName: 'Setup Emscripten'
+    - task: GitVersion@4
+      inputs:
+        updateAssemblyInfo: false
+
+    - bash: |
+        sed -i 's/--production-secret--/$(ProductionSecret)/g' ClientConstants.cs
+        sed -i 's/--staging-secret--/$(StagingSecret)/g' ClientConstants.cs
+        sed -i 's/--appcenter-secret-android--/$(AppCenterSecretAndroid)/g' ClientConstants.cs
+      workingDirectory: $(build.sourcesdirectory)/src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/
+
+    - script: |
+        source /emsdk/emsdk_env.sh
+        cd $(build.sourcesdirectory)
+        msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Uno.AzureDevOps/Uno.AzureDevOps.Wasm/Uno.AzureDevOps.Wasm.csproj
+      env:
+        GITVERSION_FullSemVer: $(GITVERSION_FullSemVer)
+      displayName: 'Build Uado'
+    - task: CopyFiles@2
+      displayName: 'Publish Wasm Binaries'
+      inputs:
+        SourceFolder: $(build.sourcesdirectory)/src/Uno.AzureDevOps/Uno.AzureDevOps.Wasm/bin/Release/netstandard2.0/dist
+        Contents: '**/*.*'
+        TargetFolder: $(build.artifactstagingdirectory)
+        CleanTargetFolder: false
+        OverWrite: false
+        flattenFolders: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: $(build.artifactstagingdirectory)
+        ArtifactName: Uno-AzureDevOps-wasm
+        ArtifactType: Container
