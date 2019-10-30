@@ -17,10 +17,3 @@ https://platform.uno
   <img src ="https://user-images.githubusercontent.com/15191066/65893496-06b9d980-e376-11e9-8a13-8b6dbc6babb1.png" title="Work item" alt="uado" width="200" height="360" />
   <img src ="https://user-images.githubusercontent.com/15191066/65893494-06b9d980-e376-11e9-9acc-7f19ad776885.png" alt="Menu" width="200" height="360" />
 </p>
-
- 
-
-
-
-
-
