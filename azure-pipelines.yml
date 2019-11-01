@@ -12,10 +12,12 @@ resources:
 pr:
   branches:
     include:
-      - master
+    - master
   paths:
+    include:
+    - '*'
     exclude:
-      - '*.md'
+    - '*.md'
 
 jobs:
   - job: Windows
