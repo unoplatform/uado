@@ -13,6 +13,9 @@ pr:
   branches:
     include:
       - master
+  paths:
+    exclude:
+      - '*.md'
 
 jobs:
   - job: Windows
