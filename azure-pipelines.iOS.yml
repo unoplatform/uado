@@ -38,6 +38,24 @@ jobs:
         BuildPlatform: iPhone
 
   steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'runtime'
+      version: '2.2.0'
+
+  - task: nventiveCanaryUpdater@5
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+    inputs:
+      solution: 'src/Uno.AzureDevOps.sln'
+      usePrivateFeed: false
+      useNuGetOrg: true
+      mergeBranch: true
+      branchToMerge: 'master'
+      nugetUpdaterVersion: '2.0.2'
+      allowDowngrade: true
+      packageAuthor: 'nventive'
+      summaryFile: '$(UnoPackageOutputPath)/Canary.md'
+      resultFile: '$(UnoPackageOutputPath)/update_result.json'
 
   - task: InstallAppleCertificate@2
     name: Certificate
