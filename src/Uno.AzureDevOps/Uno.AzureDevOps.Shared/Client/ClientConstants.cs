@@ -56,7 +56,7 @@ namespace Uno.AzureDevOps.Client
 				{
 					// Uado - Staging
 					// https://app.vsaex.visualstudio.com/app/view?clientId=4937f798-d0ba-47e6-a614-dc83beda919b (nv-devops)
-					"uno-azuredevops-staging.azurewebsites.net", (
+					"wasmversioning.z27.web.core.windows.net", (
 						"8326FEDF-8996-4B07-BE85-01F6DDFE42F2",
 						"--staging-secret--",
 						"https://uno-azuredevops-staging.azurewebsites.net/logincompleted.html",
