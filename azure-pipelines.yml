@@ -19,6 +19,10 @@ pr:
     exclude:
     - '*.md'
 
+variables:
+- name: IsCanary
+  value: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')]
+
 jobs:
   - job: Windows
 
@@ -50,24 +54,32 @@ jobs:
           BuildPlatform: Wasm
 
     steps:
+    - powershell: Write-Host "##vso[task.setvariable variable=ApplicationBuildNumber;]$(Build.BuildId)"
+      displayName: 'Set Canary version'
+      condition: eq(variables['IsCanary'], 'true')
+
     - task: UseDotNet@2
+      condition: and(succeeded(), eq(variables['IsCanary'], 'true'))
       inputs:
         packageType: 'runtime'
         version: '2.2.0'
 
     - task: nventiveCanaryUpdater@5
-      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+      condition: and(succeeded(), eq(variables['IsCanary'], 'true'))
       inputs:
         solution: 'src/Uno.AzureDevOps.sln'
         usePrivateFeed: false
         useNuGetOrg: true
         mergeBranch: true
+        gitUserName: 'nventive DevOps'
+        gitUserEmail: 'nv-devops@outlook.com'
         branchToMerge: 'master'
-        nugetUpdaterVersion: '2.0.2'
+        nugetUpdaterVersion: '2.0.4'
         allowDowngrade: true
         packageAuthor: 'nventive'
         summaryFile: '$(UnoPackageOutputPath)/Canary.md'
         resultFile: '$(UnoPackageOutputPath)/update_result.json'
+        additionalPublicSources: https://pkgs.dev.azure.com/uno-platform/1dd81cbd-cb35-41de-a570-b0df3571a196/_packaging/unoplatformdev/nuget/v3/index.json
 
     - task: GitVersion@4
 
@@ -85,7 +97,8 @@ jobs:
       inputs:
         command: restore
         restoreSolution: src/Uno.AzureDevOps.sln
-        feedsToUse: select
+        feedsToUse: 'config'
+        nugetConfigPath: 'src/NuGet.config'
 
     - powershell: ((Get-Content src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Raw) -Replace '--production-secret--','$(ProductionSecret)' -Replace '--staging-secret--','$(StagingSecret)').Trim() | Set-Content -Path src\Uno.AzureDevOps\Uno.AzureDevOps.Shared\Client\ClientConstants.cs -Encoding UTF8
       displayName: Set client secrets
@@ -114,30 +127,41 @@ jobs:
       vmImage: 'ubuntu-16.04'
 
     variables:
-      NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
+      - name: NUGET_PACKAGES
+        value: $(build.sourcesdirectory)/.nuget
+      - name: UnoPackageOutputPath
+        value: $(Build.ArtifactStagingDirectory)
 
     steps:
     - checkout: self
       clean: true
 
+    - script: echo '##vso[task.setvariable variable=ApplicationBuildNumber;]$(Build.BuildId)'
+      displayName: 'Set Canary version'
+      condition: eq(variables['IsCanary'], 'true')
+
     - task: UseDotNet@2
+      condition: and(succeeded(), eq(variables['IsCanary'], 'true'))
       inputs:
         packageType: 'runtime'
         version: '2.2.0'
 
     - task: nventiveCanaryUpdater@5
-      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+      condition: and(succeeded(), eq(variables['IsCanary'], 'true'))
       inputs:
         solution: 'src/Uno.AzureDevOps.sln'
         usePrivateFeed: false
         useNuGetOrg: true
         mergeBranch: true
+        gitUserName: 'nventive DevOps'
+        gitUserEmail: 'nv-devops@outlook.com'
         branchToMerge: 'master'
-        nugetUpdaterVersion: '2.0.2'
+        nugetUpdaterVersion: '2.0.4'
         allowDowngrade: true
         packageAuthor: 'nventive'
         summaryFile: '$(UnoPackageOutputPath)/Canary.md'
         resultFile: '$(UnoPackageOutputPath)/update_result.json'
+        additionalPublicSources: https://pkgs.dev.azure.com/uno-platform/1dd81cbd-cb35-41de-a570-b0df3571a196/_packaging/unoplatformdev/nuget/v3/index.json
     
     - bash: |
         cd /emsdk

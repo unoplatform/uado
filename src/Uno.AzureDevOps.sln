@@ -19,10 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Heads", "Heads", "{0B430733
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{74582D4F-C68B-4B3B-AB14-C2BAB15AA867}"
 	ProjectSection(SolutionItems) = preProject
-		..\.azure-pipelines.yml = ..\.azure-pipelines.yml
 		..\.editorconfig = ..\.editorconfig
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
+		..\azure-pipelines.iOS.yml = ..\azure-pipelines.iOS.yml
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		Packaging.targets = Packaging.targets
 		Versioning.targets = Versioning.targets
 	EndProjectSection

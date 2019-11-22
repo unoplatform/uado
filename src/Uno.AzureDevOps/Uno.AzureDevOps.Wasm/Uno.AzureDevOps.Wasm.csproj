@@ -88,7 +88,7 @@
 	</PackageReference>
 	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
 	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
-	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.265" />
+	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.1.0-dev.368" />
 	<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.265" />
   </ItemGroup>
   <ItemGroup>

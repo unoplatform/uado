@@ -1,7 +1,7 @@
 ﻿<Project>
-	<Target Name="SetPackageVersion"
+	<Target Name="SetApplicationVersion"
 			BeforeTargets="PrepareForBuild"
-			Condition="'$(BuildingInsideVisualStudio)'=='' and '$(GITVERSION_MAJORMINORPATCH)'!=''">
+			Condition="'$(BuildingInsideVisualStudio)'=='' and ('$(GITVERSION_MAJORMINORPATCH)'!='' or '$(ApplicationVersion)'!='')">
 		<!-- XML namespaces -->
 		<PropertyGroup>
 			<_AndroidNamespace>
@@ -22,21 +22,31 @@
 		</PropertyGroup>
 
 		<PropertyGroup>
-			<PackageVersion>$(GITVERSION_MAJORMINORPATCH)</PackageVersion>
-			<PackageInformationalVersion>$(GITVERSION_INFORMATIONALVERSION)</PackageInformationalVersion>
-			<PackageBuildNumber>1</PackageBuildNumber>
+			<_ApplicationVersion>$(ApplicationVersion)</_ApplicationVersion>
+			<!-- If the version is not explicitely set, we use GitVersion -->
+			<_ApplicationVersion Condition="'$(_ApplicationVersion)'==''">$(GITVERSION_MAJORMINORPATCH)</_ApplicationVersion>
+			
+			<_ApplicatonInformationalVersion>$(ApplicationInformationalVersion)</_ApplicatonInformationalVersion>
+			<!-- If the version is not explicitely set, we use GitVersion -->
+			<_ApplicatonInformationalVersion Condition="'$(_ApplicatonInformationalVersion)'==''">$(GITVERSION_INFORMATIONALVERSION)</_ApplicatonInformationalVersion>
+			<!-- If GitVersion is not available, we use the Version -->
+			<_ApplicatonInformationalVersion Condition="'$(_ApplicatonInformationalVersion)'==''">$(_ApplicationVersion)</_ApplicatonInformationalVersion>
+			
+			<_ApplicationBuildNumber>$(ApplicationBuildNumber)</_ApplicationBuildNumber>
+			<_ApplicationBuildNumber Condition="'$(_ApplicationBuildNumber)'==''">1</_ApplicationBuildNumber>
 		</PropertyGroup>
 
 		<ItemGroup>
-			<_Major Include="$(PackageVersion.Split('.')[0])" />
-			<_Minor Include="$(PackageVersion.Split('.')[1])" />
-			<_Revision Include="$(PackageVersion.Split('.')[2])" />
+			<_Major Include="$(_ApplicationVersion.Split('.')[0])" />
+			<_Minor Include="$(_ApplicationVersion.Split('.')[1])" />
+			<_Revision Include="$(_ApplicationVersion.Split('.')[2])" />
 		</ItemGroup>
 
 		<Exec Command="git rev-list --count HEAD"
-			  ConsoleToMSBuild="true">
+			  ConsoleToMSBuild="true"
+			  Condition="'$(ApplicationBuildNumber)'==''">
 			<Output TaskParameter="ConsoleOutput"
-					PropertyName="PackageBuildNumber" />
+					PropertyName="_ApplicationBuildNumber" />
 		</Exec>
 
 		<!-- Project-specific values -->
@@ -44,17 +54,17 @@
 			<PackageName>Uno Azure DevOps</PackageName>
 			<PackageCompanyName>nventive</PackageCompanyName>
 			<!-- Increasing the build number since the commit count was reset when the code went public -->
-			<PackageBuildNumber>$([MSBuild]::Add($(PackageBuildNumber), 305))</PackageBuildNumber>
+			<_ApplicationBuildNumber Condition="'$(ApplicationBuildNumber)'==''">$([MSBuild]::Add($(_ApplicationBuildNumber), 305))</_ApplicationBuildNumber>
 		</PropertyGroup>
 
 		<PropertyGroup>
-			<_VersionWithBuildNumber>@(_Major).@(_Minor).$(PackageBuildNumber).@(_Revision)</_VersionWithBuildNumber>
+			<_VersionWithBuildNumber>@(_Major).@(_Minor).$(_ApplicationBuildNumber).@(_Revision)</_VersionWithBuildNumber>
 		</PropertyGroup>
 
-		<Message Text="Package version: $(PackageVersion)" />
-		<Message Text="Package informational version: $(PackageInformationalVersion)" />
-		<Message Text="Package build number: $(PackageBuildNumber)" />
-		<Message Text ="Package version with build number: $(_VersionWithBuildNumber)" />
+		<Message Text="Application version: $(_ApplicationVersion)" />
+		<Message Text="Application informational version: $(_ApplicationInformationalVersion)" />
+		<Message Text="Application build number: $(_ApplicationBuildNumber)" />
+		<Message Text ="Application version with build number: $(_VersionWithBuildNumber)" />
 
 		<!--<AssemblyInfo CodeLanguage="CS"
 				  Condition="Exists('$(_AssemblyInfoPath)')"
@@ -62,33 +72,33 @@
 				  AssemblyProduct="$(PackageName)"
 				  AssemblyCompany="$(PackageCompanyName)"
 				  AssemblyCopyright="Copyright (c) $(PackageCompanyName) $([System.DateTime]::Now.Year)"
-				  AssemblyVersion="$(PackageVersion)"
-				  AssemblyFileVersion="$(PackageBuildNumber)"
-				  AssemblyInformationalVersion="$(PackageInformationalVersion)" />-->
+				  AssemblyVersion="$(_ApplicationVersion)"
+				  AssemblyFileVersion="$(_ApplicationBuildNumber)"
+				  AssemblyInformationalVersion="$(_ApplicationInformationalVersion)" />-->
 
 		<!-- Android -->
 		<XmlPoke Condition="Exists('$(_ManifestPath)')"
 				 XmlInputPath="$(_ManifestPath)"
 				 Query="/manifest/@android:versionName"
-				 Value="$(PackageVersion)"
+				 Value="$(_ApplicationVersion)"
 				 Namespaces="$(_AndroidNamespace)" />
 
 		<XmlPoke Condition="Exists('$(_ManifestPath)')"
 				 XmlInputPath="$(_ManifestPath)"
 				 Query="/manifest/@android:versionCode"
-				 Value="$(PackageBuildNumber)"
+				 Value="$(_ApplicationBuildNumber)"
 				 Namespaces="$(_AndroidNamespace)" />
 
 		<!-- iOS -->
 		<XmlPoke Condition="Exists('$(_PlistFilePath)')"
 				 XmlInputPath="$(_PlistFilePath)"
 				 Query="//plist/dict/key[text() = 'CFBundleShortVersionString']/following-sibling::string[1]"
-				 Value="$(PackageVersion)" />
+				 Value="$(_ApplicationVersion)" />
 
 		<XmlPoke Condition="Exists('$(_PlistFilePath)')"
 				 XmlInputPath="$(_PlistFilePath)"
 				 Query="//plist/dict/key[text() = 'CFBundleVersion']/following-sibling::string[1]"
-				 Value="$(PackageBuildNumber)" />
+				 Value="$(_ApplicationBuildNumber)" />
 
 		<!-- UWP -->
 		<!-- Forcing the inclusion of the build number in UWP as the standard format is Major.Minor.Build.Revision -->
