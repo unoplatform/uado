@@ -165,7 +165,7 @@
       <Version>5.2.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
-      <Version>2.2.0</Version>
+      <Version>3.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Console">
       <Version>1.1.1</Version>
