@@ -87,9 +87,9 @@
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
-	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
-	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.1.0-dev.368" />
-	<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.265" />
+	<PackageReference Include="Uno.UI" Version="2.2.0-dev.358" />
+	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.2.0-dev.16" />
+	<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.2.0-dev.16" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\NunitoSans-SemiBoldItalic.woff2" />

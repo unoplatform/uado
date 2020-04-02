@@ -30,13 +30,13 @@
       <Version>6.2.2</Version>
     </PackageReference>
     <PackageReference Include="Uno.Core">
-      <Version>1.28.0</Version>
+      <Version>2.0.0-dev.7</Version>
     </PackageReference>
     <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform">
       <Version>5.4.0-uno.134</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI">
-      <Version>1.45.0-dev.1813</Version>
+      <Version>2.2.0-dev.358</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.1.0</Version>

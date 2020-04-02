@@ -164,22 +164,28 @@ jobs:
         additionalPublicSources: https://pkgs.dev.azure.com/uno-platform/1dd81cbd-cb35-41de-a570-b0df3571a196/_packaging/unoplatformdev/nuget/v3/index.json
     
     - bash: |
-        cd /emsdk
-        sudo ./emsdk activate sdk-1.38.31-64bit
-        sudo chmod -R 777 /emsdk
+        cd ~
+        git clone https://github.com/emscripten-core/emsdk
+        cd emsdk
+        ./emsdk install sdk-1.39.9
+        ./emsdk activate sdk-1.39.9
       displayName: 'Setup Emscripten'
-    - task: GitVersion@4
-      inputs:
-        updateAssemblyInfo: false
+
+    - bash: |
+        cd ~/emsdk
+        wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/fix-emscripten-8511.diff
+        cd ~/emsdk/upstream/emscripten
+        patch -N -p1 < ~/emsdk/fix-emscripten-8511.diff
 
     - bash: |
         sed -i 's/--production-secret--/$(ProductionSecret)/g' ClientConstants.cs
         sed -i 's/--staging-secret--/$(StagingSecret)/g' ClientConstants.cs
         sed -i 's/--appcenter-secret-android--/$(AppCenterSecretAndroid)/g' ClientConstants.cs
+
       workingDirectory: $(build.sourcesdirectory)/src/Uno.AzureDevOps/Uno.AzureDevOps.Shared/Client/
 
     - script: |
-        source /emsdk/emsdk_env.sh
+        source ~/emsdk/emsdk_env.sh
         cd $(build.sourcesdirectory)
         msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Uno.AzureDevOps/Uno.AzureDevOps.Wasm/Uno.AzureDevOps.Wasm.csproj
       env:
