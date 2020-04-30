@@ -55,7 +55,7 @@ jobs:
 
     - task: NuGetToolInstaller@0
       inputs:
-        versionSpec: 4.9.1
+        versionSpec: 5.5.0
 
     - task: DownloadSecureFile@1
       condition: eq(variables['BuildPlatform'], 'Android')
