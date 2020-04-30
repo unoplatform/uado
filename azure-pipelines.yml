@@ -32,11 +32,11 @@ jobs:
       - name: UnoPackageOutputPath
         value: $(Build.ArtifactStagingDirectory)
       - name: ANDROID_NDK_HOME
-        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r21b
       - name: ANDROID_NDK_PATH
-        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r21b
       - name: AndroidNdkDirectory
-        value: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+        value: C:\Microsoft\AndroidNDK64\android-ndk-r21b
       - group: 'UADO Keystore'
 
     strategy:
