@@ -14,8 +14,10 @@ pr:
     include:
       - master
   paths:
+    include:
+    - '*'
     exclude:
-      - '*.md'
+    - '*.md'
 
 jobs:
   - job: Windows

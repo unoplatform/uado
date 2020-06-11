@@ -33,6 +33,7 @@
 		<Content Include="Fonts\NunitoSans-Regular.woff2" />
 		<Content Include="Fonts\NunitoSans-SemiBold.woff2" />
 		<Content Include="Fonts\winjs-symbols.woff2" />
+		<Content Include="Version.txt" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="WasmCSS\Fonts.css" />
@@ -64,6 +65,7 @@
 	<None Remove="Fonts\NunitoSans-SemiBold.woff2" />
 	<None Remove="Fonts\NunitoSans-SemiBoldItalic.woff2" />
 	<None Remove="ts\Uno.AzureDevOps.Auth.ts" />
+	<None Remove="Version.txt" />
 	<None Remove="WasmScripts\redirect.js" />
 	<UpToDateCheckInput Remove="ts\Uno.AzureDevOps.Auth.ts" />
 	<Content Include="index.html" />
