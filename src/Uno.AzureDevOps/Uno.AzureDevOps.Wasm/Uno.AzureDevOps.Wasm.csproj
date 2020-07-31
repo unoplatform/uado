@@ -3,8 +3,6 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<WasmHead>true</WasmHead>
-		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
 		<NoWarn>NU1701</NoWarn>
 		<LangVersion>7.1</LangVersion>
 		<WasmShellGenerateCompressedFiles Condition="'$(Configuration)'=='Debug'">false</WasmShellGenerateCompressedFiles>
@@ -51,57 +49,57 @@
 		<UpToDateCheckInput Include="ts\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-	<!-- 
+		<!-- 
 	This item group is required by the project templace because of the
 	new SDK-Style project, otherwise some files are not aded automatically.
 	
 	You can safely remove this ItemGroup completely.
 	-->
-	<None Remove="Fonts\NunitoSans-Bold.woff2" />
-	<None Remove="Fonts\NunitoSans-BoldItalic.woff2" />
-	<None Remove="Fonts\NunitoSans-Italic.woff2" />
-	<None Remove="Fonts\NunitoSans-Light.woff2" />
-	<None Remove="Fonts\NunitoSans-Regular.woff2" />
-	<None Remove="Fonts\NunitoSans-SemiBold.woff2" />
-	<None Remove="Fonts\NunitoSans-SemiBoldItalic.woff2" />
-	<None Remove="ts\Uno.AzureDevOps.Auth.ts" />
-	<None Remove="Version.txt" />
-	<None Remove="WasmScripts\redirect.js" />
-	<UpToDateCheckInput Remove="ts\Uno.AzureDevOps.Auth.ts" />
-	<Content Include="index.html" />
-	<Content Include="LinkerConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
-	<PackageReference Include="HtmlAgilityPack" Version="1.11.2" />
-	<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
-	<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-	<PackageReference Include="Microsoft.TypeScript.Compiler" Version="3.1.5">
-	  <PrivateAssets>all</PrivateAssets>
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-	</PackageReference>
-	<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.6.4">
-	  <PrivateAssets>all</PrivateAssets>
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-	</PackageReference>
-	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
-	<PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
-	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.265" />
-	<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.265" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Fonts\NunitoSans-SemiBoldItalic.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="WasmScripts\redirect.js" />
-  </ItemGroup>
-  <ItemGroup>
-	<TypeScriptCompile Include="ts\Uno.AzureDevOps.Auth.ts" />
-  </ItemGroup>
-  <Import Project="..\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems" Label="Shared" Condition="Exists('..\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems')" />
-  <Import Project="..\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems" Label="Shared" />
-  <Import Project="..\..\Versioning.targets" />
-  <Import Project="..\..\Packaging.targets" />
+		<None Remove="Fonts\NunitoSans-Bold.woff2" />
+		<None Remove="Fonts\NunitoSans-BoldItalic.woff2" />
+		<None Remove="Fonts\NunitoSans-Italic.woff2" />
+		<None Remove="Fonts\NunitoSans-Light.woff2" />
+		<None Remove="Fonts\NunitoSans-Regular.woff2" />
+		<None Remove="Fonts\NunitoSans-SemiBold.woff2" />
+		<None Remove="Fonts\NunitoSans-SemiBoldItalic.woff2" />
+		<None Remove="ts\Uno.AzureDevOps.Auth.ts" />
+		<None Remove="Version.txt" />
+		<None Remove="WasmScripts\redirect.js" />
+		<UpToDateCheckInput Remove="ts\Uno.AzureDevOps.Auth.ts" />
+		<Content Include="index.html" />
+		<Content Include="LinkerConfig.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.2" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+		<PackageReference Include="Microsoft.TypeScript.Compiler" Version="3.1.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.6.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
+		<PackageReference Include="Uno.UI.WebAssembly" Version="3.0.0-dev.1253" />
+		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.4.0-dev.16" />
+		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.0.0-dev.265" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Fonts\NunitoSans-SemiBoldItalic.woff2" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="WasmScripts\redirect.js" />
+	</ItemGroup>
+	<ItemGroup>
+		<TypeScriptCompile Include="ts\Uno.AzureDevOps.Auth.ts" />
+	</ItemGroup>
+	<Import Project="..\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems" Label="Shared" Condition="Exists('..\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems')" />
+	<Import Project="..\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems" Label="Shared" />
+	<Import Project="..\..\Versioning.targets" />
+	<Import Project="..\..\Packaging.targets" />
 </Project>
