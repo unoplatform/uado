@@ -4,7 +4,7 @@
   <Import Project="..\..\Common.props" />
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.2</Version>
+      <Version>1.11.28</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
       <Version>5.2.7</Version>
