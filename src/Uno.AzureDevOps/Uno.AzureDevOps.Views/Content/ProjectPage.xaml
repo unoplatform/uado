@@ -472,7 +472,8 @@
 							  SelectedItem="{Binding SelectedIteration, Mode=TwoWay}"
 							  ItemTemplate="{StaticResource SprintComboBoxItemTemplate}"
 							  Height="{StaticResource LargeComboBoxHeight}"
-							  xamarin:DeferLoadStrategy="Lazy" />
+							  xamarin:DeferLoadStrategy="Lazy"
+							  Tag="{x:Bind}"/>
 
 					<!-- No Sprint State -->
 					<Grid Visibility="{Binding Iterations.Result, Converter={StaticResource EnumerableHasAnyToCollapsed}, FallbackValue=Collapsed }">

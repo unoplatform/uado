@@ -4,8 +4,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)uno.sourcegenerationtasks\1.32.0-dev.297\build\netstandard1.0\Uno.SourceGenerationTasks.targets" Condition="Exists('$(NuGetPackageRoot)uno.sourcegenerationtasks\1.32.0-dev.297\build\netstandard1.0\Uno.SourceGenerationTasks.targets')" />
-    <Import Project="$(NuGetPackageRoot)uno.core.build\1.29.0-dev.93\build\Uno.Core.Build.targets" Condition="Exists('$(NuGetPackageRoot)uno.core.build\1.29.0-dev.93\build\Uno.Core.Build.targets')" />
-    <Import Project="$(NuGetPackageRoot)uno.ui\2.2.0-dev.358\build\xamarinios10\uno.ui.targets" Condition="Exists('$(NuGetPackageRoot)uno.ui\2.2.0-dev.358\build\xamarinios10\uno.ui.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.sourcegenerationtasks\3.0.0-dev.18\build\netstandard1.0\Uno.SourceGenerationTasks.targets" Condition="Exists('$(NuGetPackageRoot)uno.sourcegenerationtasks\3.0.0-dev.18\build\netstandard1.0\Uno.SourceGenerationTasks.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.core.build\2.0.0\build\Uno.Core.Build.targets" Condition="Exists('$(NuGetPackageRoot)uno.core.build\2.0.0\build\Uno.Core.Build.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.ui\3.4.0-dev.9\buildTransitive\xamarinios10\Uno.UI.targets" Condition="Exists('$(NuGetPackageRoot)uno.ui\3.4.0-dev.9\buildTransitive\xamarinios10\Uno.UI.targets')" />
   </ImportGroup>
 </Project>

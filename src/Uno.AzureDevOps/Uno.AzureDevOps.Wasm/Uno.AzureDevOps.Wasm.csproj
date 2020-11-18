@@ -87,8 +87,8 @@
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
-	<PackageReference Include="Uno.UI" Version="2.2.0-dev.358" />
-	<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.2.0-dev.16" />
+	<PackageReference Include="Uno.UI.WebAssembly" Version="3.4.0-dev.9" />
+	<PackageReference Include="Uno.Wasm.Bootstrap" Version="2.0.0-dev.82" />
 	<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.2.0-dev.16" />
   </ItemGroup>
   <ItemGroup>

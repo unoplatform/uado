@@ -18,7 +18,8 @@
     <Import Project="$(NuGetPackageRoot)netstandard.library\2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('$(NuGetPackageRoot)netstandard.library\2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.net.native.compiler\2.2.1\build\Microsoft.Net.Native.Compiler.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.net.native.compiler\2.2.1\build\Microsoft.Net.Native.Compiler.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.netcore.universalwindowsplatform\6.2.2\build\Microsoft.NetCore.UniversalWindowsPlatform.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.netcore.universalwindowsplatform\6.2.2\build\Microsoft.NetCore.UniversalWindowsPlatform.targets')" />
-    <Import Project="$(NuGetPackageRoot)uno.sourcegenerationtasks\1.32.0-dev.297\build\netstandard1.0\Uno.SourceGenerationTasks.targets" Condition="Exists('$(NuGetPackageRoot)uno.sourcegenerationtasks\1.32.0-dev.297\build\netstandard1.0\Uno.SourceGenerationTasks.targets')" />
-    <Import Project="$(NuGetPackageRoot)uno.core.build\1.29.0-dev.93\build\Uno.Core.Build.targets" Condition="Exists('$(NuGetPackageRoot)uno.core.build\1.29.0-dev.93\build\Uno.Core.Build.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.sourcegenerationtasks\3.0.0-dev.18\build\netstandard1.0\Uno.SourceGenerationTasks.targets" Condition="Exists('$(NuGetPackageRoot)uno.sourcegenerationtasks\3.0.0-dev.18\build\netstandard1.0\Uno.SourceGenerationTasks.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.core.build\2.0.0\build\Uno.Core.Build.targets" Condition="Exists('$(NuGetPackageRoot)uno.core.build\2.0.0\build\Uno.Core.Build.targets')" />
+    <Import Project="$(NuGetPackageRoot)uno.ui\3.4.0-dev.9\buildTransitive\uap10.0.17763\Uno.UI.targets" Condition="Exists('$(NuGetPackageRoot)uno.ui\3.4.0-dev.9\buildTransitive\uap10.0.17763\Uno.UI.targets')" />
   </ImportGroup>
 </Project>
