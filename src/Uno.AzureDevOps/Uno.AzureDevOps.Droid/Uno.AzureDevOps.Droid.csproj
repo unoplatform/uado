@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <AotAssemblies>false</AotAssemblies>
     <UseHighDPIResources>false</UseHighDPIResources>
     <EnableLLVM>false</EnableLLVM>
@@ -58,7 +58,7 @@
     <AndroidAotAdditionalArguments>nodebug,no-write-symbols</AndroidAotAdditionalArguments>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <BundleAssemblies>false</BundleAssemblies>
     <UseHighDPIResources>true</UseHighDPIResources>
     <AndroidLinkSkip>$(AssemblyName)</AndroidLinkSkip>

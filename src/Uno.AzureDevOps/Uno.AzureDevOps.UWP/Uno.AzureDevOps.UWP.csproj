@@ -71,7 +71,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -85,7 +85,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <AppxBundle>Always</AppxBundle>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -99,7 +99,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
@@ -113,7 +113,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <AppxBundle>Always</AppxBundle>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -127,7 +127,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
@@ -141,7 +141,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <AppxBundle>Always</AppxBundle>
     <CodeAnalysisRuleSet>Uno.AzureDevOps.UWP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

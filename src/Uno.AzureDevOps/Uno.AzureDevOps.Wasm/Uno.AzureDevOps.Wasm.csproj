@@ -3,7 +3,7 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net5.0</TargetFramework>
 		<NoWarn>NU1701</NoWarn>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>9.0</LangVersion>
 		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsUnixLike()) and '$(MixedModeBuild)'=='True'">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<TypeScriptToolsVersion>4.4</TypeScriptToolsVersion>
 		<!--<WasmShellIndexHtmlPath>$(MSBuildThisFileDirectory)index.html</WasmShellIndexHtmlPath>-->
