@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Uno.Foundation;
 using Windows.UI.Xaml.Controls;
 using Uno.Extensions;
+using Uno.UI.Runtime.WebAssembly;
 
 namespace Uno.AzureDevOps.Views.Controls
 {
@@ -16,27 +17,29 @@ namespace Uno.AzureDevOps.Views.Controls
 		}
 	}
 
+	[HtmlElement("a")]
 	public class WasmPseudoWebView : Control
 	{
 		private readonly UnoWebView _webView;
 		private string _sourceUrl;
 
 		public WasmPseudoWebView(UnoWebView webView, string sourceUrl)
-			: base("a")
 		{
 			_webView = webView;
 			_sourceUrl = sourceUrl;
-		}
 
-		protected override void OnLoaded()
+			Loaded += (snd, evt) => OnLoaded();
+		}
+		
+		private void OnLoaded()
 		{
 			this.RegisterHtmlCustomEventHandler("urlwithsecuritytokens", OnSecurityTokens);
-			WebAssemblyRuntime.InvokeJS($"Uno.AzureDevOps.Auth.launch({HtmlId})");
+			WebAssemblyRuntime.InvokeJS($"Uno.AzureDevOps.Auth.launch({this.GetHtmlId()})");
 
 			// SetStyle pointer-events makes sure that HTML tag (WasmWebView) is interactive
-			SetStyle("pointer-events", "all");
-			SetAttribute("target", "_blank");
-			SetAttribute("href", _sourceUrl);
+			this.SetCssStyle("pointer-events", "all");
+			this.SetHtmlAttribute("target", "_blank");
+			this.SetHtmlAttribute("href", _sourceUrl);
 		}
 
 		private void OnSecurityTokens(object sender, HtmlCustomEventArgs e)

@@ -25,7 +25,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchDebug>true</MtouchDebug>
     <MtouchExtraArgs>--nolinkaway --linkskip=$(AssemblyName) --xml=./LinkerExclusions.xml --setenv=MONO_LOG_LEVEL=debug --setenv=MONO_LOG_MASK=gc --setenv=MONO_GC_PARAMS=soft-heap-limit=512m,nursery-size=64m,evacuation-threshold=66,major=marksweep,concurrent-sweep</MtouchExtraArgs>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>portable</DebugType>
@@ -36,7 +36,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchExtraArgs>--nolinkaway --linkskip=$(AssemblyName) --xml=./LinkerExclusions.xml --setenv=MONO_GC_PARAMS=soft-heap-limit=512m,nursery-size=64m,evacuation-threshold=66,major=marksweep,concurrent-sweep</MtouchExtraArgs>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +55,7 @@
     <CodesignProvision />
     <CodesignExtraArgs />
     <CodesignResourceRules />
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>Full</MtouchLink>
@@ -74,7 +74,7 @@
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--nolinkaway --linkskip=$(AssemblyName) --xml=./LinkerExclusions.xml --setenv=MONO_GC_PARAMS=soft-heap-limit=512m,nursery-size=64m,evacuation-threshold=66,major=marksweep,concurrent-sweep</MtouchExtraArgs>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseSGen>true</MtouchUseSGen>
@@ -91,7 +91,7 @@
     <BuildIpa>True</BuildIpa>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -104,16 +104,16 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -153,38 +153,35 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.2</Version>
+      <Version>1.11.42</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>2.1.1</Version>
+      <Version>4.5.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>2.6.2</Version>
+      <Version>4.5.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
-      <Version>5.2.7</Version>
+      <Version>5.2.8</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
-      <Version>2.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Console">
-      <Version>1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Filter">
-      <Version>1.1.1</Version>
+    <PackageReference Include="Microsoft.Extensions.Logging">
+      <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Xml.XDocument">
       <Version>4.3.0</Version>
     </PackageReference>
     <PackageReference Include="Uno.Core">
-      <Version>1.28.0</Version>
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform">
       <Version>5.4.0-uno.134</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
+    <PackageReference Include="Uno.UI" Version="4.1.9" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="4.1.9" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
+    <PackageReference Include="Uno.Extensions.Logging.OSLog " Version="1.3.0" />
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.1.0</Version>
+      <Version>1.7.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Uno.AzureDevOps", "Uno.AzureDevOps\Uno.AzureDevOps.Shared\Uno.AzureDevOps.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
@@ -35,6 +35,8 @@ Global
 		Uno.AzureDevOps\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems*{64446a97-e749-4f29-8bba-bc26151b2ce1}*SharedItemsImports = 4
 		Uno.AzureDevOps\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems*{82d129c9-82b4-4d68-96fb-95f22be36129}*SharedItemsImports = 4
 		Uno.AzureDevOps\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems*{82d129c9-82b4-4d68-96fb-95f22be36129}*SharedItemsImports = 4
+		Uno.AzureDevOps\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems*{bb7a72b6-71c2-41c1-b408-8c65a5456a7d}*SharedItemsImports = 5
+		Uno.AzureDevOps\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems*{bb7a72b6-71c2-41c1-b408-8c65a5456a7d}*SharedItemsImports = 5
 		Uno.AzureDevOps\Uno.AzureDevOps.Shared\Uno.AzureDevOps.Shared.projitems*{fbee6c21-a95f-4c73-bb2d-51f3f01c7450}*SharedItemsImports = 4
 		Uno.AzureDevOps\Uno.AzureDevOps.Views\Uno.AzureDevOps.Views.projitems*{fbee6c21-a95f-4c73-bb2d-51f3f01c7450}*SharedItemsImports = 4
 	EndGlobalSection

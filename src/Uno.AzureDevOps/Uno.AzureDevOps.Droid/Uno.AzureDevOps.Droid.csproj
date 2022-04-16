@@ -16,13 +16,13 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
     <ResourcesDirectory>..\Uno.AzureDevOps.Shared\Strings</ResourcesDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <AndroidUseAapt2>false</AndroidUseAapt2>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
@@ -32,12 +32,13 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <AotAssemblies>false</AotAssemblies>
     <UseHighDPIResources>false</UseHighDPIResources>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidSupportedAbis />
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -57,7 +58,7 @@
     <AndroidAotAdditionalArguments>nodebug,no-write-symbols</AndroidAotAdditionalArguments>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <BundleAssemblies>false</BundleAssemblies>
     <UseHighDPIResources>true</UseHighDPIResources>
     <AndroidLinkSkip>$(AssemblyName)</AndroidLinkSkip>
@@ -76,36 +77,39 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.2</Version>
+      <Version>1.11.42</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>2.1.1</Version>
+      <Version>4.5.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>2.6.2</Version>
+      <Version>4.5.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
-      <Version>5.2.7</Version>
+      <Version>5.2.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
-      <Version>2.2.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Console">
-      <Version>1.1.1</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Filter">
-      <Version>1.1.1</Version>
+      <Version>1.1.2</Version>
     </PackageReference>
     <PackageReference Include="Uno.Core">
-      <Version>1.28.0</Version>
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform">
       <Version>5.4.0-uno.134</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="1.45.0-dev.1813" />
-    <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
+    <PackageReference Include="Uno.UI" Version="4.1.9" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging">
+      <Version>4.1.9</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.35" />
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.1.0</Version>
+      <Version>1.7.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -166,11 +170,11 @@
   <ItemGroup>
     <!-- DRAWABLES START -->
     <!-- 
-		**** WARNING **** WARNING **** WARNING **** WARNING **** WARNING ****
-		The following section is automatically populated by using the content of the specified folders.
-		To improve compilation time, high-DPI resources (tvdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) are excluded in debug builds.
-		Adding a new file using the file explorer will most likely create a duplicate during the compilation.
-	-->
+    **** WARNING **** WARNING **** WARNING **** WARNING **** WARNING ****
+    The following section is automatically populated by using the content of the specified folders.
+    To improve compilation time, high-DPI resources (tvdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) are excluded in debug builds.
+    Adding a new file using the file explorer will most likely create a duplicate during the compilation.
+  -->
     <!-- Always included - Resources that are lower resolution or no scales -->
     <!-- do not include ldpi or mdpi, they are too low resolution -->
     <AndroidResource Include="Resources\drawable\Splash.xml" />

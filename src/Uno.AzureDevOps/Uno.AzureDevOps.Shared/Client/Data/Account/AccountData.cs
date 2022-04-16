@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Uno.Serialization;
 
 namespace Uno.AzureDevOps.Client
 {
